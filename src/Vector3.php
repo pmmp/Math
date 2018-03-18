@@ -66,26 +66,6 @@ class Vector3{
 		return (int) floor($this->z);
 	}
 
-	public function getRight(){
-		return $this->x;
-	}
-
-	public function getUp(){
-		return $this->y;
-	}
-
-	public function getForward(){
-		return $this->z;
-	}
-
-	public function getSouth(){
-		return $this->x;
-	}
-
-	public function getWest(){
-		return $this->z;
-	}
-
 	/**
 	 * @param Vector3|int $x
 	 * @param int         $y
