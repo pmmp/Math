@@ -187,14 +187,6 @@ class Vector3Test extends TestCase{
 		$this->assertSame(0.65, $result->getZ());
 	}
 
-	public function testDivideOnZeroNumber(){
-		$vector3 = new Vector3(-1.2, -1.5, 1.3);
-
-		$this->expectException(\InvalidArgumentException::class);
-		$this->expectExceptionMessage('Division by zero');
-		$vector3->divide(0.0);
-	}
-
 	public function testDistance(){
 		$vector3 = new Vector3(1.2, 1.5, 2.3);
 		$result = $vector3->distance(new Vector3(1.2, 1.5, 0.3));

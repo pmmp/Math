@@ -116,14 +116,6 @@ class Vector2Test extends TestCase{
 		$this->assertSame(-0.75, $result->getY());
 	}
 
-	public function testDivideOnZeroNumber(){
-		$vector2 = new Vector2(-1.2, -1.5);
-
-		$this->expectException(\InvalidArgumentException::class);
-		$this->expectExceptionMessage('Division by zero');
-		$vector2->divide(0.0);
-	}
-
 	public function testDistance(){
 		$vector2 = new Vector2(1.2, 1.5);
 		$result = $vector2->distance(0.2, 1.5);

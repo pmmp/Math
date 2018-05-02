@@ -55,10 +55,4 @@ class MathTest extends TestCase{
 	public function testSolveQuadratic($a, $b, $c, $expectedArray){
 		$this->assertSame($expectedArray, Math::solveQuadratic($a, $b, $c));
 	}
-
-	public function testSolveQuadraticThrowsInvalidArgumentException(){
-		$this->expectException(\InvalidArgumentException::class);
-		$this->expectExceptionMessage('Division by zero');
-		Math::solveQuadratic(0, 0, 0);
-	}
 }

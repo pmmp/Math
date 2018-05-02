@@ -115,10 +115,6 @@ class Vector3{
 	}
 
 	public function divide(float $number) : Vector3{
-		if($number === 0.0){
-			throw new \InvalidArgumentException('Division by zero');
-		}
-
 		return new Vector3($this->x / $number, $this->y / $number, $this->z / $number);
 	}
 

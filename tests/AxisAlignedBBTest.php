@@ -34,13 +34,6 @@ use PHPUnit\Framework\TestCase;
  */
 class AxisAlignedBBTest extends TestCase{
 
-	public function testConstructor(){
-		$axis = new AxisAlignedBB(1.1, 1.2, 1.3, 2.1, 2.2, 2.3);
-
-		$this->assertInstanceOf(AxisAlignedBB::class, $axis);
-		$this->assertSame('AxisAlignedBB(1.1, 1.2, 1.3, 2.1, 2.2, 2.3)', (string) $axis);
-	}
-
 	public function testSetBounds(){
 		$axis = new AxisAlignedBB(1.1, 1.2, 1.3, 2.1, 2.2, 2.3);
 
@@ -200,7 +193,7 @@ class AxisAlignedBBTest extends TestCase{
 		$this->assertSame($expectedValue, $axis->intersectsWith($bb, $epsilon));
 	}
 
-	public function testGetApverageEdgeLength(){
+	public function testGetAverageEdgeLength(){
 		$axis = new AxisAlignedBB(1.1, 1.2, 1.3, 2.1, 2.2, 2.3);
 
 		$this->assertSame(1.0, $axis->getAverageEdgeLength());

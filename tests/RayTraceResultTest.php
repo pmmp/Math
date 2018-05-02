@@ -34,14 +34,6 @@ use PHPUnit\Framework\TestCase;
  */
 class RayTraceResultTest extends TestCase{
 
-	public function testConstructor(){
-		$bb = new AxisAlignedBB(1.1, 1.2, 1.3, 2.1, 2.2, 2.3);
-		$hitVector = new Vector3(1.2, 1.3, 1.5);
-		$rayTraceResult = new RayTraceResult($bb, 1, $hitVector);
-
-		$this->assertInstanceOf(RayTraceResult::class, $rayTraceResult);
-	}
-
 	public function testGetBoundingBox(){
 		$bb = new AxisAlignedBB(1.1, 1.2, 1.3, 2.1, 2.2, 2.3);
 		$hitVector = new Vector3(1.2, 1.3, 1.5);

@@ -36,6 +36,7 @@ class MatrixTest extends TestCase{
 		$matrix = new Matrix(1, 2);
 
 		$this->assertSame(1, $matrix->getRows());
+		$this->assertSame(2, $matrix->getColumns());
 	}
 
 	public function testOffsetExists(){
