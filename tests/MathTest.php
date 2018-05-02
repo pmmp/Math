@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace pocketmine\math\tests;
 
 
+use pocketmine\math\Math;
 use PHPUnit\Framework\TestCase;
 
 /**
