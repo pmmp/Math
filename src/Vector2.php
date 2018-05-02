@@ -99,6 +99,10 @@ class Vector2{
 	}
 
 	public function divide(float $number) : Vector2{
+		if($number === 0.0){
+			throw new \InvalidArgumentException('Division by zero');
+		}
+
 		return new Vector2($this->x / $number, $this->y / $number);
 	}
 

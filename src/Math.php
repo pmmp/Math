@@ -57,6 +57,9 @@ abstract class Math{
 				(-$b - $sqrtDiscriminant) / (2 * $a)
 			];
 		}elseif($discriminant == 0){ //1 real root
+			if($a === 0.0){
+				throw new \InvalidArgumentException('Division by zero');
+			}
 			return [
 				-$b / (2 * $a)
 			];
