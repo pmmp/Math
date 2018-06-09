@@ -59,6 +59,22 @@ class AxisAlignedBB{
 	}
 
 	/**
+	 * Sets the bounding box's bounds from another AxisAlignedBB, and returns itself
+	 *
+	 * @param AxisAlignedBB $bb
+	 * @return $this
+	 */
+	public function setBB(AxisAlignedBB $bb){
+		$this->minX = $bb->minX;
+		$this->minY = $bb->minY;
+		$this->minZ = $bb->minZ;
+		$this->maxX = $bb->maxX;
+		$this->maxY = $bb->maxY;
+		$this->maxZ = $bb->maxZ;
+		return $this;
+	}
+
+	/**
 	 * Returns a new AxisAlignedBB extended by the specified X, Y and Z.
 	 * If each of X, Y and Z are positive, the relevant max bound will be increased. If negative, the relevant min
 	 * bound will be decreased.
@@ -195,22 +211,6 @@ class AxisAlignedBB{
 	 */
 	public function contractedCopy(float $x, float $y, float $z) : AxisAlignedBB{
 		return (clone $this)->contract($x, $y, $z);
-	}
-
-	/**
-	 * Sets the bounding box's bounds from another AxisAlignedBB, and returns itself
-	 *
-	 * @param AxisAlignedBB $bb
-	 * @return $this
-	 */
-	public function setBB(AxisAlignedBB $bb){
-		$this->minX = $bb->minX;
-		$this->minY = $bb->minY;
-		$this->minZ = $bb->minZ;
-		$this->maxX = $bb->maxX;
-		$this->maxY = $bb->maxY;
-		$this->maxZ = $bb->maxZ;
-		return $this;
 	}
 
 	public function calculateXOffset(AxisAlignedBB $bb, float $x) : float{
