@@ -162,6 +162,60 @@ class Vector3{
 	}
 
 	/**
+	 * @param int $step
+	 *
+	 * @return Vector3
+	 */
+	public function down(int $step = 1){
+		return $this->getSide(self::SIDE_DOWN, $step);
+	}
+
+	/**
+	 * @param int $step
+	 *
+	 * @return Vector3
+	 */
+	public function up(int $step = 1){
+		return $this->getSide(self::SIDE_UP, $step);
+	}
+
+	/**
+	 * @param int $step
+	 *
+	 * @return Vector3
+	 */
+	public function north(int $step = 1){
+		return $this->getSide(self::SIDE_NORTH, $step);
+	}
+
+	/**
+	 * @param int $step
+	 *
+	 * @return Vector3
+	 */
+	public function south(int $step = 1){
+		return $this->getSide(self::SIDE_SOUTH, $step);
+	}
+
+	/**
+	 * @param int $step
+	 *
+	 * @return Vector3
+	 */
+	public function west(int $step = 1){
+		return $this->getSide(self::SIDE_WEST, $step);
+	}
+
+	/**
+	 * @param int $step
+	 *
+	 * @return Vector3
+	 */
+	public function east(int $step = 1){
+		return $this->getSide(self::SIDE_EAST, $step);
+	}
+
+	/**
 	 * Return a Vector3 instance
 	 *
 	 * @return Vector3
