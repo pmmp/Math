@@ -24,14 +24,6 @@ declare(strict_types=1);
 namespace pocketmine\math;
 
 class Vector3{
-
-	public const SIDE_DOWN = 0;
-	public const SIDE_UP = 1;
-	public const SIDE_NORTH = 2;
-	public const SIDE_SOUTH = 3;
-	public const SIDE_WEST = 4;
-	public const SIDE_EAST = 5;
-
 	/** @var float|int */
 	public $x;
 	/** @var float|int */
@@ -144,17 +136,17 @@ class Vector3{
 	 */
 	public function getSide(int $side, int $step = 1){
 		switch($side){
-			case Vector3::SIDE_DOWN:
+			case Facing::DOWN:
 				return new Vector3($this->x, $this->y - $step, $this->z);
-			case Vector3::SIDE_UP:
+			case Facing::UP:
 				return new Vector3($this->x, $this->y + $step, $this->z);
-			case Vector3::SIDE_NORTH:
+			case Facing::NORTH:
 				return new Vector3($this->x, $this->y, $this->z - $step);
-			case Vector3::SIDE_SOUTH:
+			case Facing::SOUTH:
 				return new Vector3($this->x, $this->y, $this->z + $step);
-			case Vector3::SIDE_WEST:
+			case Facing::WEST:
 				return new Vector3($this->x - $step, $this->y, $this->z);
-			case Vector3::SIDE_EAST:
+			case Facing::EAST:
 				return new Vector3($this->x + $step, $this->y, $this->z);
 			default:
 				return $this;
@@ -167,7 +159,7 @@ class Vector3{
 	 * @return Vector3
 	 */
 	public function down(int $step = 1){
-		return $this->getSide(self::SIDE_DOWN, $step);
+		return $this->getSide(Facing::DOWN, $step);
 	}
 
 	/**
@@ -176,7 +168,7 @@ class Vector3{
 	 * @return Vector3
 	 */
 	public function up(int $step = 1){
-		return $this->getSide(self::SIDE_UP, $step);
+		return $this->getSide(Facing::UP, $step);
 	}
 
 	/**
@@ -185,7 +177,7 @@ class Vector3{
 	 * @return Vector3
 	 */
 	public function north(int $step = 1){
-		return $this->getSide(self::SIDE_NORTH, $step);
+		return $this->getSide(Facing::NORTH, $step);
 	}
 
 	/**
@@ -194,7 +186,7 @@ class Vector3{
 	 * @return Vector3
 	 */
 	public function south(int $step = 1){
-		return $this->getSide(self::SIDE_SOUTH, $step);
+		return $this->getSide(Facing::SOUTH, $step);
 	}
 
 	/**
@@ -203,7 +195,7 @@ class Vector3{
 	 * @return Vector3
 	 */
 	public function west(int $step = 1){
-		return $this->getSide(self::SIDE_WEST, $step);
+		return $this->getSide(Facing::WEST, $step);
 	}
 
 	/**
@@ -212,7 +204,7 @@ class Vector3{
 	 * @return Vector3
 	 */
 	public function east(int $step = 1){
-		return $this->getSide(self::SIDE_EAST, $step);
+		return $this->getSide(Facing::EAST, $step);
 	}
 
 	/**
@@ -222,22 +214,6 @@ class Vector3{
 	 */
 	public function asVector3() : Vector3{
 		return new Vector3($this->x, $this->y, $this->z);
-	}
-
-	/**
-	 * Returns the Vector3 side number opposite the specified one
-	 *
-	 * @param int $side 0-5 one of the Vector3::SIDE_* constants
-	 * @return int
-	 *
-	 * @throws \InvalidArgumentException if an invalid side is supplied
-	 */
-	public static function getOppositeSide(int $side) : int{
-		if($side >= 0 and $side <= 5){
-			return $side ^ 0x01;
-		}
-
-		throw new \InvalidArgumentException("Invalid side $side given to getOppositeSide");
 	}
 
 	public function distance(Vector3 $pos) : float{

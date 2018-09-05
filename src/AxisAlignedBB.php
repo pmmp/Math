@@ -400,17 +400,17 @@ class AxisAlignedBB{
 		$f = -1;
 
 		if($vector === $v1){
-			$f = Vector3::SIDE_WEST;
+			$f = Facing::WEST;
 		}elseif($vector === $v2){
-			$f = Vector3::SIDE_EAST;
+			$f = Facing::EAST;
 		}elseif($vector === $v3){
-			$f = Vector3::SIDE_DOWN;
+			$f = Facing::DOWN;
 		}elseif($vector === $v4){
-			$f = Vector3::SIDE_UP;
+			$f = Facing::UP;
 		}elseif($vector === $v5){
-			$f = Vector3::SIDE_NORTH;
+			$f = Facing::NORTH;
 		}elseif($vector === $v6){
-			$f = Vector3::SIDE_SOUTH;
+			$f = Facing::SOUTH;
 		}
 
 		return new RayTraceResult($this, $f, $vector);

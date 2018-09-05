@@ -43,7 +43,7 @@ class RayTraceResult{
 
 	/**
 	 * @param AxisAlignedBB $bb
-	 * @param int           $hitFace one of the Vector3::SIDE_* constants
+	 * @param int           $hitFace one of the Facing::* constants
 	 * @param Vector3       $hitVector
 	 */
 	public function __construct(AxisAlignedBB $bb, int $hitFace, Vector3 $hitVector){
