@@ -11,5 +11,10 @@
         "psr-4": {
             "pocketmine\\math\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "pocketmine\\math\\": "tests/phpunit/"
+        }
     }
 }
