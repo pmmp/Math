@@ -238,7 +238,7 @@ class Vector3{
 	 * @param int $axis Facing directions on this axis will be excluded
 	 * @param int $step
 	 *
-	 * @return \Generator
+	 * @return \Generator|Vector3[]
 	 */
 	public function sidesAroundAxis(int $axis, int $step = 1) : \Generator{
 		foreach(Facing::ALL as $facing){
