@@ -66,4 +66,50 @@ class FacingTest extends TestCase{
 	public function testIsPositive(int $facing, bool $positive) : void{
 		self::assertEquals($positive, Facing::isPositive($facing));
 	}
+
+	public function rotateProvider() : \Generator{
+		yield [Facing::NORTH, Facing::AXIS_Y, true, Facing::EAST];
+		yield [Facing::EAST, Facing::AXIS_Y, true, Facing::SOUTH];
+		yield [Facing::SOUTH, Facing::AXIS_Y, true, Facing::WEST];
+		yield [Facing::WEST, Facing::AXIS_Y, true, Facing::NORTH];
+
+		yield [Facing::NORTH, Facing::AXIS_Y, false, Facing::WEST];
+		yield [Facing::WEST, Facing::AXIS_Y, false, Facing::SOUTH];
+		yield [Facing::SOUTH, Facing::AXIS_Y, false, Facing::EAST];
+		yield [Facing::EAST, Facing::AXIS_Y, false, Facing::NORTH];
+
+
+		yield [Facing::UP, Facing::AXIS_Z, true, Facing::EAST];
+		yield [Facing::EAST, Facing::AXIS_Z, true, Facing::DOWN];
+		yield [Facing::DOWN, Facing::AXIS_Z, true, Facing::WEST];
+		yield [Facing::WEST, Facing::AXIS_Z, true, Facing::UP];
+
+		yield [Facing::UP, Facing::AXIS_Z, false, Facing::WEST];
+		yield [Facing::WEST, Facing::AXIS_Z, false, Facing::DOWN];
+		yield [Facing::DOWN, Facing::AXIS_Z, false, Facing::EAST];
+		yield [Facing::EAST, Facing::AXIS_Z, false, Facing::UP];
+
+
+		yield [Facing::UP, Facing::AXIS_X, true, Facing::NORTH];
+		yield [Facing::NORTH, Facing::AXIS_X, true, Facing::DOWN];
+		yield [Facing::DOWN, Facing::AXIS_X, true, Facing::SOUTH];
+		yield [Facing::SOUTH, Facing::AXIS_X, true, Facing::UP];
+
+		yield [Facing::UP, Facing::AXIS_X, false, Facing::SOUTH];
+		yield [Facing::SOUTH, Facing::AXIS_X, false, Facing::DOWN];
+		yield [Facing::DOWN, Facing::AXIS_X, false, Facing::NORTH];
+		yield [Facing::NORTH, Facing::AXIS_X, false, Facing::UP];
+	}
+
+	/**
+	 * @dataProvider rotateProvider
+	 *
+	 * @param int  $direction
+	 * @param int  $axis
+	 * @param bool $clockwise
+	 * @param int  $expected
+	 */
+	public function testRotate(int $direction, int $axis, bool $clockwise, int $expected) : void{
+		self::assertEquals($expected, Facing::rotate($direction, $axis, $clockwise));
+	}
 }
