@@ -48,6 +48,13 @@ class Facing{
 		self::EAST
 	];
 
+	public const HORIZONTAL = [
+		self::NORTH,
+		self::SOUTH,
+		self::WEST,
+		self::EAST
+	];
+
 	private const CLOCKWISE = [
 		self::AXIS_Y => [
 			self::NORTH => self::EAST,
