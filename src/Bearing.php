@@ -96,4 +96,8 @@ class Bearing{
 	public static function rotate(int $bearing, int $step) : int{
 		return ($bearing + $step) & 0x03;
 	}
+
+	public static function opposite(int $bearing) : int{
+		return $bearing ^ 2;
+	}
 }
