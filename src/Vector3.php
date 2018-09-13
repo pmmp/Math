@@ -208,6 +208,47 @@ class Vector3{
 	}
 
 	/**
+	 * Yields vectors stepped out from this one in all directions.
+	 *
+	 * @param int $step Distance in each direction to shift the vector
+	 *
+	 * @return \Generator|Vector3[]
+	 */
+	public function sides(int $step = 1) : \Generator{
+		foreach(Facing::ALL as $facing){
+			yield $facing => $this->getSide($facing, $step);
+		}
+	}
+
+	/**
+	 * Same as sides() but returns a pre-populated array instead of Generator.
+	 *
+	 * @param bool $keys
+	 * @param int  $step
+	 *
+	 * @return Vector3[]
+	 */
+	public function sidesArray(bool $keys = false, int $step = 1) : array{
+		return iterator_to_array($this->sides($step), $keys);
+	}
+
+	/**
+	 * Yields vectors stepped out from this one in directions except those on the given axis.
+	 *
+	 * @param int $axis Facing directions on this axis will be excluded
+	 * @param int $step
+	 *
+	 * @return \Generator
+	 */
+	public function sidesAroundAxis(int $axis, int $step = 1) : \Generator{
+		foreach(Facing::ALL as $facing){
+			if(Facing::axis($facing) !== $axis){
+				yield $facing => $this->getSide($facing, $step);
+			}
+		}
+	}
+
+	/**
 	 * Return a Vector3 instance
 	 *
 	 * @return Vector3
