@@ -43,6 +43,15 @@ class AxisAlignedBB{
 	}
 
 	public function setBounds(float $minX, float $minY, float $minZ, float $maxX, float $maxY, float $maxZ){
+		if($minX > $maxX){
+			throw new \InvalidArgumentException("minX $minX is larger than maxX $maxX");
+		}
+		if($minY > $maxY){
+			throw new \InvalidArgumentException("minY $minY is larger than maxY $maxY");
+		}
+		if($minZ > $maxZ){
+			throw new \InvalidArgumentException("minZ $minZ is larger than maxZ $maxZ");
+		}
 		$this->minX = $minX;
 		$this->minY = $minY;
 		$this->minZ = $minZ;
