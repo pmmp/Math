@@ -322,9 +322,6 @@ class Vector3{
 	 */
 	public function getIntermediateWithXValue(Vector3 $v, float $x) : ?Vector3{
 		$xDiff = $v->x - $this->x;
-		$yDiff = $v->y - $this->y;
-		$zDiff = $v->z - $this->z;
-
 		if(($xDiff * $xDiff) < 0.0000001){
 			return null;
 		}
@@ -334,7 +331,7 @@ class Vector3{
 		if($f < 0 or $f > 1){
 			return null;
 		}else{
-			return new Vector3($x, $this->y + $yDiff * $f, $this->z + $zDiff * $f);
+			return new Vector3($x, $this->y + ($v->y - $this->y) * $f, $this->z + ($v->z - $this->z) * $f);
 		}
 	}
 
@@ -348,10 +345,7 @@ class Vector3{
 	 * @return Vector3|null
 	 */
 	public function getIntermediateWithYValue(Vector3 $v, float $y) : ?Vector3{
-		$xDiff = $v->x - $this->x;
 		$yDiff = $v->y - $this->y;
-		$zDiff = $v->z - $this->z;
-
 		if(($yDiff * $yDiff) < 0.0000001){
 			return null;
 		}
@@ -361,7 +355,7 @@ class Vector3{
 		if($f < 0 or $f > 1){
 			return null;
 		}else{
-			return new Vector3($this->x + $xDiff * $f, $y, $this->z + $zDiff * $f);
+			return new Vector3($this->x + ($v->x - $this->x) * $f, $y, $this->z + ($v->z - $this->z) * $f);
 		}
 	}
 
@@ -375,10 +369,7 @@ class Vector3{
 	 * @return Vector3|null
 	 */
 	public function getIntermediateWithZValue(Vector3 $v, float $z) : ?Vector3{
-		$xDiff = $v->x - $this->x;
-		$yDiff = $v->y - $this->y;
 		$zDiff = $v->z - $this->z;
-
 		if(($zDiff * $zDiff) < 0.0000001){
 			return null;
 		}
@@ -388,7 +379,7 @@ class Vector3{
 		if($f < 0 or $f > 1){
 			return null;
 		}else{
-			return new Vector3($this->x + $xDiff * $f, $this->y + $yDiff * $f, $z);
+			return new Vector3($this->x + ($v->x - $this->x) * $f, $this->y + ($v->y - $this->y) * $f, $z);
 		}
 	}
 
