@@ -81,16 +81,16 @@ class Bearing{
 		}
 
 		if((0 <= $angle and $angle < 45) or (315 <= $angle and $angle < 360)){
-			return self::NORTH;
-		}
-		if(45 <= $angle and $angle < 135){
-			return self::EAST;
-		}
-		if(135 <= $angle and $angle < 225){
 			return self::SOUTH;
 		}
+		if(45 <= $angle and $angle < 135){
+			return self::WEST;
+		}
+		if(135 <= $angle and $angle < 225){
+			return self::NORTH;
+		}
 
-		return self::WEST;
+		return self::EAST;
 	}
 
 	public static function rotate(int $bearing, int $step) : int{
