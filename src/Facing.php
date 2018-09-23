@@ -130,4 +130,16 @@ class Facing{
 		$rotated = self::CLOCKWISE[$axis][$direction];
 		return $clockwise ? $rotated : self::opposite($rotated);
 	}
+
+	/**
+	 * Validates the given integer as a Facing direction.
+	 *
+	 * @param int $facing
+	 * @throws \InvalidArgumentException if the argument is not a valid Facing constant
+	 */
+	public static function validate(int $facing) : void{
+		if(!in_array($facing, self::ALL, true)){
+			throw new \InvalidArgumentException("Invalid direction $facing");
+		}
+	}
 }
