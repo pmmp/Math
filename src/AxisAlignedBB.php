@@ -211,6 +211,144 @@ class AxisAlignedBB{
 		return (clone $this)->contract($x, $y, $z);
 	}
 
+	/**
+	 * Extends the AABB in the given direction.
+	 *
+	 * @param int   $face
+	 * @param float $distance Negative values pull the face in, positive values push out.
+	 *
+	 * @return $this
+	 * @throws \InvalidArgumentException
+	 */
+	public function extend(int $face, float $distance) : AxisAlignedBB{
+		if($face === Facing::DOWN){
+			$this->minY -= $distance;
+		}elseif($face === Facing::UP){
+			$this->maxY += $distance;
+		}elseif($face === Facing::NORTH){
+			$this->minZ -= $distance;
+		}elseif($face === Facing::SOUTH){
+			$this->maxZ += $distance;
+		}elseif($face === Facing::WEST){
+			$this->minX -= $distance;
+		}elseif($face === Facing::EAST){
+			$this->maxX += $distance;
+		}else{
+			throw new \InvalidArgumentException("Invalid face $face");
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Returns an extended clone of this bounding box.
+	 * @see AxisAlignedBB::extend()
+	 *
+	 * @param int   $face
+	 * @param float $distance
+	 *
+	 * @return AxisAlignedBB
+	 * @throws \InvalidArgumentException
+	 */
+	public function extendedCopy(int $face, float $distance) : AxisAlignedBB{
+		return (clone $this)->extend($face, $distance);
+	}
+
+	/**
+	 * Inverse of extend().
+	 * @see AxisAlignedBB::extend()
+	 *
+	 * @param int   $face
+	 * @param float $distance Positive values pull the face in, negative values push out.
+	 *
+	 * @return $this
+	 * @throws \InvalidArgumentException
+	 */
+	public function trim(int $face, float $distance) : AxisAlignedBB{
+		return $this->extend($face, -$distance);
+	}
+
+	/**
+	 * Returns a trimmed clone of this bounding box.
+	 * @see AxisAlignedBB::trim()
+	 *
+	 * @param int   $face
+	 * @param float $distance
+	 *
+	 * @return AxisAlignedBB
+	 * @throws \InvalidArgumentException
+	 */
+	public function trimmedCopy(int $face, float $distance) : AxisAlignedBB{
+		return $this->extendedCopy($face, -$distance);
+	}
+
+	/**
+	 * Increases the dimension of the AABB along the given axis.
+	 *
+	 * @param int   $axis one of the Facing::AXIS_* constants
+	 * @param float $distance Negative values reduce width, positive values increase width.
+	 *
+	 * @return $this
+	 * @throws \InvalidArgumentException
+	 */
+	public function stretch(int $axis, float $distance) : AxisAlignedBB{
+		if($axis === Facing::AXIS_Y){
+			$this->minY -= $distance;
+			$this->maxY += $distance;
+		}elseif($axis === Facing::AXIS_Z){
+			$this->minZ -= $distance;
+			$this->maxZ += $distance;
+		}elseif($axis === Facing::AXIS_X){
+			$this->minX -= $distance;
+			$this->maxX += $distance;
+		}else{
+			throw new \InvalidArgumentException("Invalid axis $axis");
+		}
+		return $this;
+	}
+
+	/**
+	 * Returns a stretched copy of this bounding box.
+	 * @see AxisAlignedBB::stretch()
+	 *
+	 * @param int   $axis
+	 * @param float $distance
+	 *
+	 * @return AxisAlignedBB
+	 * @throws \InvalidArgumentException
+	 */
+	public function stretchedCopy(int $axis, float $distance) : AxisAlignedBB{
+		return (clone $this)->stretch($axis, $distance);
+	}
+
+	/**
+	 * Reduces the dimension of the AABB on the given axis. Inverse of stretch().
+	 * @see AxisAlignedBB::stretch()
+	 *
+	 * @param int   $axis
+	 * @param float $distance
+	 *
+	 * @return $this
+	 * @throws \InvalidArgumentException
+	 */
+	public function squash(int $axis, float $distance) : AxisAlignedBB{
+		return $this->stretch($axis, -$distance);
+	}
+
+	/**
+	 * Returns a squashed copy of this bounding box.
+	 * @see AxisAlignedBB::squash()
+	 *
+	 * @param int   $axis
+	 * @param float $distance
+	 *
+	 * @return AxisAlignedBB
+	 * @throws \InvalidArgumentException
+	 */
+	public function squashedCopy(int $axis, float $distance) : AxisAlignedBB{
+		return $this->stretchedCopy($axis, -$distance);
+	}
+
 	public function calculateXOffset(AxisAlignedBB $bb, float $x) : float{
 		if($bb->maxY <= $this->minY or $bb->minY >= $this->maxY){
 			return $x;
