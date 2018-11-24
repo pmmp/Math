@@ -566,4 +566,13 @@ class AxisAlignedBB{
 	public function __toString(){
 		return "AxisAlignedBB({$this->minX}, {$this->minY}, {$this->minZ}, {$this->maxX}, {$this->maxY}, {$this->maxZ})";
 	}
+
+	/**
+	 * Returns a 1x1x1 bounding box starting at grid position 0,0,0.
+	 *
+	 * @return AxisAlignedBB
+	 */
+	public static function one() : AxisAlignedBB{
+		return new AxisAlignedBB(0, 0, 0, 1, 1, 1);
+	}
 }
