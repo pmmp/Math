@@ -459,6 +459,15 @@ class AxisAlignedBB{
 	}
 
 	/**
+	 * Returns the interior volume of the AABB.
+	 *
+	 * @return float
+	 */
+	public function getVolume() : float{
+		return ($this->maxX - $this->minX) * ($this->maxY - $this->minY) * ($this->maxZ - $this->minZ);
+	}
+
+	/**
 	 * Returns whether the specified vector is within the Y and Z bounds of this AABB.
 	 *
 	 * @param Vector3 $vector
