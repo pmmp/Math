@@ -132,6 +132,39 @@ class Facing{
 	}
 
 	/**
+	 * @param int  $direction
+	 * @param bool $clockwise
+	 *
+	 * @return int
+	 * @throws \InvalidArgumentException
+	 */
+	public static function rotateY(int $direction, bool $clockwise) : int{
+		return self::rotate($direction, self::AXIS_Y, $clockwise);
+	}
+
+	/**
+	 * @param int  $direction
+	 * @param bool $clockwise
+	 *
+	 * @return int
+	 * @throws \InvalidArgumentException
+	 */
+	public static function rotateZ(int $direction, bool $clockwise) : int{
+		return self::rotate($direction, self::AXIS_Z, $clockwise);
+	}
+
+	/**
+	 * @param int  $direction
+	 * @param bool $clockwise
+	 *
+	 * @return int
+	 * @throws \InvalidArgumentException
+	 */
+	public static function rotateX(int $direction, bool $clockwise) : int{
+		return self::rotate($direction, self::AXIS_X, $clockwise);
+	}
+
+	/**
 	 * Validates the given integer as a Facing direction.
 	 *
 	 * @param int $facing
