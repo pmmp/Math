@@ -23,6 +23,14 @@ declare(strict_types=1);
 
 namespace pocketmine\math;
 
+use function abs;
+use function ceil;
+use function floor;
+use function max;
+use function round;
+use function sqrt;
+use const PHP_ROUND_HALF_UP;
+
 class Vector3{
 
 	public const SIDE_DOWN = 0;

@@ -23,6 +23,12 @@ declare(strict_types=1);
 
 namespace pocketmine\math;
 
+use function abs;
+use function ceil;
+use function floor;
+use function round;
+use function sqrt;
+
 class Vector2{
 	/** @var float */
 	public $x;

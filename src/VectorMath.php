@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace pocketmine\math;
 
+use function cos;
+use function sin;
 
 abstract class VectorMath{
 
