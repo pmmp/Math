@@ -26,6 +26,7 @@ declare(strict_types=1);
  */
 namespace pocketmine\math;
 
+use function sqrt;
 
 abstract class Math{
 

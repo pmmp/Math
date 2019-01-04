@@ -23,6 +23,9 @@ declare(strict_types=1);
 
 namespace pocketmine\math;
 
+use function implode;
+use function max;
+use function substr;
 
 class Matrix implements \ArrayAccess{
 	private $matrix = [];

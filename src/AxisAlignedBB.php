@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace pocketmine\math;
 
+use const PHP_INT_MAX;
+
 class AxisAlignedBB{
 
 	/** @var float */

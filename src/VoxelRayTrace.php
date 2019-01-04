@@ -23,6 +23,9 @@ declare(strict_types=1);
 
 namespace pocketmine\math;
 
+use function floor;
+use const INF;
+
 abstract class VoxelRayTrace{
 
 	/**
