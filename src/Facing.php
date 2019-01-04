@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace pocketmine\math;
 
+use function in_array;
+
 class Facing{
 
 	public const AXIS_Y = 0;
