@@ -27,6 +27,7 @@ use function abs;
 use function ceil;
 use function floor;
 use function iterator_to_array;
+use function min;
 use function max;
 use function round;
 use function sqrt;
