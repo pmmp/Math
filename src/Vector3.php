@@ -275,11 +275,11 @@ class Vector3{
 		return (($this->x - $pos->x) ** 2) + (($this->y - $pos->y) ** 2) + (($this->z - $pos->z) ** 2);
 	}
 	
-	public function min(Vector3 $v) : Vector3{
+	public static function min(Vector3 $v) : Vector3{
 		return new Vector3(min($this->x, $v->x), min($this->y, $v->y), min($this->z, $v->z));
 	}
 
-	public function max(Vector3 $v) : Vector3{
+	public static function max(Vector3 $v) : Vector3{
 		return new Vector3(max($this->x, $v->x), max($this->y, $v->y), max($this->z, $v->z));
 	}
 
