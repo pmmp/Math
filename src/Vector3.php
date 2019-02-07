@@ -275,12 +275,12 @@ class Vector3{
 		return (($this->x - $pos->x) ** 2) + (($this->y - $pos->y) ** 2) + (($this->z - $pos->z) ** 2);
 	}
 	
-	public static function min(Vector3 $v) : Vector3{
-		return new Vector3(min($this->x, $v->x), min($this->y, $v->y), min($this->z, $v->z));
+	public static function min(Vector3 $v1, Vector3 $v2) : Vector3{
+		return new Vector3(min($v1->x, $v2->x), min($v1->y, $v2->y), min($v1->z, $v2->z));
 	}
 
-	public static function max(Vector3 $v) : Vector3{
-		return new Vector3(max($this->x, $v->x), max($this->y, $v->y), max($this->z, $v->z));
+	public static function max(Vector3 $v1, Vector3 $v2) : Vector3{
+		return new Vector3(max($v1->x, $v2->x), max($v1->y, $v2->y), max($v1->z, $v2->z));
 	}
 
 	public function maxPlainDistance($x = 0, $z = 0) : float{
