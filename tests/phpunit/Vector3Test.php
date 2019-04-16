@@ -23,7 +23,8 @@ namespace pocketmine\math;
 
 use PHPUnit\Framework\TestCase;
 
-class Vector3Test extends TestCase {
+class Vector3Test extends TestCase{
+	
 	public function minProvider() : \Generator{
 		yield [
 			new Vector3(1, 2, 3),
