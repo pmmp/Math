@@ -411,6 +411,14 @@ class Vector3{
 		return "Vector3(x=" . $this->x . ",y=" . $this->y . ",z=" . $this->z . ")";
 	}
 
+	/**
+	 * Returns a new vector with the maximum xyz coordinates based from the passed vectors.
+	 * Behavior is similar with the standard PHP max function < https://php.net/manual/en/function.max.php >
+	 *
+	 * @param Vector3 ...$positions
+	 *
+	 * @return Vector3
+	 */
 	public static function max(Vector3 ...$positions) : Vector3{
 		$xList = $yList = $zList = [];
 		foreach($positions as $position){
@@ -421,6 +429,14 @@ class Vector3{
 		return new Vector3(max($xList), max($yList), max($zList));
 	}
 
+	/**
+	 * Returns a new vector with the minimum xyz coordinates based from the passed vectors.
+	 * Behavior is similar with the standard PHP min function < https://php.net/manual/en/function.min.php >
+	 *
+	 * @param Vector3 ...$positions
+	 *
+	 * @return Vector3
+	 */
 	public static function min(Vector3 ...$positions) : Vector3{
 		$xList = $yList = $zList = [];
 		foreach($positions as $position){
