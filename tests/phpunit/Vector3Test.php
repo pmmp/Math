@@ -25,7 +25,7 @@ use PHPUnit\Framework\TestCase;
 
 class Vector3Test extends TestCase {
 
-	public function minProvider(): \Generator{
+	public function minProvider() : \Generator{
 		yield [
 			new Vector3(1, 2, 3),
 			new Vector3(9, 8, 7),
@@ -60,7 +60,7 @@ class Vector3Test extends TestCase {
 	 * @param Vector3 $vec3
 	 * @param Vector3 $expected
 	 */
-	public function testMin(Vector3 $vec1, Vector3 $vec2, Vector3 $vec3, Vector3 $expected): void {
+	public function testMin(Vector3 $vec1, Vector3 $vec2, Vector3 $vec3, Vector3 $expected) : void{
 		self::assertEquals(Vector3::min($vec1, $vec2, $vec3), $expected);
 	}
 
@@ -99,7 +99,7 @@ class Vector3Test extends TestCase {
 	 * @param Vector3 $vec3
 	 * @param Vector3 $expected
 	 */
-	public function testMax(Vector3 $vec1, Vector3 $vec2, Vector3 $vec3, Vector3 $expected): void {
+	public function testMax(Vector3 $vec1, Vector3 $vec2, Vector3 $vec3, Vector3 $expected) : void{
 		self::assertEquals(Vector3::max($vec1, $vec2, $vec3), $expected);
 	}
 }
