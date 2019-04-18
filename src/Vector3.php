@@ -28,6 +28,7 @@ use function ceil;
 use function floor;
 use function iterator_to_array;
 use function max;
+use function min;
 use function round;
 use function sqrt;
 use const PHP_ROUND_HALF_UP;
@@ -410,4 +411,37 @@ class Vector3{
 		return "Vector3(x=" . $this->x . ",y=" . $this->y . ",z=" . $this->z . ")";
 	}
 
+	/**
+	 * Returns a new Vector3 taking the maximum of each component in the input vectors.
+	 *
+	 * @param Vector3 ...$positions
+	 *
+	 * @return Vector3
+	 */
+	public static function maxComponents(Vector3 ...$positions) : Vector3{
+		$xList = $yList = $zList = [];
+		foreach($positions as $position){
+			$xList[] = $position->x;
+			$yList[] = $position->y;
+			$zList[] = $position->z;
+		}
+		return new Vector3(max($xList), max($yList), max($zList));
+	}
+
+	/**
+	 * Returns a new Vector3 taking the minimum of each component in the input vectors.
+	 *
+	 * @param Vector3 ...$positions
+	 *
+	 * @return Vector3
+	 */
+	public static function minComponents(Vector3 ...$positions) : Vector3{
+		$xList = $yList = $zList = [];
+		foreach($positions as $position){
+			$xList[] = $position->x;
+			$yList[] = $position->y;
+			$zList[] = $position->z;
+		}
+		return new Vector3(min($xList), min($yList), min($zList));
+	}
 }
