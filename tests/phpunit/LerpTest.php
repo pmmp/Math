@@ -30,13 +30,13 @@ class LerpTest extends TestCase{
 			1,
 			10,
 			0.1,
-			1.0
+			1.9
 		];
 		yield [
 			-1.5,
 			5.0,
 			0.5,
-			2.25
+			1.75
 		];
 		yield [
 			0,
@@ -73,6 +73,14 @@ class LerpTest extends TestCase{
 		];
 	}
 
+	/**
+	 * @dataProvider someVector2Provider
+	 *
+	 * @param Vector2 $start
+	 * @param Vector2 $end
+	 * @param float $percent
+	 * @param Vector2 $expected
+	 */
 	public function testVector2Leap(Vector2 $start, Vector2 $end, float $percent, Vector2 $expected) {
 		self::assertEquals($start->lerp($end, $percent), $expected);
 	}
@@ -92,6 +100,14 @@ class LerpTest extends TestCase{
 		];
 	}
 
+	/**
+	 * @dataProvider someVector3Provider
+	 *
+	 * @param Vector3 $start
+	 * @param Vector3 $end
+	 * @param float $percent
+	 * @param Vector3 $expected
+	 */
 	public function testVector3Leap(Vector3 $start, Vector3 $end, float $percent, Vector3 $expected) {
 		self::assertEquals($start->lerp($end, $percent), $expected);
 	}
