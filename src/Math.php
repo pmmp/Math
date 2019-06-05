@@ -51,6 +51,19 @@ abstract class Math{
 	}
 
 	/**
+	 * @param number $start
+	 * @param number $end
+	 * @param float $param
+	 * @return float
+	 */
+	public static function lerp($start, $end, float $param): float {
+		if (0 > $param || $param > 1) {
+			throw new \InvalidArgumentException("parameter $param should have a value of 0 to 1");
+		}
+		return ($end - $start) * $param + $start;
+	}
+
+	/**
 	 * Solves a quadratic equation with the given coefficients and returns an array of up to two solutions.
 	 *
 	 * @param float $a
