@@ -293,11 +293,17 @@ class Vector3{
 		return $this->x * $this->x + $this->y * $this->y + $this->z * $this->z;
 	}
 
-	public function lerp(Vector3 $start, Vector3 $end, float $param): Vector3 {
-		if (0 > $param || $param > 1) {
-			throw new \InvalidArgumentException("parameter $param should have a value of 0 to 1");
+	/**
+	 * @param Vector3 $end
+	 * @param float $percent
+	 *
+	 * @return Vector3
+	 */
+	public function lerp(Vector3 $end, float $percent) : Vector3{
+		if (0 > $percent or $percent > 1) {
+			throw new \InvalidArgumentException("percentage $percent should have a value of 0 to 1");
 		}
-		return $end->subtract($start)->multiply($param)->add($start);
+		return $end->subtract($this)->multiply($percent)->add($this);
 	}
 
 	/**

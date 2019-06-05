@@ -144,11 +144,17 @@ class Vector2{
 		return $this->x * $this->x + $this->y * $this->y;
 	}
 
-	public function lerp(Vector2 $start, Vector2 $end, float $param): Vector2 {
-		if (0 > $param || $param > 1) {
-			throw new \InvalidArgumentException("parameter $param should have a value of 0 to 1");
+	/**
+	 * @param Vector2 $end
+	 * @param float $percent
+	 *
+	 * @return Vector2
+	 */
+	public function lerp(Vector2 $end, float $percent) : Vector2{
+		if (0 > $percent or $percent > 1) {
+			throw new \InvalidArgumentException("percentage $percent should have a value of 0 to 1");
 		}
-		return $end->subtract($start)->multiply($param)->add($start);
+		return $end->subtract($this)->multiply($percent)->add($this);
 	}
 
 	public function normalize() : Vector2{

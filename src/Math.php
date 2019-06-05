@@ -53,14 +53,15 @@ abstract class Math{
 	/**
 	 * @param number $start
 	 * @param number $end
-	 * @param float $param
+	 * @param float $percent
+	 *
 	 * @return float
 	 */
-	public static function lerp($start, $end, float $param): float {
-		if (0 > $param || $param > 1) {
-			throw new \InvalidArgumentException("parameter $param should have a value of 0 to 1");
+	public static function lerp($start, $end, float $percent) : float{
+		if (0 > $percent or $percent > 1) {
+			throw new \InvalidArgumentException("percentage $percent should have a value of 0 to 1");
 		}
-		return ($end - $start) * $param + $start;
+		return ($end - $start) * $percent + $start;
 	}
 
 	/**
