@@ -144,6 +144,13 @@ class Vector2{
 		return $this->x * $this->x + $this->y * $this->y;
 	}
 
+	public function lerp(Vector2 $start, Vector2 $end, float $param): Vector2 {
+		if (0 > $param || $param > 1) {
+			throw new \InvalidArgumentException("parameter $param should have a value of 0 to 1");
+		}
+		return $end->subtract($start)->multiply($param)->add($start);
+	}
+
 	public function normalize() : Vector2{
 		$len = $this->lengthSquared();
 		if($len > 0){

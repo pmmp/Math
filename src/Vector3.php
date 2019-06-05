@@ -293,6 +293,13 @@ class Vector3{
 		return $this->x * $this->x + $this->y * $this->y + $this->z * $this->z;
 	}
 
+	public function lerp(Vector3 $start, Vector3 $end, float $param): Vector3 {
+		if (0 > $param || $param > 1) {
+			throw new \InvalidArgumentException("parameter $param should have a value of 0 to 1");
+		}
+		return $end->subtract($start)->multiply($param)->add($start);
+	}
+
 	/**
 	 * @return Vector3
 	 */
