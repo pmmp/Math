@@ -53,7 +53,7 @@ class Vector3Test extends TestCase{
 	}
 
 	/**
-	 * @dataProvider minProvider
+	 * @dataProvider minComponentsProvider
 	 *
 	 * @param Vector3 $vec1
 	 * @param Vector3 $vec2
@@ -92,7 +92,7 @@ class Vector3Test extends TestCase{
 	}
 
 	/**
-	 * @dataProvider maxProvider
+	 * @dataProvider maxComponentsProvider
 	 *
 	 * @param Vector3 $vec1
 	 * @param Vector3 $vec2
