@@ -51,6 +51,8 @@ abstract class Math{
 	}
 
 	/**
+	 * Returns a linearly interpolated value at a percentage specified by $percent in the range from $start to $end
+	 *
 	 * @param number $start
 	 * @param number $end
 	 * @param float $percent

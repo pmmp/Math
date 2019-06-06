@@ -294,6 +294,8 @@ class Vector3{
 	}
 
 	/**
+	 * Returns a linearly interpolated Vector3 at a percentage specified by $percent in the range to $end
+	 *
 	 * @param Vector3 $end
 	 * @param float $percent
 	 *

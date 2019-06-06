@@ -145,6 +145,8 @@ class Vector2{
 	}
 
 	/**
+	 * Returns a linearly interpolated Vector2 at a percentage specified by $percent in the range to $end
+	 *
 	 * @param Vector2 $end
 	 * @param float $percent
 	 *

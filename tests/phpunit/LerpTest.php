@@ -25,7 +25,7 @@ use PHPUnit\Framework\TestCase;
 
 class LerpTest extends TestCase{
 
-	public function someLengthValueProvider() : \Generator{
+	public function someLengthProvider() : \Generator{
 		yield [
 			1,
 			10,
@@ -47,7 +47,7 @@ class LerpTest extends TestCase{
 	}
 
 	/**
-	 * @dataProvider someLengthValueProvider
+	 * @dataProvider someLengthProvider
 	 *
 	 * @param $start
 	 * @param $end
