@@ -82,7 +82,7 @@ class LerpTest extends TestCase{
 	 * @param Vector2 $expected
 	 */
 	public function testVector2Leap(Vector2 $start, Vector2 $end, float $percent, Vector2 $expected) {
-		self::assertEquals($start->lerp($end, $percent), $expected);
+		self::assertEquals(Vector2::lerp($start, $end, $percent), $expected);
 	}
 
 	public function someVector3Provider() : \Generator{
@@ -109,7 +109,7 @@ class LerpTest extends TestCase{
 	 * @param Vector3 $expected
 	 */
 	public function testVector3Leap(Vector3 $start, Vector3 $end, float $percent, Vector3 $expected) {
-		self::assertEquals($start->lerp($end, $percent), $expected);
+		self::assertEquals(Vector3::lerp($start, $end, $percent), $expected);
 	}
 
 }
