@@ -51,22 +51,6 @@ abstract class Math{
 	}
 
 	/**
-	 * Returns a linearly interpolated value at a percentage specified by $percent in the range from $start to $end
-	 *
-	 * @param number $start
-	 * @param number $end
-	 * @param float $percent
-	 *
-	 * @return float
-	 */
-	public static function lerp($start, $end, float $percent) : float{
-		if (0 > $percent or $percent > 1) {
-			throw new \InvalidArgumentException("percentage $percent should have a value of 0 to 1");
-		}
-		return ($end - $start) * $percent + $start;
-	}
-
-	/**
 	 * Solves a quadratic equation with the given coefficients and returns an array of up to two solutions.
 	 *
 	 * @param float $a
@@ -90,5 +74,21 @@ abstract class Math{
 		}else{ //No real roots
 			return [];
 		}
+	}
+
+	/**
+	 * Returns a linearly interpolated value at a percentage specified by $percent in the range from $start to $end
+	 *
+	 * @param number $start
+	 * @param number $end
+	 * @param float $percent
+	 *
+	 * @return float
+	 */
+	public static function lerp($start, $end, float $percent) : float{
+		if (0 > $percent or $percent > 1) {
+			throw new \InvalidArgumentException("percentage $percent should have a value of 0 to 1");
+		}
+		return ($end - $start) * $percent + $start;
 	}
 }

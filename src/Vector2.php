@@ -144,21 +144,6 @@ class Vector2{
 		return $this->x * $this->x + $this->y * $this->y;
 	}
 
-	/**
-	 * Returns a linearly interpolated Vector2 at a percentage specified by $percent in the range to $end
-	 *
-	 * @param Vector2 $end
-	 * @param float $percent
-	 *
-	 * @return Vector2
-	 */
-	public function lerp(Vector2 $end, float $percent) : Vector2{
-		if (0 > $percent or $percent > 1) {
-			throw new \InvalidArgumentException("percentage $percent should have a value of 0 to 1");
-		}
-		return $end->subtract($this)->multiply($percent)->add($this);
-	}
-
 	public function normalize() : Vector2{
 		$len = $this->lengthSquared();
 		if($len > 0){
@@ -174,6 +159,22 @@ class Vector2{
 
 	public function __toString(){
 		return "Vector2(x=" . $this->x . ",y=" . $this->y . ")";
+	}
+
+	/**
+	 * Returns a linearly interpolated Vector2 at a percentage specified by $percent in the range from $start to $end
+	 *
+	 * @param Vector2 $start
+	 * @param Vector2 $end
+	 * @param float $percent
+	 *
+	 * @return Vector2
+	 */
+	public static function lerp(Vector2 $start, Vector2 $end, float $percent) : Vector2{
+		if (0 > $percent or $percent > 1) {
+			throw new \InvalidArgumentException("percentage $percent should have a value of 0 to 1");
+		}
+		return $end->subtract($start)->multiply($percent)->add($start);
 	}
 
 }

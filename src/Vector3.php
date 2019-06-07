@@ -294,21 +294,6 @@ class Vector3{
 	}
 
 	/**
-	 * Returns a linearly interpolated Vector3 at a percentage specified by $percent in the range to $end
-	 *
-	 * @param Vector3 $end
-	 * @param float $percent
-	 *
-	 * @return Vector3
-	 */
-	public function lerp(Vector3 $end, float $percent) : Vector3{
-		if (0 > $percent or $percent > 1) {
-			throw new \InvalidArgumentException("percentage $percent should have a value of 0 to 1");
-		}
-		return $end->subtract($this)->multiply($percent)->add($this);
-	}
-
-	/**
 	 * @return Vector3
 	 */
 	public function normalize() : Vector3{
@@ -458,5 +443,21 @@ class Vector3{
 			$zList[] = $position->z;
 		}
 		return new Vector3(min($xList), min($yList), min($zList));
+	}
+
+	/**
+	 * Returns a linearly interpolated Vector3 at a percentage specified by $percent in the range from $start to $end
+	 *
+	 * @param Vector3 $start
+	 * @param Vector3 $end
+	 * @param float $percent
+	 *
+	 * @return Vector3
+	 */
+	public static function lerp(Vector3 $start, Vector3 $end, float $percent) : Vector3{
+		if (0 > $percent or $percent > 1) {
+			throw new \InvalidArgumentException("percentage $percent should have a value of 0 to 1");
+		}
+		return $end->subtract($start)->multiply($percent)->add($start);
 	}
 }
