@@ -27,8 +27,8 @@ class LerpTest extends TestCase{
 
 	public function someLengthProvider() : \Generator{
 		yield [
-			(float)1,
-			(float)10,
+			1,
+			10,
 			0.1,
 			1.9
 		];
@@ -39,7 +39,7 @@ class LerpTest extends TestCase{
 			1.75
 		];
 		yield [
-			(float)0,
+			0,
 			M_PI,
 			0.25,
 			M_PI_4
