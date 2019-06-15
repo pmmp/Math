@@ -79,13 +79,13 @@ abstract class Math{
 	/**
 	 * Returns a linearly interpolated value at a percentage specified by $percent in the range from $start to $end
 	 *
-	 * @param number $start
-	 * @param number $end
+	 * @param float $start
+	 * @param float $end
 	 * @param float $percent
 	 *
 	 * @return float
 	 */
-	public static function lerp($start, $end, float $percent) : float{
+	public static function lerp(float $start, float $end, float $percent) : float{
 		if (0 > $percent or $percent > 1) {
 			throw new \InvalidArgumentException("percentage $percent should have a value of 0 to 1");
 		}

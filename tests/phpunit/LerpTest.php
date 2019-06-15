@@ -27,8 +27,8 @@ class LerpTest extends TestCase{
 
 	public function someLengthProvider() : \Generator{
 		yield [
-			1,
-			10,
+			(float)1,
+			(float)10,
 			0.1,
 			1.9
 		];
@@ -39,7 +39,7 @@ class LerpTest extends TestCase{
 			1.75
 		];
 		yield [
-			0,
+			(float)0,
 			M_PI,
 			0.25,
 			M_PI_4
@@ -54,7 +54,7 @@ class LerpTest extends TestCase{
 	 * @param float $percent
 	 * @param float $expected
 	 */
-	public function testLengthLeap($start, $end, float $percent, float $expected) {
+	public function testLengthLeap(float $start, float $end, float $percent, float $expected) {
 		self::assertEquals(Math::lerp($start, $end, $percent), $expected);
 	}
 
