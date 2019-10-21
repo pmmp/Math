@@ -83,9 +83,9 @@ class Vector3{
 	}
 
 	/**
-	 * @param Vector3|int $x
-	 * @param int         $y
-	 * @param int         $z
+	 * @param Vector3|float $x
+	 * @param float         $y
+	 * @param float         $z
 	 *
 	 * @return Vector3
 	 */
@@ -98,9 +98,9 @@ class Vector3{
 	}
 
 	/**
-	 * @param Vector3|int $x
-	 * @param int         $y
-	 * @param int         $z
+	 * @param Vector3|float $x
+	 * @param float         $y
+	 * @param float         $z
 	 *
 	 * @return Vector3
 	 */
