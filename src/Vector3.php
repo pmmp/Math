@@ -394,9 +394,9 @@ class Vector3{
 	}
 
 	/**
-	 * @param $x
-	 * @param $y
-	 * @param $z
+	 * @param float $x
+	 * @param float $y
+	 * @param float $z
 	 *
 	 * @return $this
 	 */
