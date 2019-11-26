@@ -175,14 +175,14 @@ class Matrix implements \ArrayAccess{
 	}
 
 
-	//Computation of the determinant of 2x2 and 3x3 matrices
+	//Computation of the determinant of 1x1, 2x2 and 3x3 matrices
 	public function determinant(){
 		if($this->isSquare() !== true){
 			return false;
 		}
 		switch($this->rows){
 			case 1:
-				return 0;
+				return $this->matrix[0][0];
 			case 2:
 				return $this->matrix[0][0] * $this->matrix[1][1] - $this->matrix[0][1] * $this->matrix[1][0];
 			case 3:
