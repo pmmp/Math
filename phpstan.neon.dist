@@ -1,0 +1,6 @@
+parameters:
+	level: 5
+	paths:
+		- src
+	ignoreErrors:
+		- "#^Default value of the parameter \\#\\d+ \\$[A-Za-z\\d_]+ \\(\\-?\\d+\\) of method .+\\(\\) is incompatible with type float\\.$#"
