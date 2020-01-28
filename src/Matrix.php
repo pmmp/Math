@@ -27,6 +27,9 @@ use function implode;
 use function max;
 use function substr;
 
+/**
+ * @phpstan-implements \ArrayAccess<int, float[]>
+ */
 class Matrix implements \ArrayAccess{
 	/** @var float[][] */
 	private $matrix = [];
