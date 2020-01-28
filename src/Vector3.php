@@ -256,7 +256,7 @@ class Vector3{
 		return (($this->x - $pos->x) ** 2) + (($this->y - $pos->y) ** 2) + (($this->z - $pos->z) ** 2);
 	}
 
-	public function maxPlainDistance($x = 0, $z = 0) : float{
+	public function maxPlainDistance($x, $z = 0) : float{
 		if($x instanceof Vector3){
 			return $this->maxPlainDistance($x->x, $x->z);
 		}elseif($x instanceof Vector2){
