@@ -44,6 +44,9 @@ class AxisAlignedBB{
 		$this->setBounds($minX, $minY, $minZ, $maxX, $maxY, $maxZ);
 	}
 
+	/**
+	 * @return $this
+	 */
 	public function setBounds(float $minX, float $minY, float $minZ, float $maxX, float $maxY, float $maxZ){
 		$this->minX = $minX;
 		$this->minY = $minY;
