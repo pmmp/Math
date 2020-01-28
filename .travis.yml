@@ -10,7 +10,7 @@ before_script:
 
 script:
  - ./vendor/bin/phpstan analyze --no-progress
- - ./tests/run-tests.sh
+ - ./vendor/bin/phpunit --bootstrap vendor/autoload.php --fail-on-warning tests/phpunit
 
 cache:
  directories:
