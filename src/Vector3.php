@@ -110,7 +110,7 @@ class Vector3{
 	 *
 	 * @return Vector3
 	 */
-	public function subtract($x = 0, $y = 0, $z = 0) : Vector3{
+	public function subtract($x, $y = 0, $z = 0) : Vector3{
 		if($x instanceof Vector3){
 			return $this->add(-$x->x, -$x->y, -$x->z);
 		}else{
