@@ -27,9 +27,15 @@ use function implode;
 use function max;
 use function substr;
 
+/**
+ * @phpstan-implements \ArrayAccess<int, float[]>
+ */
 class Matrix implements \ArrayAccess{
+	/** @var float[][] */
 	private $matrix = [];
+	/** @var int */
 	private $rows = 0;
+	/** @var int */
 	private $columns = 0;
 
 	public function offsetExists($offset){
@@ -48,12 +54,22 @@ class Matrix implements \ArrayAccess{
 		unset($this->matrix[(int) $offset]);
 	}
 
+	/**
+	 * @param int       $rows
+	 * @param int       $columns
+	 * @param float[][] $set
+	 */
 	public function __construct($rows, $columns, array $set = []){
 		$this->rows = max(1, (int) $rows);
 		$this->columns = max(1, (int) $columns);
 		$this->set($set);
 	}
 
+	/**
+	 * @param float[][] $m
+	 *
+	 * @return void
+	 */
 	public function set(array $m){
 		for($r = 0; $r < $this->rows; ++$r){
 			$this->matrix[$r] = [];
@@ -63,14 +79,27 @@ class Matrix implements \ArrayAccess{
 		}
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getRows(){
 		return $this->rows;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getColumns(){
 		return $this->columns;
 	}
 
+	/**
+	 * @param int   $row
+	 * @param int   $column
+	 * @param float $value
+	 *
+	 * @return bool
+	 */
 	public function setElement($row, $column, $value){
 		if($row > $this->rows or $row < 0 or $column > $this->columns or $column < 0){
 			return false;
@@ -80,6 +109,12 @@ class Matrix implements \ArrayAccess{
 		return true;
 	}
 
+	/**
+	 * @param int $row
+	 * @param int $column
+	 *
+	 * @return float|false
+	 */
 	public function getElement($row, $column){
 		if($row > $this->rows or $row < 0 or $column > $this->columns or $column < 0){
 			return false;
@@ -88,10 +123,16 @@ class Matrix implements \ArrayAccess{
 		return $this->matrix[(int) $row][(int) $column];
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isSquare(){
 		return $this->rows === $this->columns;
 	}
 
+	/**
+	 * @return Matrix|false
+	 */
 	public function add(Matrix $matrix){
 		if($this->rows !== $matrix->getRows() or $this->columns !== $matrix->getColumns()){
 			return false;
@@ -106,6 +147,9 @@ class Matrix implements \ArrayAccess{
 		return $result;
 	}
 
+	/**
+	 * @return Matrix|false
+	 */
 	public function subtract(Matrix $matrix){
 		if($this->rows !== $matrix->getRows() or $this->columns !== $matrix->getColumns()){
 			return false;
@@ -120,6 +164,11 @@ class Matrix implements \ArrayAccess{
 		return $result;
 	}
 
+	/**
+	 * @param float $number
+	 *
+	 * @return Matrix
+	 */
 	public function multiplyScalar($number){
 		$result = clone $this;
 		for($r = 0; $r < $this->rows; ++$r){
@@ -132,6 +181,11 @@ class Matrix implements \ArrayAccess{
 	}
 
 
+	/**
+	 * @param float $number
+	 *
+	 * @return Matrix
+	 */
 	public function divideScalar($number){
 		$result = clone $this;
 		for($r = 0; $r < $this->rows; ++$r){
@@ -143,6 +197,9 @@ class Matrix implements \ArrayAccess{
 		return $result;
 	}
 
+	/**
+	 * @return Matrix
+	 */
 	public function transpose(){
 		$result = new Matrix($this->columns, $this->rows);
 		for($r = 0; $r < $this->rows; ++$r){
@@ -154,7 +211,11 @@ class Matrix implements \ArrayAccess{
 		return $result;
 	}
 
-	//Naive Matrix product, O(n^3)
+	/**
+	 * Naive Matrix product, O(n^3)
+	 *
+	 * @return Matrix|false
+	 */
 	public function product(Matrix $matrix){
 		if($this->columns !== $matrix->getRows()){
 			return false;
@@ -175,7 +236,11 @@ class Matrix implements \ArrayAccess{
 	}
 
 
-	//Computation of the determinant of 1x1, 2x2 and 3x3 matrices
+	/**
+	 * Computation of the determinant of 1x1, 2x2 and 3x3 matrices
+	 *
+	 * @return float|false
+	 */
 	public function determinant(){
 		if($this->isSquare() !== true){
 			return false;
