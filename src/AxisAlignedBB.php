@@ -164,7 +164,6 @@ class AxisAlignedBB{
 	/**
 	 * Extends the AABB in the given direction.
 	 *
-	 * @param int   $face
 	 * @param float $distance Negative values pull the face in, positive values push out.
 	 *
 	 * @return $this
@@ -194,10 +193,6 @@ class AxisAlignedBB{
 	 * Returns an extended clone of this bounding box.
 	 * @see AxisAlignedBB::extend()
 	 *
-	 * @param int   $face
-	 * @param float $distance
-	 *
-	 * @return AxisAlignedBB
 	 * @throws \InvalidArgumentException
 	 */
 	public function extendedCopy(int $face, float $distance) : AxisAlignedBB{
@@ -208,7 +203,6 @@ class AxisAlignedBB{
 	 * Inverse of extend().
 	 * @see AxisAlignedBB::extend()
 	 *
-	 * @param int   $face
 	 * @param float $distance Positive values pull the face in, negative values push out.
 	 *
 	 * @return $this
@@ -222,10 +216,6 @@ class AxisAlignedBB{
 	 * Returns a trimmed clone of this bounding box.
 	 * @see AxisAlignedBB::trim()
 	 *
-	 * @param int   $face
-	 * @param float $distance
-	 *
-	 * @return AxisAlignedBB
 	 * @throws \InvalidArgumentException
 	 */
 	public function trimmedCopy(int $face, float $distance) : AxisAlignedBB{
@@ -261,10 +251,6 @@ class AxisAlignedBB{
 	 * Returns a stretched copy of this bounding box.
 	 * @see AxisAlignedBB::stretch()
 	 *
-	 * @param int   $axis
-	 * @param float $distance
-	 *
-	 * @return AxisAlignedBB
 	 * @throws \InvalidArgumentException
 	 */
 	public function stretchedCopy(int $axis, float $distance) : AxisAlignedBB{
@@ -274,9 +260,6 @@ class AxisAlignedBB{
 	/**
 	 * Reduces the dimension of the AABB on the given axis. Inverse of stretch().
 	 * @see AxisAlignedBB::stretch()
-	 *
-	 * @param int   $axis
-	 * @param float $distance
 	 *
 	 * @return $this
 	 * @throws \InvalidArgumentException
@@ -289,10 +272,6 @@ class AxisAlignedBB{
 	 * Returns a squashed copy of this bounding box.
 	 * @see AxisAlignedBB::squash()
 	 *
-	 * @param int   $axis
-	 * @param float $distance
-	 *
-	 * @return AxisAlignedBB
 	 * @throws \InvalidArgumentException
 	 */
 	public function squashedCopy(int $axis, float $distance) : AxisAlignedBB{
@@ -401,8 +380,6 @@ class AxisAlignedBB{
 
 	/**
 	 * Returns the interior volume of the AABB.
-	 *
-	 * @return float
 	 */
 	public function getVolume() : float{
 		return ($this->maxX - $this->minX) * ($this->maxY - $this->minY) * ($this->maxZ - $this->minZ);
@@ -505,8 +482,6 @@ class AxisAlignedBB{
 
 	/**
 	 * Returns a 1x1x1 bounding box starting at grid position 0,0,0.
-	 *
-	 * @return AxisAlignedBB
 	 */
 	public static function one() : AxisAlignedBB{
 		return new AxisAlignedBB(0, 0, 0, 1, 1, 1);

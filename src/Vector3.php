@@ -213,9 +213,6 @@ class Vector3{
 	/**
 	 * Same as sides() but returns a pre-populated array instead of Generator.
 	 *
-	 * @param bool $keys
-	 * @param int  $step
-	 *
 	 * @return Vector3[]
 	 */
 	public function sidesArray(bool $keys = false, int $step = 1) : array{
@@ -226,7 +223,6 @@ class Vector3{
 	 * Yields vectors stepped out from this one in directions except those on the given axis.
 	 *
 	 * @param int $axis Facing directions on this axis will be excluded
-	 * @param int $step
 	 *
 	 * @return \Generator|Vector3[]
 	 */
@@ -240,8 +236,6 @@ class Vector3{
 
 	/**
 	 * Return a Vector3 instance
-	 *
-	 * @return Vector3
 	 */
 	public function asVector3() : Vector3{
 		return new Vector3($this->x, $this->y, $this->z);
@@ -381,8 +375,6 @@ class Vector3{
 	 * Returns a new Vector3 taking the maximum of each component in the input vectors.
 	 *
 	 * @param Vector3 ...$positions
-	 *
-	 * @return Vector3
 	 */
 	public static function maxComponents(Vector3 ...$positions) : Vector3{
 		$xList = $yList = $zList = [];
@@ -398,8 +390,6 @@ class Vector3{
 	 * Returns a new Vector3 taking the minimum of each component in the input vectors.
 	 *
 	 * @param Vector3 ...$positions
-	 *
-	 * @return Vector3
 	 */
 	public static function minComponents(Vector3 ...$positions) : Vector3{
 		$xList = $yList = $zList = [];
