@@ -42,9 +42,7 @@ class RayTraceResult{
 	public $hitVector;
 
 	/**
-	 * @param AxisAlignedBB $bb
 	 * @param int           $hitFace one of the Vector3::SIDE_* constants
-	 * @param Vector3       $hitVector
 	 */
 	public function __construct(AxisAlignedBB $bb, int $hitFace, Vector3 $hitVector){
 		$this->bb = $bb;
@@ -52,23 +50,14 @@ class RayTraceResult{
 		$this->hitVector = $hitVector;
 	}
 
-	/**
-	 * @return AxisAlignedBB
-	 */
 	public function getBoundingBox() : AxisAlignedBB{
 		return $this->bb;
 	}
 
-	/**
-	 * @return int
-	 */
 	public function getHitFace() : int{
 		return $this->hitFace;
 	}
 
-	/**
-	 * @return Vector3
-	 */
 	public function getHitVector() : Vector3{
 		return $this->hitVector;
 	}

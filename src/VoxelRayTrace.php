@@ -32,10 +32,6 @@ abstract class VoxelRayTrace{
 	 * Performs a ray trace from the start position in the given direction, for a distance of $maxDistance. This
 	 * returns a Generator which yields Vector3s containing the coordinates of voxels it passes through.
 	 *
-	 * @param Vector3 $start
-	 * @param Vector3 $directionVector
-	 * @param float   $maxDistance
-	 *
 	 * @return \Generator|Vector3[]
 	 */
 	public static function inDirection(Vector3 $start, Vector3 $directionVector, float $maxDistance) : \Generator{
@@ -48,9 +44,6 @@ abstract class VoxelRayTrace{
 	 *
 	 * This is an implementation of the algorithm described in the link below.
 	 * @link http://www.cse.yorku.ca/~amana/research/grid.pdf
-	 *
-	 * @param Vector3 $start
-	 * @param Vector3 $end
 	 *
 	 * @return \Generator|Vector3[]
 	 */

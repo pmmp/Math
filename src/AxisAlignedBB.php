@@ -61,7 +61,6 @@ class AxisAlignedBB{
 	/**
 	 * Sets the bounding box's bounds from another AxisAlignedBB, and returns itself
 	 *
-	 * @param AxisAlignedBB $bb
 	 * @return $this
 	 */
 	public function setBB(AxisAlignedBB $bb){
@@ -72,12 +71,6 @@ class AxisAlignedBB{
 	 * Returns a new AxisAlignedBB extended by the specified X, Y and Z.
 	 * If each of X, Y and Z are positive, the relevant max bound will be increased. If negative, the relevant min
 	 * bound will be decreased.
-	 *
-	 * @param float $x
-	 * @param float $y
-	 * @param float $z
-	 *
-	 * @return AxisAlignedBB
 	 */
 	public function addCoord(float $x, float $y, float $z) : AxisAlignedBB{
 		$minX = $this->minX;
@@ -111,10 +104,6 @@ class AxisAlignedBB{
 	/**
 	 * Outsets the bounds of this AxisAlignedBB by the specified X, Y and Z.
 	 *
-	 * @param float $x
-	 * @param float $y
-	 * @param float $z
-	 *
 	 * @return $this
 	 */
 	public function expand(float $x, float $y, float $z){
@@ -130,12 +119,6 @@ class AxisAlignedBB{
 
 	/**
 	 * Returns an expanded clone of this AxisAlignedBB.
-	 *
-	 * @param float $x
-	 * @param float $y
-	 * @param float $z
-	 *
-	 * @return AxisAlignedBB
 	 */
 	public function expandedCopy(float $x, float $y, float $z) : AxisAlignedBB{
 		return (clone $this)->expand($x, $y, $z);
@@ -143,10 +126,6 @@ class AxisAlignedBB{
 
 	/**
 	 * Shifts this AxisAlignedBB by the given X, Y and Z.
-	 *
-	 * @param float $x
-	 * @param float $y
-	 * @param float $z
 	 *
 	 * @return $this
 	 */
@@ -163,12 +142,6 @@ class AxisAlignedBB{
 
 	/**
 	 * Returns an offset clone of this AxisAlignedBB.
-	 *
-	 * @param float $x
-	 * @param float $y
-	 * @param float $z
-	 *
-	 * @return AxisAlignedBB
 	 */
 	public function offsetCopy(float $x, float $y, float $z) : AxisAlignedBB{
 		return (clone $this)->offset($x, $y, $z);
@@ -176,10 +149,6 @@ class AxisAlignedBB{
 
 	/**
 	 * Insets the bounds of this AxisAlignedBB by the specified X, Y and Z.
-	 *
-	 * @param float $x
-	 * @param float $y
-	 * @param float $z
 	 *
 	 * @return $this
 	 */
@@ -196,12 +165,6 @@ class AxisAlignedBB{
 
 	/**
 	 * Returns a contracted clone of this AxisAlignedBB.
-	 *
-	 * @param float $x
-	 * @param float $y
-	 * @param float $z
-	 *
-	 * @return AxisAlignedBB
 	 */
 	public function contractedCopy(float $x, float $y, float $z) : AxisAlignedBB{
 		return (clone $this)->contract($x, $y, $z);
@@ -275,11 +238,6 @@ class AxisAlignedBB{
 
 	/**
 	 * Returns whether any part of the specified AABB is inside (intersects with) this one.
-	 *
-	 * @param AxisAlignedBB $bb
-	 * @param float         $epsilon
-	 *
-	 * @return bool
 	 */
 	public function intersectsWith(AxisAlignedBB $bb, float $epsilon = 0.00001) : bool{
 		if($bb->maxX - $this->minX > $epsilon and $this->maxX - $bb->minX > $epsilon){
@@ -293,9 +251,6 @@ class AxisAlignedBB{
 
 	/**
 	 * Returns whether the specified vector is within the bounds of this AABB on all axes.
-	 *
-	 * @param Vector3 $vector
-	 * @return bool
 	 */
 	public function isVectorInside(Vector3 $vector) : bool{
 		if($vector->x <= $this->minX or $vector->x >= $this->maxX){
@@ -310,7 +265,6 @@ class AxisAlignedBB{
 
 	/**
 	 * Returns the mean average of the AABB's X, Y and Z lengths.
-	 * @return float
 	 */
 	public function getAverageEdgeLength() : float{
 		return ($this->maxX - $this->minX + $this->maxY - $this->minY + $this->maxZ - $this->minZ) / 3;
@@ -318,9 +272,6 @@ class AxisAlignedBB{
 
 	/**
 	 * Returns whether the specified vector is within the Y and Z bounds of this AABB.
-	 *
-	 * @param Vector3 $vector
-	 * @return bool
 	 */
 	public function isVectorInYZ(Vector3 $vector) : bool{
 		return $vector->y >= $this->minY and $vector->y <= $this->maxY and $vector->z >= $this->minZ and $vector->z <= $this->maxZ;
@@ -328,9 +279,6 @@ class AxisAlignedBB{
 
 	/**
 	 * Returns whether the specified vector is within the X and Z bounds of this AABB.
-	 *
-	 * @param Vector3 $vector
-	 * @return bool
 	 */
 	public function isVectorInXZ(Vector3 $vector) : bool{
 		return $vector->x >= $this->minX and $vector->x <= $this->maxX and $vector->z >= $this->minZ and $vector->z <= $this->maxZ;
@@ -338,9 +286,6 @@ class AxisAlignedBB{
 
 	/**
 	 * Returns whether the specified vector is within the X and Y bounds of this AABB.
-	 *
-	 * @param Vector3 $vector
-	 * @return bool
 	 */
 	public function isVectorInXY(Vector3 $vector) : bool{
 		return $vector->x >= $this->minX and $vector->x <= $this->maxX and $vector->y >= $this->minY and $vector->y <= $this->maxY;
@@ -350,11 +295,6 @@ class AxisAlignedBB{
 	 * Performs a ray-trace and calculates the point on the AABB's edge nearest the start position that the ray-trace
 	 * collided with. Returns a RayTraceResult with colliding vector closest to the start position.
 	 * Returns null if no colliding point was found.
-	 *
-	 * @param Vector3 $pos1
-	 * @param Vector3 $pos2
-	 *
-	 * @return RayTraceResult|null
 	 */
 	public function calculateIntercept(Vector3 $pos1, Vector3 $pos2) : ?RayTraceResult{
 		$v1 = $pos1->getIntermediateWithXValue($pos2, $this->minX);
