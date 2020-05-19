@@ -180,7 +180,6 @@ class Matrix implements \ArrayAccess{
 		return $result;
 	}
 
-
 	/**
 	 * @param float $number
 	 *
@@ -235,7 +234,6 @@ class Matrix implements \ArrayAccess{
 		return $result;
 	}
 
-
 	/**
 	 * Computation of the determinant of 1x1, 2x2 and 3x3 matrices
 	 *
@@ -256,7 +254,6 @@ class Matrix implements \ArrayAccess{
 
 		return false;
 	}
-
 
 	public function __toString(){
 		$s = "";
