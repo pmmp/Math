@@ -39,7 +39,7 @@ abstract class VoxelRayTrace{
 	 * @return \Generator|Vector3[]
 	 */
 	public static function inDirection(Vector3 $start, Vector3 $directionVector, float $maxDistance) : \Generator{
-		return self::betweenPoints($start, $start->add($directionVector->multiply($maxDistance)));
+		return self::betweenPoints($start, $start->addVector($directionVector->multiply($maxDistance)));
 	}
 
 	/**
@@ -57,7 +57,7 @@ abstract class VoxelRayTrace{
 	public static function betweenPoints(Vector3 $start, Vector3 $end) : \Generator{
 		$currentBlock = $start->floor();
 
-		$directionVector = $end->subtract($start)->normalize();
+		$directionVector = $end->subtractVector($start)->normalize();
 		if($directionVector->lengthSquared() <= 0){
 			throw new \InvalidArgumentException("Start and end points are the same, giving a zero direction vector");
 		}

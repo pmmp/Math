@@ -91,34 +91,20 @@ class Vector3{
 		return (int) floor($this->z);
 	}
 
-	/**
-	 * @param Vector3|float $x
-	 * @param float         $y
-	 * @param float         $z
-	 *
-	 * @return Vector3
-	 */
-	public function add($x, $y = 0, $z = 0) : Vector3{
-		if($x instanceof Vector3){
-			return new Vector3($this->x + $x->x, $this->y + $x->y, $this->z + $x->z);
-		}else{
-			return new Vector3($this->x + $x, $this->y + $y, $this->z + $z);
-		}
+	public function add(float $x, float $y, float $z) : Vector3{
+		return new Vector3($this->x + $x, $this->y + $y, $this->z + $z);
 	}
 
-	/**
-	 * @param Vector3|float $x
-	 * @param float         $y
-	 * @param float         $z
-	 *
-	 * @return Vector3
-	 */
-	public function subtract($x, $y = 0, $z = 0) : Vector3{
-		if($x instanceof Vector3){
-			return $this->add(-$x->x, -$x->y, -$x->z);
-		}else{
-			return $this->add(-$x, -$y, -$z);
-		}
+	public function addVector(Vector3 $v) : Vector3{
+		return $this->add($v->x, $v->y, $v->z);
+	}
+
+	public function subtract(float $x, float $y, float $z) : Vector3{
+		return $this->add(-$x, -$y, -$z);
+	}
+
+	public function subtractVector(Vector3 $v) : Vector3{
+		return $this->add(-$v->x, -$v->y, -$v->z);
 	}
 
 	public function multiply(float $number) : Vector3{
