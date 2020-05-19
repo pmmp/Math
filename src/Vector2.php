@@ -58,9 +58,6 @@ class Vector2{
 
 	/**
 	 * @param Vector2|float $x
-	 * @param float         $y
-	 *
-	 * @return Vector2
 	 */
 	public function add($x, float $y = 0) : Vector2{
 		if($x instanceof Vector2){
@@ -72,9 +69,6 @@ class Vector2{
 
 	/**
 	 * @param Vector2|float $x
-	 * @param float         $y
-	 *
-	 * @return Vector2
 	 */
 	public function subtract($x, float $y = 0) : Vector2{
 		if($x instanceof Vector2){
@@ -110,9 +104,6 @@ class Vector2{
 
 	/**
 	 * @param Vector2|float $x
-	 * @param float         $y
-	 *
-	 * @return float
 	 */
 	public function distance($x, float $y = 0) : float{
 		if($x instanceof Vector2){
@@ -124,9 +115,6 @@ class Vector2{
 
 	/**
 	 * @param Vector2|float $x
-	 * @param float         $y
-	 *
-	 * @return float
 	 */
 	public function distanceSquared($x, float $y = 0) : float{
 		if($x instanceof Vector2){
