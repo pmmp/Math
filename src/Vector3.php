@@ -91,7 +91,18 @@ class Vector3{
 		return (int) floor($this->z);
 	}
 
-	public function add(float $x, float $y, float $z) : Vector3{
+	/**
+	 * WARNING: THIS IS NOT TYPE SAFE!
+	 * This is intentionally not typehinted because things using this as an int-vector will crash and burn if everything
+	 * gets converted to floating-point numbers.
+	 *
+	 * TODO: typehint this once int-vectors and float-vectors are separated
+	 *
+	 * @param int|float $x
+	 * @param int|float $y
+	 * @param int|float $z
+	 */
+	public function add($x, $y, $z) : Vector3{
 		return new Vector3($this->x + $x, $this->y + $y, $this->z + $z);
 	}
 
@@ -99,7 +110,18 @@ class Vector3{
 		return $this->add($v->x, $v->y, $v->z);
 	}
 
-	public function subtract(float $x, float $y, float $z) : Vector3{
+	/**
+	 * WARNING: THIS IS NOT TYPE SAFE!
+	 * This is intentionally not typehinted because things using this as an int-vector will crash and burn if everything
+	 * gets converted to floating-point numbers.
+	 *
+	 * TODO: typehint this once int-vectors and float-vectors are separated
+	 *
+	 * @param int|float $x
+	 * @param int|float $y
+	 * @param int|float $z
+	 */
+	public function subtract($x, $y, $z) : Vector3{
 		return $this->add(-$x, -$y, -$z);
 	}
 
