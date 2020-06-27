@@ -422,4 +422,14 @@ class Vector3{
 		}
 		return new Vector3(min($xList), min($yList), min($zList));
 	}
+
+	public static function sum(Vector3 ...$vector3s) : Vector3{
+		$x = $y = $z = 0;
+		foreach($vector3s as $vector3){
+			$x += $vector3->x;
+			$y += $vector3->y;
+			$z += $vector3->z;
+		}
+		return new Vector3($x, $y, $z);
+	}
 }
