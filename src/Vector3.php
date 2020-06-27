@@ -375,20 +375,6 @@ class Vector3{
 		}
 	}
 
-	/**
-	 * @param float $x
-	 * @param float $y
-	 * @param float $z
-	 *
-	 * @return $this
-	 */
-	public function setComponents($x, $y, $z){
-		$this->x = $x;
-		$this->y = $y;
-		$this->z = $z;
-		return $this;
-	}
-
 	public function __toString(){
 		return "Vector3(x=" . $this->x . ",y=" . $this->y . ",z=" . $this->z . ")";
 	}
