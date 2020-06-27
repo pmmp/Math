@@ -102,4 +102,31 @@ class Vector3Test extends TestCase{
 	public function testMaxComponents(Vector3 $vec1, Vector3 $vec2, Vector3 $vec3, Vector3 $expected) : void{
 		self::assertEquals(Vector3::maxComponents($vec1, $vec2, $vec3), $expected);
 	}
+
+	/**
+	 * @return \Generator|Vector3[][][]
+	 * @phpstan-return \Generator<int, list<list<Vector3>>, void, void>
+	 */
+	public function sumProvider() : \Generator{
+		yield [[
+			new Vector3(1, 1, 1),
+			new Vector3(-1, -1, -1)
+		]];
+	}
+
+	/**
+	 * @dataProvider sumProvider
+	 *
+	 * @param Vector3[] $vectors
+	 */
+	public function testSum(array $vectors) : void{
+		$vec = new Vector3(0, 0, 0);
+		foreach($vectors as $vector){
+			$vec = $vec->addVector($vector);
+		}
+		$vec2 = Vector3::sum(...$vectors);
+		self::assertLessThan(0.000001, abs($vec->x - $vec2->x));
+		self::assertLessThan(0.000001, abs($vec->y - $vec2->y));
+		self::assertLessThan(0.000001, abs($vec->z - $vec2->z));
+	}
 }
