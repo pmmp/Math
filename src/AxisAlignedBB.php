@@ -378,6 +378,12 @@ class AxisAlignedBB{
 		return ($this->maxX - $this->minX + $this->maxY - $this->minY + $this->maxZ - $this->minZ) / 3;
 	}
 
+	public function getXLength() : float{ return $this->maxX - $this->minX; }
+
+	public function getYLength() : float{ return $this->maxY - $this->minY; }
+
+	public function getZLength() : float{ return $this->maxZ - $this->minZ; }
+
 	/**
 	 * Returns the interior volume of the AABB.
 	 */
