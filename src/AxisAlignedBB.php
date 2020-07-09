@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace pocketmine\math;
 
+use function abs;
 use const PHP_INT_MAX;
 
 class AxisAlignedBB{
@@ -383,6 +384,11 @@ class AxisAlignedBB{
 	public function getYLength() : float{ return $this->maxY - $this->minY; }
 
 	public function getZLength() : float{ return $this->maxZ - $this->minZ; }
+
+	public function isCube(float $epsilon = 0.000001) : bool{
+		[$xLen, $yLen, $zLen] = [$this->getXLength(), $this->getYLength(), $this->getZLength()];
+		return abs($xLen - $yLen) < $epsilon && abs($yLen - $zLen) < $epsilon;
+	}
 
 	/**
 	 * Returns the interior volume of the AABB.
