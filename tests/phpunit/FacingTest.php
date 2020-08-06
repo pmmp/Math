@@ -26,12 +26,12 @@ use PHPUnit\Framework\TestCase;
 class FacingTest extends TestCase{
 
 	public function axisProvider() : \Generator{
-		yield [Facing::DOWN, Facing::AXIS_Y];
-		yield [Facing::UP, Facing::AXIS_Y];
-		yield [Facing::NORTH, Facing::AXIS_Z];
-		yield [Facing::SOUTH, Facing::AXIS_Z];
-		yield [Facing::WEST, Facing::AXIS_X];
-		yield [Facing::EAST, Facing::AXIS_X];
+		yield [Facing::DOWN, Axis::Y];
+		yield [Facing::UP, Axis::Y];
+		yield [Facing::NORTH, Axis::Z];
+		yield [Facing::SOUTH, Axis::Z];
+		yield [Facing::WEST, Axis::X];
+		yield [Facing::EAST, Axis::X];
 	}
 
 	/**
@@ -81,37 +81,37 @@ class FacingTest extends TestCase{
 	}
 
 	public function rotateProvider() : \Generator{
-		yield [Facing::NORTH, Facing::AXIS_Y, true, Facing::EAST];
-		yield [Facing::EAST, Facing::AXIS_Y, true, Facing::SOUTH];
-		yield [Facing::SOUTH, Facing::AXIS_Y, true, Facing::WEST];
-		yield [Facing::WEST, Facing::AXIS_Y, true, Facing::NORTH];
+		yield [Facing::NORTH, Axis::Y, true, Facing::EAST];
+		yield [Facing::EAST, Axis::Y, true, Facing::SOUTH];
+		yield [Facing::SOUTH, Axis::Y, true, Facing::WEST];
+		yield [Facing::WEST, Axis::Y, true, Facing::NORTH];
 
-		yield [Facing::NORTH, Facing::AXIS_Y, false, Facing::WEST];
-		yield [Facing::WEST, Facing::AXIS_Y, false, Facing::SOUTH];
-		yield [Facing::SOUTH, Facing::AXIS_Y, false, Facing::EAST];
-		yield [Facing::EAST, Facing::AXIS_Y, false, Facing::NORTH];
-
-
-		yield [Facing::UP, Facing::AXIS_Z, true, Facing::EAST];
-		yield [Facing::EAST, Facing::AXIS_Z, true, Facing::DOWN];
-		yield [Facing::DOWN, Facing::AXIS_Z, true, Facing::WEST];
-		yield [Facing::WEST, Facing::AXIS_Z, true, Facing::UP];
-
-		yield [Facing::UP, Facing::AXIS_Z, false, Facing::WEST];
-		yield [Facing::WEST, Facing::AXIS_Z, false, Facing::DOWN];
-		yield [Facing::DOWN, Facing::AXIS_Z, false, Facing::EAST];
-		yield [Facing::EAST, Facing::AXIS_Z, false, Facing::UP];
+		yield [Facing::NORTH, Axis::Y, false, Facing::WEST];
+		yield [Facing::WEST, Axis::Y, false, Facing::SOUTH];
+		yield [Facing::SOUTH, Axis::Y, false, Facing::EAST];
+		yield [Facing::EAST, Axis::Y, false, Facing::NORTH];
 
 
-		yield [Facing::UP, Facing::AXIS_X, true, Facing::NORTH];
-		yield [Facing::NORTH, Facing::AXIS_X, true, Facing::DOWN];
-		yield [Facing::DOWN, Facing::AXIS_X, true, Facing::SOUTH];
-		yield [Facing::SOUTH, Facing::AXIS_X, true, Facing::UP];
+		yield [Facing::UP, Axis::Z, true, Facing::EAST];
+		yield [Facing::EAST, Axis::Z, true, Facing::DOWN];
+		yield [Facing::DOWN, Axis::Z, true, Facing::WEST];
+		yield [Facing::WEST, Axis::Z, true, Facing::UP];
 
-		yield [Facing::UP, Facing::AXIS_X, false, Facing::SOUTH];
-		yield [Facing::SOUTH, Facing::AXIS_X, false, Facing::DOWN];
-		yield [Facing::DOWN, Facing::AXIS_X, false, Facing::NORTH];
-		yield [Facing::NORTH, Facing::AXIS_X, false, Facing::UP];
+		yield [Facing::UP, Axis::Z, false, Facing::WEST];
+		yield [Facing::WEST, Axis::Z, false, Facing::DOWN];
+		yield [Facing::DOWN, Axis::Z, false, Facing::EAST];
+		yield [Facing::EAST, Axis::Z, false, Facing::UP];
+
+
+		yield [Facing::UP, Axis::X, true, Facing::NORTH];
+		yield [Facing::NORTH, Axis::X, true, Facing::DOWN];
+		yield [Facing::DOWN, Axis::X, true, Facing::SOUTH];
+		yield [Facing::SOUTH, Axis::X, true, Facing::UP];
+
+		yield [Facing::UP, Axis::X, false, Facing::SOUTH];
+		yield [Facing::SOUTH, Axis::X, false, Facing::DOWN];
+		yield [Facing::DOWN, Axis::X, false, Facing::NORTH];
+		yield [Facing::NORTH, Axis::X, false, Facing::UP];
 	}
 
 	/**

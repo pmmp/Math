@@ -233,13 +233,13 @@ class AxisAlignedBB{
 	 * @throws \InvalidArgumentException
 	 */
 	public function stretch(int $axis, float $distance) : AxisAlignedBB{
-		if($axis === Facing::AXIS_Y){
+		if($axis === Axis::Y){
 			$this->minY -= $distance;
 			$this->maxY += $distance;
-		}elseif($axis === Facing::AXIS_Z){
+		}elseif($axis === Axis::Z){
 			$this->minZ -= $distance;
 			$this->maxZ += $distance;
-		}elseif($axis === Facing::AXIS_X){
+		}elseif($axis === Axis::X){
 			$this->minX -= $distance;
 			$this->maxX += $distance;
 		}else{

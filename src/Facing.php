@@ -27,19 +27,15 @@ use function in_array;
 
 class Facing{
 
-	public const AXIS_Y = 0;
-	public const AXIS_Z = 1;
-	public const AXIS_X = 2;
-
 	public const FLAG_AXIS_POSITIVE = 1;
 
 	/* most significant 2 bits = axis, least significant bit = is positive direction */
-	public const DOWN =   self::AXIS_Y << 1;
-	public const UP =    (self::AXIS_Y << 1) | self::FLAG_AXIS_POSITIVE;
-	public const NORTH =  self::AXIS_Z << 1;
-	public const SOUTH = (self::AXIS_Z << 1) | self::FLAG_AXIS_POSITIVE;
-	public const WEST =   self::AXIS_X << 1;
-	public const EAST =  (self::AXIS_X << 1) | self::FLAG_AXIS_POSITIVE;
+	public const DOWN =   Axis::Y << 1;
+	public const UP =    (Axis::Y << 1) | self::FLAG_AXIS_POSITIVE;
+	public const NORTH =  Axis::Z << 1;
+	public const SOUTH = (Axis::Z << 1) | self::FLAG_AXIS_POSITIVE;
+	public const WEST =   Axis::X << 1;
+	public const EAST =  (Axis::X << 1) | self::FLAG_AXIS_POSITIVE;
 
 	public const ALL = [
 		self::DOWN,
@@ -58,19 +54,19 @@ class Facing{
 	];
 
 	private const CLOCKWISE = [
-		self::AXIS_Y => [
+		Axis::Y => [
 			self::NORTH => self::EAST,
 			self::EAST => self::SOUTH,
 			self::SOUTH => self::WEST,
 			self::WEST => self::NORTH
 		],
-		self::AXIS_Z => [
+		Axis::Z => [
 			self::UP => self::EAST,
 			self::EAST => self::DOWN,
 			self::DOWN => self::WEST,
 			self::WEST => self::UP
 		],
-		self::AXIS_X => [
+		Axis::X => [
 			self::UP => self::NORTH,
 			self::NORTH => self::DOWN,
 			self::DOWN => self::SOUTH,
@@ -122,21 +118,21 @@ class Facing{
 	 * @throws \InvalidArgumentException
 	 */
 	public static function rotateY(int $direction, bool $clockwise) : int{
-		return self::rotate($direction, self::AXIS_Y, $clockwise);
+		return self::rotate($direction, Axis::Y, $clockwise);
 	}
 
 	/**
 	 * @throws \InvalidArgumentException
 	 */
 	public static function rotateZ(int $direction, bool $clockwise) : int{
-		return self::rotate($direction, self::AXIS_Z, $clockwise);
+		return self::rotate($direction, Axis::Z, $clockwise);
 	}
 
 	/**
 	 * @throws \InvalidArgumentException
 	 */
 	public static function rotateX(int $direction, bool $clockwise) : int{
-		return self::rotate($direction, self::AXIS_X, $clockwise);
+		return self::rotate($direction, Axis::X, $clockwise);
 	}
 
 	/**
