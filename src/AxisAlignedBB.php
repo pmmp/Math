@@ -226,7 +226,7 @@ class AxisAlignedBB{
 	/**
 	 * Increases the dimension of the AABB along the given axis.
 	 *
-	 * @param int   $axis one of the Facing::AXIS_* constants
+	 * @param int   $axis one of the Axis::* constants
 	 * @param float $distance Negative values reduce width, positive values increase width.
 	 *
 	 * @return $this
