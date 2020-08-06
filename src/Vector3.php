@@ -225,6 +225,7 @@ class Vector3{
 	 * @param int $step Distance in each direction to shift the vector
 	 *
 	 * @return \Generator|Vector3[]
+	 * @phpstan-return \Generator<int, Vector3, void, void>
 	 */
 	public function sides(int $step = 1) : \Generator{
 		foreach(Facing::ALL as $facing){
@@ -247,6 +248,7 @@ class Vector3{
 	 * @param int $axis Facing directions on this axis will be excluded
 	 *
 	 * @return \Generator|Vector3[]
+	 * @phpstan-return \Generator<int, Vector3, void, void>
 	 */
 	public function sidesAroundAxis(int $axis, int $step = 1) : \Generator{
 		foreach(Facing::ALL as $facing){
