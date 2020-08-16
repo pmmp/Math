@@ -103,7 +103,7 @@ class Vector3{
 	 * @param int|float $z
 	 */
 	public function add($x, $y, $z) : Vector3{
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 		$uniq->x += $x;
 		$uniq->y += $y;
 		$uniq->z += $z;
@@ -111,7 +111,7 @@ class Vector3{
 	}
 
 	public function addVector(Vector3 $v) : Vector3{
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 		$uniq->x += $v->x;
 		$uniq->y += $v->y;
 		$uniq->z += $v->z;
@@ -130,7 +130,7 @@ class Vector3{
 	 * @param int|float $z
 	 */
 	public function subtract($x, $y, $z) : Vector3{
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 		$uniq->x -= $x;
 		$uniq->y -= $y;
 		$uniq->z -= $z;
@@ -138,7 +138,7 @@ class Vector3{
 	}
 
 	public function subtractVector(Vector3 $v) : Vector3{
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 		$uniq->x -= $v->x;
 		$uniq->y -= $v->y;
 		$uniq->z -= $v->z;
@@ -146,7 +146,7 @@ class Vector3{
 	}
 
 	public function multiply(float $number) : Vector3{
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 		$uniq->x *= $x;
 		$uniq->y *= $y;
 		$uniq->z *= $z;
@@ -154,7 +154,7 @@ class Vector3{
 	}
 
 	public function divide(float $number) : Vector3{
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 		$uniq->x /= $x;
 		$uniq->y /= $y;
 		$uniq->z /= $z;
@@ -162,7 +162,7 @@ class Vector3{
 	}
 
 	public function ceil() : Vector3{
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 		$uniq->x = (int) ceil($uniq->x);
 		$uniq->y = (int) ceil($uniq->y);
 		$uniq->z = (int) ceil($uniq->z);
@@ -170,7 +170,7 @@ class Vector3{
 	}
 
 	public function floor() : Vector3{
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 		$uniq->x = (int) floor($uniq->x);
 		$uniq->y = (int) floor($uniq->y);
 		$uniq->z = (int) floor($uniq->z);
@@ -178,7 +178,7 @@ class Vector3{
 	}
 
 	public function round(int $precision = 0, int $mode = PHP_ROUND_HALF_UP) : Vector3{
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 		$uniq->x = round($uniq->x, $precision, $mode);
 		$uniq->y = round($uniq->y, $precision, $mode);
 		$uniq->z = round($uniq->z, $precision, $mode);
@@ -191,7 +191,7 @@ class Vector3{
 	}
 
 	public function abs() : Vector3{
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 		$uniq->x = abs($uniq->x);
 		$uniq->y = abs($uniq->y);
 		$uniq->z = abs($uniq->z);
@@ -202,7 +202,7 @@ class Vector3{
 	 * @return Vector3
 	 */
 	public function getSide(int $side, int $step = 1){
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 		switch($side){
 			case Facing::DOWN:
 				$uniq->y -= $step;
@@ -230,7 +230,7 @@ class Vector3{
 	 * @return Vector3
 	 */
 	public function down(int $step = 1){
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 		$uniq->y -= $step;
 		return $uniq;
 	}
@@ -239,7 +239,7 @@ class Vector3{
 	 * @return Vector3
 	 */
 	public function up(int $step = 1){
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 		$uniq->y += $step;
 		return $uniq;
 	}
@@ -248,7 +248,7 @@ class Vector3{
 	 * @return Vector3
 	 */
 	public function north(int $step = 1){
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 		$uniq->z -= $step;
 		return $uniq;
 	}
@@ -257,7 +257,7 @@ class Vector3{
 	 * @return Vector3
 	 */
 	public function south(int $step = 1){
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 		$uniq->z += $step;
 		return $uniq;
 	}
@@ -266,7 +266,7 @@ class Vector3{
 	 * @return Vector3
 	 */
 	public function west(int $step = 1){
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 		$uniq->x -= $step;
 		return $uniq;
 	}
@@ -275,7 +275,7 @@ class Vector3{
 	 * @return Vector3
 	 */
 	public function east(int $step = 1){
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 		$uniq->x += $step;
 		return $uniq;
 	}
@@ -357,7 +357,7 @@ class Vector3{
 	}
 
 	public function normalize() : Vector3{
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 		$len2 = $uniq->lengthSquared();
 		if($len2 === 0.0) { // return type hint of `lengthSquared` guarantees $len2 is float
 			$uniq->x = 0;
@@ -377,7 +377,7 @@ class Vector3{
 	}
 
 	public function cross(Vector3 $v) : Vector3{
-		$uniq = thisuniq();
+		$uniq = thisrc() === 1 ? $this : clone $this;
 
 		// clone properties first, may be overwritten
 		$x = $uniq->x;
@@ -409,7 +409,7 @@ class Vector3{
 		if($f < 0 or $f > 1){
 			return null;
 		}else{
-			$uniq = thisuniq();
+			$uniq = thisrc() === 1 ? $this : clone $this;
 			$uniq->x = $x;
 			$uniq->y += ($v->y - $uniq->y) * $f;
 			$uniq->z += ($v->z - $uniq->z) * $f;
@@ -432,7 +432,7 @@ class Vector3{
 		if($f < 0 or $f > 1){
 			return null;
 		}else{
-			$uniq = thisuniq();
+			$uniq = thisrc() === 1 ? $this : clone $this;
 			$uniq->x += ($v->x - $uniq->x) * $f;
 			$uniq->y = $y;
 			$uniq->z += ($v->z - $uniq->z) * $f;
@@ -455,7 +455,7 @@ class Vector3{
 		if($f < 0 or $f > 1){
 			return null;
 		}else{
-			$uniq = thisuniq();
+			$uniq = thisrc() === 1 ? $this : clone $this;
 			$uniq->x += ($v->x - $uniq->x) * $f;
 			$uniq->y += ($v->y - $uniq->y) * $f;
 			$uniq->z = $z;
