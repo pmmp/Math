@@ -384,13 +384,13 @@ class Vector3{
 	/**
 	 * Returns a new Vector3 taking the maximum of each component in the input vectors.
 	 *
-	 * @param Vector3 ...$positions
+	 * @param Vector3 ...$vectors
 	 */
-	public static function maxComponents(Vector3 $vector, Vector3 ...$positions) : Vector3{
+	public static function maxComponents(Vector3 $vector, Vector3 ...$vectors) : Vector3{
 		$x = $vector->x;
 		$y = $vector->y;
 		$z = $vector->z;
-		foreach($positions as $position){
+		foreach($vectors as $position){
 			$x = max($x, $position->x);
 			$y = max($y, $position->y);
 			$z = max($z, $position->z);
@@ -401,13 +401,13 @@ class Vector3{
 	/**
 	 * Returns a new Vector3 taking the minimum of each component in the input vectors.
 	 *
-	 * @param Vector3 ...$positions
+	 * @param Vector3 ...$vectors
 	 */
-	public static function minComponents(Vector3 $vector, Vector3 ...$positions) : Vector3{
+	public static function minComponents(Vector3 $vector, Vector3 ...$vectors) : Vector3{
 		$x = $vector->x;
 		$y = $vector->y;
 		$z = $vector->z;
-		foreach($positions as $position){
+		foreach($vectors as $position){
 			$x = min($x, $position->x);
 			$y = min($y, $position->y);
 			$z = min($z, $position->z);
