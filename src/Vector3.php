@@ -386,14 +386,16 @@ class Vector3{
 	 *
 	 * @param Vector3 ...$positions
 	 */
-	public static function maxComponents(Vector3 ...$positions) : Vector3{
-		$xList = $yList = $zList = [];
+	public static function maxComponents(Vector3 $vector, Vector3 ...$positions) : Vector3{
+		$x = $vector->x;
+		$y = $vector->y;
+		$z = $vector->z;
 		foreach($positions as $position){
-			$xList[] = $position->x;
-			$yList[] = $position->y;
-			$zList[] = $position->z;
+			$x = max($x, $position->x);
+			$y = max($y, $position->y);
+			$z = max($z, $position->z);
 		}
-		return new Vector3(max($xList), max($yList), max($zList));
+		return new Vector3($x, $y, $z);
 	}
 
 	/**
@@ -401,14 +403,16 @@ class Vector3{
 	 *
 	 * @param Vector3 ...$positions
 	 */
-	public static function minComponents(Vector3 ...$positions) : Vector3{
-		$xList = $yList = $zList = [];
+	public static function minComponents(Vector3 $vector, Vector3 ...$positions) : Vector3{
+		$x = $vector->x;
+		$y = $vector->y;
+		$z = $vector->z;
 		foreach($positions as $position){
-			$xList[] = $position->x;
-			$yList[] = $position->y;
-			$zList[] = $position->z;
+			$x = min($x, $position->x);
+			$y = min($y, $position->y);
+			$z = min($z, $position->z);
 		}
-		return new Vector3(min($xList), min($yList), min($zList));
+		return new Vector3($x, $y, $z);
 	}
 
 	public static function sum(Vector3 ...$vector3s) : Vector3{
