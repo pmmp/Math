@@ -420,4 +420,19 @@ class Vector3{
 		}
 		return new Vector3($x, $y, $z);
 	}
+
+        public function setX($x) : Vector3{
+          $this->x = $x;
+          return $this;
+        }
+
+        public function setY($y) : Vector3{
+          $this->y = $y;
+          return $this;
+        }
+
+        public function setZ($z) : Vector3{
+          $this->z = $z;
+          return $this;
+        }
 }
