@@ -253,10 +253,10 @@ class AxisAlignedBB{
 	 * Returns whether the specified vector is within the bounds of this AABB on all axes.
 	 */
 	public function isVectorInside(Vector3 $vector) : bool{
-		if($vector->x <= $this->minX or $vector->x >= $this->maxX){
+		if($vector->x < $this->minX or $vector->x > $this->maxX){
 			return false;
 		}
-		if($vector->y <= $this->minY or $vector->y >= $this->maxY){
+		if($vector->y < $this->minY or $vector->y > $this->maxY){
 			return false;
 		}
 
