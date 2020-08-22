@@ -140,7 +140,9 @@ class Matrix implements \ArrayAccess{
 		$result = new Matrix($this->rows, $this->columns);
 		for($r = 0; $r < $this->rows; ++$r){
 			for($c = 0; $c < $this->columns; ++$c){
-				$result->setElement($r, $c, $this->matrix[$r][$c] + $matrix->getElement($r, $c));
+				$element = $matrix->getElement($r, $c);
+				assert($element !== false, "Element should never be false when height and width are the same");
+				$result->setElement($r, $c, $this->matrix[$r][$c] + $element);
 			}
 		}
 
@@ -157,7 +159,9 @@ class Matrix implements \ArrayAccess{
 		$result = clone $this;
 		for($r = 0; $r < $this->rows; ++$r){
 			for($c = 0; $c < $this->columns; ++$c){
-				$result->setElement($r, $c, $this->matrix[$r][$c] - $matrix->getElement($r, $c));
+				$element = $matrix->getElement($r, $c);
+				assert($element !== false, "Element should never be false when height and width are the same");
+				$result->setElement($r, $c, $this->matrix[$r][$c] - $element);
 			}
 		}
 
@@ -225,7 +229,9 @@ class Matrix implements \ArrayAccess{
 			for($j = 0; $j < $c; ++$j){
 				$sum = 0;
 				for($k = 0; $k < $this->columns; ++$k){
-					$sum += $this->matrix[$i][$k] * $matrix->getElement($k, $j);
+					$element = $matrix->getElement($k, $j);
+					assert($element !== false, "Element should definitely exist here");
+					$sum += $this->matrix[$i][$k] * $element;
 				}
 				$result->setElement($i, $j, $sum);
 			}
