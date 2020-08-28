@@ -1,4 +1,11 @@
 parameters:
 	level: 8
+	treatPhpDocTypesAsCertain: false
 	paths:
 		- src
+	ignoreErrors:
+		-
+			#bug with treatPhpDocTypesAsCertain + strict-rules
+			message: "#^Casting to int something that's already int\\.$#"
+			count: 1
+			path: src/Matrix.php
