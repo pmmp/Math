@@ -382,6 +382,22 @@ class Vector3{
 	}
 
 	/**
+	 * Returns a Vector3 with the provided components. If any of the components are null, the values from this
+	 * Vector3 will be filled in instead.
+	 * If no components are overridden (all components are null), the original vector will be returned unchanged.
+	 *
+	 * @param float|int|null $x
+	 * @param float|int|null $y
+	 * @param float|int|null $z
+	 */
+	public function withComponents($x, $y, $z) : Vector3{
+		if($x !== null || $y !== null || $z !== null){
+			return new self($x ?? $this->x, $y ?? $this->y, $z ?? $this->z);
+		}
+		return $this;
+	}
+
+	/**
 	 * Returns a new Vector3 taking the maximum of each component in the input vectors.
 	 *
 	 * @param Vector3 ...$vectors

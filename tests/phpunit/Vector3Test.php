@@ -129,4 +129,27 @@ class Vector3Test extends TestCase{
 		self::assertLessThan(0.000001, abs($vec->y - $vec2->y));
 		self::assertLessThan(0.000001, abs($vec->z - $vec2->z));
 	}
+
+	/**
+	 * @phpstan-return \Generator<int, array{Vector3, float|int|null, float|int|null, float|int|null, Vector3}, void, void>
+	 */
+	public function withComponentsProvider() : \Generator{
+		yield [new Vector3(0, 0, 0), 1, 1, 1, new Vector3(1, 1, 1)];
+		yield [new Vector3(0, 0, 0), null, 1, 1, new Vector3(0, 1, 1)];
+		yield [new Vector3(0, 0, 0), 1, null, 1, new Vector3(1, 0, 1)];
+		yield [new Vector3(0, 0, 0), 1, 1, null, new Vector3(1, 1, 0)];
+		yield [new Vector3(0, 0, 0), null, null, null, new Vector3(0, 0, 0)];
+	}
+
+	/**
+	 * @dataProvider withComponentsProvider
+	 *
+	 * @param float|int|null $x
+	 * @param float|int|null $y
+	 * @param float|int|null $z
+	 */
+	public function testWithComponents(Vector3 $original, $x, $y, $z, Vector3 $expected) : void{
+		$actual = $original->withComponents($x, $y, $z);
+		self::assertTrue($actual->equals($expected));
+	}
 }
