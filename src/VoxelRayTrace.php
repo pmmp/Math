@@ -82,19 +82,19 @@ abstract class VoxelRayTrace{
 				if($tMaxX > $radius){
 					break;
 				}
-				$currentBlock->x += $stepX;
+				$currentBlock = $currentBlock->add($stepX, 0, 0);
 				$tMaxX += $tDeltaX;
 			}elseif($tMaxY < $tMaxZ){
 				if($tMaxY > $radius){
 					break;
 				}
-				$currentBlock->y += $stepY;
+				$currentBlock = $currentBlock->add(0, $stepY, 0);
 				$tMaxY += $tDeltaY;
 			}else{
 				if($tMaxZ > $radius){
 					break;
 				}
-				$currentBlock->z += $stepZ;
+				$currentBlock = $currentBlock->add(0, 0, $stepZ);
 				$tMaxZ += $tDeltaZ;
 			}
 		}
