@@ -33,6 +33,7 @@ abstract class VoxelRayTrace{
 	 * returns a Generator which yields Vector3s containing the coordinates of voxels it passes through.
 	 *
 	 * @return \Generator|Vector3[]
+	 * @phpstan-return \Generator<int, Vector3, void, void>
 	 */
 	public static function inDirection(Vector3 $start, Vector3 $directionVector, float $maxDistance) : \Generator{
 		return self::betweenPoints($start, $start->add($directionVector->multiply($maxDistance)));
@@ -46,6 +47,7 @@ abstract class VoxelRayTrace{
 	 * @link http://www.cse.yorku.ca/~amana/research/grid.pdf
 	 *
 	 * @return \Generator|Vector3[]
+	 * @phpstan-return \Generator<int, Vector3, void, void>
 	 */
 	public static function betweenPoints(Vector3 $start, Vector3 $end) : \Generator{
 		$currentBlock = $start->floor();
