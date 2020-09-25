@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace pocketmine\math;
 
+use function assert;
 use function implode;
 use function max;
 use function substr;
