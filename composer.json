@@ -4,11 +4,11 @@
     "type": "library",
     "license": "LGPL-3.0",
     "require": {
-        "php": ">=7.2.0",
+        "php": "^7.2 || ^8.0",
         "php-64bit": "*"
     },
     "require-dev": {
-        "phpstan/phpstan": "0.12.59",
+        "phpstan/phpstan": "0.12.67",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan-strict-rules": "^0.12.4",
         "irstea/phpunit-shim": "^8.5 || ^9.5"
