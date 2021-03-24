@@ -52,7 +52,7 @@ abstract class Math{
 	 * @return float[]
 	 */
 	public static function solveQuadratic(float $a, float $b, float $c) : array{
-		if($a === (float) 0){
+		if($a === 0.0){
 			throw new \InvalidArgumentException("Coefficient a cannot be 0!");
 		}
 		$discriminant = $b ** 2 - 4 * $a * $c;
