@@ -53,7 +53,7 @@ abstract class Math{
 	 */
 	public static function solveQuadratic(float $a, float $b, float $c) : array{
 		if((int) $a === 0){
-			throw new Exception("Coefficient a cannot be 0!");
+			throw new \Exception("Coefficient a cannot be 0!");
 		}
 		$discriminant = $b ** 2 - 4 * $a * $c;
 		if($discriminant > 0){ //2 real roots
