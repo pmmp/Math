@@ -147,7 +147,7 @@ class Facing{
 	}
 
 	/**
-	 * Returns a string representation of the given Facing direction.
+	 * Returns a human-readable string representation of the given Facing direction.
 	 */
 	public static function toString(int $facing) : string{
 		$result = [
