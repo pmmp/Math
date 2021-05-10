@@ -27,4 +27,19 @@ final class Axis{
 	public const Y = 0;
 	public const Z = 1;
 	public const X = 2;
+
+	/**
+	 * Returns a human-readable string representation of the given axis.
+	 */
+	public static function toString(int $axis) : string{
+		$result = [
+			Axis::Y => "y",
+			Axis::Z => "z",
+			Axis::X => "x"
+		][$axis] ?? null;
+		if($result === null){
+			throw new \InvalidArgumentException("Invalid axis $axis");
+		}
+		return $result;
+	}
 }
