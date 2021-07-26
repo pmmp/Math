@@ -106,11 +106,7 @@ class Vector2{
 	 * @param Vector2|float $x
 	 */
 	public function distance($x, float $y = 0) : float{
-		if($x instanceof Vector2){
-			return sqrt($this->distanceSquared($x->x, $x->y));
-		}else{
-			return sqrt($this->distanceSquared($x, $y));
-		}
+		return sqrt($this->distanceSquared($x, $y));
 	}
 
 	/**
