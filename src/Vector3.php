@@ -380,6 +380,10 @@ class Vector3{
 	public function __toString(){
 		return "Vector3(x=" . $this->x . ",y=" . $this->y . ",z=" . $this->z . ")";
 	}
+	
+	public function toVector2() : Vector2{
+		return new Vector2($this->x, $this->z);
+	}
 
 	/**
 	 * Returns a Vector3 with the provided components. If any of the components are null, the values from this
