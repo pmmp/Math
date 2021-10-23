@@ -34,48 +34,25 @@ use function sqrt;
 use const PHP_ROUND_HALF_UP;
 
 class Vector3{
-	/** @var float|int */
-	public $x;
-	/** @var float|int */
-	public $y;
-	/** @var float|int */
-	public $z;
+	public float|int $x;
+	public float|int $y;
+	public float|int $z;
 
-	/**
-	 * WARNING: THIS IS NOT TYPE SAFE!
-	 * This is intentionally not typehinted because things using this as an int-vector will crash and burn if everything
-	 * gets converted to floating-point numbers.
-	 *
-	 * TODO: typehint this once int-vectors and float-vectors are separated
-	 *
-	 * @param float|int $x
-	 * @param float|int $y
-	 * @param float|int $z
-	 */
-	public function __construct($x, $y, $z){
+	public function __construct(float|int $x, float|int $y, float|int $z){
 		$this->x = $x;
 		$this->y = $y;
 		$this->z = $z;
 	}
 
-	/**
-	 * @return float|int
-	 */
-	public function getX(){
+	public function getX() : float|int{
 		return $this->x;
 	}
 
-	/**
-	 * @return float|int
-	 */
-	public function getY(){
+	public function getY() : float|int{
 		return $this->y;
 	}
 
-	/**
-	 * @return float|int
-	 */
-	public function getZ(){
+	public function getZ() : float|int{
 		return $this->z;
 	}
 
@@ -91,18 +68,7 @@ class Vector3{
 		return (int) floor($this->z);
 	}
 
-	/**
-	 * WARNING: THIS IS NOT TYPE SAFE!
-	 * This is intentionally not typehinted because things using this as an int-vector will crash and burn if everything
-	 * gets converted to floating-point numbers.
-	 *
-	 * TODO: typehint this once int-vectors and float-vectors are separated
-	 *
-	 * @param int|float $x
-	 * @param int|float $y
-	 * @param int|float $z
-	 */
-	public function add($x, $y, $z) : Vector3{
+	public function add(float|int $x, float|int $y, float|int $z) : Vector3{
 		return new Vector3($this->x + $x, $this->y + $y, $this->z + $z);
 	}
 
@@ -110,18 +76,7 @@ class Vector3{
 		return $this->add($v->x, $v->y, $v->z);
 	}
 
-	/**
-	 * WARNING: THIS IS NOT TYPE SAFE!
-	 * This is intentionally not typehinted because things using this as an int-vector will crash and burn if everything
-	 * gets converted to floating-point numbers.
-	 *
-	 * TODO: typehint this once int-vectors and float-vectors are separated
-	 *
-	 * @param int|float $x
-	 * @param int|float $y
-	 * @param int|float $z
-	 */
-	public function subtract($x, $y, $z) : Vector3{
+	public function subtract(float|int $x, float|int $y, float|int $z) : Vector3{
 		return $this->add(-$x, -$y, -$z);
 	}
 
@@ -273,11 +228,7 @@ class Vector3{
 		return (($this->x - $pos->x) ** 2) + (($this->y - $pos->y) ** 2) + (($this->z - $pos->z) ** 2);
 	}
 
-	/**
-	 * @param Vector3|Vector2|float $x
-	 * @param float                 $z
-	 */
-	public function maxPlainDistance($x, $z = 0) : float{
+	public function maxPlainDistance(Vector3|Vector2|float $x, float $z = 0) : float{
 		if($x instanceof Vector3){
 			return $this->maxPlainDistance($x->x, $x->z);
 		}elseif($x instanceof Vector2){
@@ -385,12 +336,8 @@ class Vector3{
 	 * Returns a Vector3 with the provided components. If any of the components are null, the values from this
 	 * Vector3 will be filled in instead.
 	 * If no components are overridden (all components are null), the original vector will be returned unchanged.
-	 *
-	 * @param float|int|null $x
-	 * @param float|int|null $y
-	 * @param float|int|null $z
 	 */
-	public function withComponents($x, $y, $z) : Vector3{
+	public function withComponents(float|int|null $x, float|int|null $y, float|int|null $z) : Vector3{
 		if($x !== null || $y !== null || $z !== null){
 			return new self($x ?? $this->x, $y ?? $this->y, $z ?? $this->z);
 		}
