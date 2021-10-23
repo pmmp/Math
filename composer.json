@@ -4,7 +4,7 @@
     "type": "library",
     "license": "LGPL-3.0",
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.0",
         "php-64bit": "*"
     },
     "require-dev": {
