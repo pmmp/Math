@@ -28,17 +28,11 @@ namespace pocketmine\math;
  */
 class RayTraceResult{
 
-	/**
-	 * @var AxisAlignedBB
-	 */
+	/** @var AxisAlignedBB */
 	public $bb;
-	/**
-	 * @var int
-	 */
+	/** @var int */
 	public $hitFace;
-	/**
-	 * @var Vector3
-	 */
+	/** @var Vector3 */
 	public $hitVector;
 
 	/**
