@@ -102,26 +102,12 @@ class Vector2{
 		return new Vector2($this->x / $number, $this->y / $number);
 	}
 
-	/**
-	 * @param Vector2|float $x
-	 */
-	public function distance($x, float $y = 0) : float{
-		if($x instanceof Vector2){
-			return sqrt($this->distanceSquared($x->x, $x->y));
-		}else{
-			return sqrt($this->distanceSquared($x, $y));
-		}
+	public function distance(Vector2 $pos) : float{
+		return sqrt($this->distanceSquared($pos));
 	}
 
-	/**
-	 * @param Vector2|float $x
-	 */
-	public function distanceSquared($x, float $y = 0) : float{
-		if($x instanceof Vector2){
-			return $this->distanceSquared($x->x, $x->y);
-		}else{
-			return (($this->x - $x) ** 2) + (($this->y - $y) ** 2);
-		}
+	public function distanceSquared(Vector2 $pos) : float{
+		return (($this->x - $pos->x) ** 2) + (($this->y - $pos->y) ** 2);
 	}
 
 	public function length() : float{
