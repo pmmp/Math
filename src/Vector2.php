@@ -35,7 +35,7 @@ class Vector2{
 	/** @var float */
 	public $y;
 
-	public function __construct(float $x = 0, float $y = 0){
+	public function __construct(float $x, float $y){
 		$this->x = $x;
 		$this->y = $y;
 	}
