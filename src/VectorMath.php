@@ -26,7 +26,10 @@ namespace pocketmine\math;
 use function cos;
 use function sin;
 
-abstract class VectorMath{
+final class VectorMath{
+	private function __construct(){
+		//NOOP
+	}
 
 	public static function getDirection2D(float $azimuth) : Vector2{
 		return new Vector2(cos($azimuth), sin($azimuth));

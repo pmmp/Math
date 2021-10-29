@@ -25,7 +25,10 @@ namespace pocketmine\math;
 
 use function in_array;
 
-class Facing{
+final class Facing{
+	private function __construct(){
+		//NOOP
+	}
 
 	public const FLAG_AXIS_POSITIVE = 1;
 

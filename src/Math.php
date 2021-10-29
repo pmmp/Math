@@ -28,7 +28,10 @@ namespace pocketmine\math;
 
 use function sqrt;
 
-abstract class Math{
+final class Math{
+	private function __construct(){
+		//NOOP
+	}
 
 	/**
 	 * @param float $n

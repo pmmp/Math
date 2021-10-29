@@ -26,7 +26,10 @@ namespace pocketmine\math;
 use function floor;
 use const INF;
 
-abstract class VoxelRayTrace{
+final class VoxelRayTrace{
+	private function __construct(){
+		//NOOP
+	}
 
 	/**
 	 * Performs a ray trace from the start position in the given direction, for a distance of $maxDistance. This

@@ -24,6 +24,10 @@ declare(strict_types=1);
 namespace pocketmine\math;
 
 final class Axis{
+	private function __construct(){
+		//NOOP
+	}
+
 	public const Y = 0;
 	public const Z = 1;
 	public const X = 2;
