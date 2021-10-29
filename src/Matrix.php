@@ -99,26 +99,24 @@ class Matrix implements \ArrayAccess{
 	 * @param int   $column
 	 * @param float $value
 	 *
-	 * @return bool
+	 * @return void
 	 */
 	public function setElement($row, $column, $value){
 		if($row > $this->rows or $row < 0 or $column > $this->columns or $column < 0){
-			return false;
+			throw new \InvalidArgumentException("Row or column out of bounds (have $this->rows rows $this->columns columns)");
 		}
 		$this->matrix[(int) $row][(int) $column] = $value;
-
-		return true;
 	}
 
 	/**
 	 * @param int $row
 	 * @param int $column
 	 *
-	 * @return float|false
+	 * @return float
 	 */
 	public function getElement($row, $column){
 		if($row > $this->rows or $row < 0 or $column > $this->columns or $column < 0){
-			return false;
+			throw new \InvalidArgumentException("Row or column out of bounds (have $this->rows rows $this->columns columns)");
 		}
 
 		return $this->matrix[(int) $row][(int) $column];
@@ -132,17 +130,16 @@ class Matrix implements \ArrayAccess{
 	}
 
 	/**
-	 * @return Matrix|false
+	 * @return Matrix
 	 */
 	public function add(Matrix $matrix){
 		if($this->rows !== $matrix->getRows() or $this->columns !== $matrix->getColumns()){
-			return false;
+			throw new \InvalidArgumentException("Matrix does not have the same number of rows and/or columns");
 		}
 		$result = new Matrix($this->rows, $this->columns);
 		for($r = 0; $r < $this->rows; ++$r){
 			for($c = 0; $c < $this->columns; ++$c){
 				$element = $matrix->getElement($r, $c);
-				assert($element !== false, "Element should never be false when height and width are the same");
 				$result->setElement($r, $c, $this->matrix[$r][$c] + $element);
 			}
 		}
@@ -151,17 +148,16 @@ class Matrix implements \ArrayAccess{
 	}
 
 	/**
-	 * @return Matrix|false
+	 * @return Matrix
 	 */
 	public function subtract(Matrix $matrix){
 		if($this->rows !== $matrix->getRows() or $this->columns !== $matrix->getColumns()){
-			return false;
+			throw new \InvalidArgumentException("Matrix does not have the same number of rows and/or columns");
 		}
 		$result = clone $this;
 		for($r = 0; $r < $this->rows; ++$r){
 			for($c = 0; $c < $this->columns; ++$c){
 				$element = $matrix->getElement($r, $c);
-				assert($element !== false, "Element should never be false when height and width are the same");
 				$result->setElement($r, $c, $this->matrix[$r][$c] - $element);
 			}
 		}
@@ -218,11 +214,11 @@ class Matrix implements \ArrayAccess{
 	/**
 	 * Naive Matrix product, O(n^3)
 	 *
-	 * @return Matrix|false
+	 * @return Matrix
 	 */
 	public function product(Matrix $matrix){
 		if($this->columns !== $matrix->getRows()){
-			return false;
+			throw new \InvalidArgumentException("Expected a matrix with $this->columns rows"); //????
 		}
 		$c = $matrix->getColumns();
 		$result = new Matrix($this->rows, $c);
@@ -230,9 +226,7 @@ class Matrix implements \ArrayAccess{
 			for($j = 0; $j < $c; ++$j){
 				$sum = 0;
 				for($k = 0; $k < $this->columns; ++$k){
-					$element = $matrix->getElement($k, $j);
-					assert($element !== false, "Element should definitely exist here");
-					$sum += $this->matrix[$i][$k] * $element;
+					$sum += $this->matrix[$i][$k] * $matrix->getElement($k, $j);
 				}
 				$result->setElement($i, $j, $sum);
 			}
@@ -244,11 +238,11 @@ class Matrix implements \ArrayAccess{
 	/**
 	 * Computation of the determinant of 1x1, 2x2 and 3x3 matrices
 	 *
-	 * @return float|false
+	 * @return float
 	 */
 	public function determinant(){
 		if($this->isSquare() !== true){
-			return false;
+			throw new \LogicException("Cannot calculate determinant of a non-square matrix");
 		}
 		switch($this->rows){
 			case 1:
@@ -259,7 +253,7 @@ class Matrix implements \ArrayAccess{
 				return $this->matrix[0][0] * $this->matrix[1][1] * $this->matrix[2][2] + $this->matrix[0][1] * $this->matrix[1][2] * $this->matrix[2][0] + $this->matrix[0][2] * $this->matrix[1][0] * $this->matrix[2][1] - $this->matrix[2][0] * $this->matrix[1][1] * $this->matrix[0][2] - $this->matrix[2][1] * $this->matrix[1][2] * $this->matrix[0][0] - $this->matrix[2][2] * $this->matrix[1][0] * $this->matrix[0][1];
 		}
 
-		return false;
+		throw new \LogicException("Not implemented");
 	}
 
 	public function __toString(){
