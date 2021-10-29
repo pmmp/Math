@@ -26,20 +26,14 @@ namespace pocketmine\math;
 use function abs;
 use const PHP_INT_MAX;
 
-class AxisAlignedBB{
+final class AxisAlignedBB{
 
-	/** @var float */
-	public $minX;
-	/** @var float */
-	public $minY;
-	/** @var float */
-	public $minZ;
-	/** @var float */
-	public $maxX;
-	/** @var float */
-	public $maxY;
-	/** @var float */
-	public $maxZ;
+	public float $minX;
+	public float $minY;
+	public float $minZ;
+	public float $maxX;
+	public float $maxY;
+	public float $maxZ;
 
 	public function __construct(float $minX, float $minY, float $minZ, float $maxX, float $maxY, float $maxZ){
 		if($minX > $maxX){

@@ -33,10 +33,8 @@ use function substr;
 class Matrix implements \ArrayAccess{
 	/** @var float[][] */
 	private array $matrix = [];
-	/** @var int */
-	private $rows;
-	/** @var int */
-	private $columns;
+	private int $rows;
+	private int $columns;
 
 	public function offsetExists($offset){
 		return isset($this->matrix[(int) $offset]);

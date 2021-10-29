@@ -30,10 +30,8 @@ use function round;
 use function sqrt;
 
 class Vector2{
-	/** @var float */
-	public $x;
-	/** @var float */
-	public $y;
+	public float $x;
+	public float $y;
 
 	public function __construct(float $x, float $y){
 		$this->x = $x;
