@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace pocketmine\math;
 
-use function assert;
 use function implode;
 use function max;
 use function substr;
@@ -33,7 +32,7 @@ use function substr;
  */
 class Matrix implements \ArrayAccess{
 	/** @var float[][] */
-	private $matrix = [];
+	private array $matrix = [];
 	/** @var int */
 	private $rows;
 	/** @var int */
@@ -56,22 +55,18 @@ class Matrix implements \ArrayAccess{
 	}
 
 	/**
-	 * @param int       $rows
-	 * @param int       $columns
 	 * @param float[][] $set
 	 */
-	public function __construct($rows, $columns, array $set = []){
-		$this->rows = max(1, (int) $rows);
-		$this->columns = max(1, (int) $columns);
+	public function __construct(int $rows, int $columns, array $set = []){
+		$this->rows = max(1, $rows);
+		$this->columns = max(1, $columns);
 		$this->set($set);
 	}
 
 	/**
 	 * @param float[][] $m
-	 *
-	 * @return void
 	 */
-	public function set(array $m){
+	public function set(array $m) : void{
 		for($r = 0; $r < $this->rows; ++$r){
 			$this->matrix[$r] = [];
 			for($c = 0; $c < $this->columns; ++$c){
@@ -80,59 +75,34 @@ class Matrix implements \ArrayAccess{
 		}
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getRows(){
+	public function getRows() : int{
 		return $this->rows;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getColumns(){
+	public function getColumns() : int{
 		return $this->columns;
 	}
 
-	/**
-	 * @param int   $row
-	 * @param int   $column
-	 * @param float $value
-	 *
-	 * @return void
-	 */
-	public function setElement($row, $column, $value){
+	public function setElement(int $row, int $column, float $value) : void{
 		if($row > $this->rows or $row < 0 or $column > $this->columns or $column < 0){
 			throw new \InvalidArgumentException("Row or column out of bounds (have $this->rows rows $this->columns columns)");
 		}
-		$this->matrix[(int) $row][(int) $column] = $value;
+		$this->matrix[$row][$column] = $value;
 	}
 
-	/**
-	 * @param int $row
-	 * @param int $column
-	 *
-	 * @return float
-	 */
-	public function getElement($row, $column){
+	public function getElement(int $row, int $column) : float{
 		if($row > $this->rows or $row < 0 or $column > $this->columns or $column < 0){
 			throw new \InvalidArgumentException("Row or column out of bounds (have $this->rows rows $this->columns columns)");
 		}
 
-		return $this->matrix[(int) $row][(int) $column];
+		return $this->matrix[$row][$column];
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isSquare(){
+	public function isSquare() : bool{
 		return $this->rows === $this->columns;
 	}
 
-	/**
-	 * @return Matrix
-	 */
-	public function add(Matrix $matrix){
+	public function add(Matrix $matrix) : Matrix{
 		if($this->rows !== $matrix->getRows() or $this->columns !== $matrix->getColumns()){
 			throw new \InvalidArgumentException("Matrix does not have the same number of rows and/or columns");
 		}
@@ -147,10 +117,7 @@ class Matrix implements \ArrayAccess{
 		return $result;
 	}
 
-	/**
-	 * @return Matrix
-	 */
-	public function subtract(Matrix $matrix){
+	public function subtract(Matrix $matrix) : Matrix{
 		if($this->rows !== $matrix->getRows() or $this->columns !== $matrix->getColumns()){
 			throw new \InvalidArgumentException("Matrix does not have the same number of rows and/or columns");
 		}
@@ -165,12 +132,7 @@ class Matrix implements \ArrayAccess{
 		return $result;
 	}
 
-	/**
-	 * @param float $number
-	 *
-	 * @return Matrix
-	 */
-	public function multiplyScalar($number){
+	public function multiplyScalar(float $number) : Matrix{
 		$result = clone $this;
 		for($r = 0; $r < $this->rows; ++$r){
 			for($c = 0; $c < $this->columns; ++$c){
@@ -181,12 +143,7 @@ class Matrix implements \ArrayAccess{
 		return $result;
 	}
 
-	/**
-	 * @param float $number
-	 *
-	 * @return Matrix
-	 */
-	public function divideScalar($number){
+	public function divideScalar(float $number) : Matrix{
 		$result = clone $this;
 		for($r = 0; $r < $this->rows; ++$r){
 			for($c = 0; $c < $this->columns; ++$c){
@@ -197,10 +154,7 @@ class Matrix implements \ArrayAccess{
 		return $result;
 	}
 
-	/**
-	 * @return Matrix
-	 */
-	public function transpose(){
+	public function transpose() : Matrix{
 		$result = new Matrix($this->columns, $this->rows);
 		for($r = 0; $r < $this->rows; ++$r){
 			for($c = 0; $c < $this->columns; ++$c){
@@ -213,10 +167,8 @@ class Matrix implements \ArrayAccess{
 
 	/**
 	 * Naive Matrix product, O(n^3)
-	 *
-	 * @return Matrix
 	 */
-	public function product(Matrix $matrix){
+	public function product(Matrix $matrix) : Matrix{
 		if($this->columns !== $matrix->getRows()){
 			throw new \InvalidArgumentException("Expected a matrix with $this->columns rows"); //????
 		}
@@ -237,10 +189,8 @@ class Matrix implements \ArrayAccess{
 
 	/**
 	 * Computation of the determinant of 1x1, 2x2 and 3x3 matrices
-	 *
-	 * @return float
 	 */
-	public function determinant(){
+	public function determinant() : float{
 		if($this->isSquare() !== true){
 			throw new \LogicException("Cannot calculate determinant of a non-square matrix");
 		}
@@ -256,7 +206,7 @@ class Matrix implements \ArrayAccess{
 		throw new \LogicException("Not implemented");
 	}
 
-	public function __toString(){
+	public function __toString() : string{
 		$s = "";
 		for($r = 0; $r < $this->rows; ++$r){
 			$s .= implode(",", $this->matrix[$r]) . ";";
