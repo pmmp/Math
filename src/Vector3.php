@@ -44,6 +44,11 @@ class Vector3{
 		$this->z = $z;
 	}
 
+	public static function zero() : Vector3{
+		//TODO: make this reuse a single object, once Vector3 becomes immutable
+		return new self(0, 0, 0);
+	}
+
 	public function getX() : float|int{
 		return $this->x;
 	}
