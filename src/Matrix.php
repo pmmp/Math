@@ -35,9 +35,9 @@ class Matrix implements \ArrayAccess{
 	/** @var float[][] */
 	private $matrix = [];
 	/** @var int */
-	private $rows = 0;
+	private $rows;
 	/** @var int */
-	private $columns = 0;
+	private $columns;
 
 	public function offsetExists($offset){
 		return isset($this->matrix[(int) $offset]);
