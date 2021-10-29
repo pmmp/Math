@@ -56,26 +56,20 @@ class Vector2{
 		return (int) floor($this->y);
 	}
 
-	/**
-	 * @param Vector2|float $x
-	 */
-	public function add($x, float $y = 0) : Vector2{
-		if($x instanceof Vector2){
-			return $this->add($x->x, $x->y);
-		}else{
-			return new Vector2($this->x + $x, $this->y + $y);
-		}
+	public function add(float $x, float $y) : Vector2{
+		return new Vector2($this->x + $x, $this->y + $y);
 	}
 
-	/**
-	 * @param Vector2|float $x
-	 */
-	public function subtract($x, float $y = 0) : Vector2{
-		if($x instanceof Vector2){
-			return $this->add(-$x->x, -$x->y);
-		}else{
-			return $this->add(-$x, -$y);
-		}
+	public function addVector(Vector2 $vector2) : Vector2{
+		return $this->add($vector2->x, $vector2->y);
+	}
+
+	public function subtract(float $x, float $y) : Vector2{
+		return $this->add(-$x, -$y);
+	}
+
+	public function subtractVector(Vector2 $vector2) : Vector2{
+		return $this->add(-$vector2->x, -$vector2->y);
 	}
 
 	public function ceil() : Vector2{
