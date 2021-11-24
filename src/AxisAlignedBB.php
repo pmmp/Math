@@ -225,7 +225,6 @@ class AxisAlignedBB{
 
 	/**
 	 * Shifts the AABB in the given direction.
-	 * @see AxisAlignedBB::extend()
 	 *
 	 * @param float $distance Positive values shift the AABB in the given direction, negative values in the opposite.
 	 *
@@ -233,7 +232,15 @@ class AxisAlignedBB{
 	 * @throws \InvalidArgumentException
 	 */
 	public function shift(int $face, float $distance) : AxisAlignedBB{
-		return $this->extend($face, $distance)->extend(Facing::opposite($face), -$distance);
+		return match($face){
+			Facing::DOWN => $this->offset(0, -$distance, 0),
+			Facing::UP => $this->offset(0, $distance, 0),
+			Facing::NORTH => $this->offset(0, 0, -$distance),
+			Facing::SOUTH => $this->offset(0, 0, $distance),
+			Facing::WEST => $this->offset(-$distance, 0, 0),
+			Facing::EAST => $this->offset($distance, 0, 0),
+			default => throw new \InvalidArgumentException("Invalid face $face")
+		};
 	}
 
 	/**
