@@ -224,6 +224,29 @@ class AxisAlignedBB{
 	}
 
 	/**
+	 * Shifts the AABB in the given direction.
+	 * @see AxisAlignedBB::extend()
+	 *
+	 * @param float $distance Positive values shift the AABB in the given direction, negative values in the opposite.
+	 *
+	 * @return $this
+	 * @throws \InvalidArgumentException
+	 */
+	public function shift(int $face, float $distance) : AxisAlignedBB{
+		return $this->extend($face, $distance)->extend(Facing::opposite($face), -$distance);
+	}
+
+	/**
+	 * Shifts a clone of the AABB in the given direction.
+	 * @see AxisAlignedBB::shift()
+	 *
+	 * @throws \InvalidArgumentException
+	 */
+	public function shiftedCopy(int $face, float $distance) : AxisAlignedBB{
+		return (clone $this)->shift($face, $distance);
+	}
+
+	/**
 	 * Increases the dimension of the AABB along the given axis.
 	 *
 	 * @param int   $axis one of the Axis::* constants
