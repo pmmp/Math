@@ -232,13 +232,11 @@ class AxisAlignedBB{
 	 * @throws \InvalidArgumentException
 	 */
 	public function shift(int $face, float $distance) : AxisAlignedBB{
-		return match($face){
-			Facing::DOWN => $this->offset(0, -$distance, 0),
-			Facing::UP => $this->offset(0, $distance, 0),
-			Facing::NORTH => $this->offset(0, 0, -$distance),
-			Facing::SOUTH => $this->offset(0, 0, $distance),
-			Facing::WEST => $this->offset(-$distance, 0, 0),
-			Facing::EAST => $this->offset($distance, 0, 0),
+		$distance *= Facing::isPositive($face) ? 1 : -1;
+		return match(Facing::axis($face)){
+			Axis::Y => $this->offset(0, $distance, 0),
+			Axis::Z => $this->offset(0, 0, $distance),
+			Axis::X => $this->offset($distance, 0, 0),
 			default => throw new \InvalidArgumentException("Invalid face $face")
 		};
 	}
