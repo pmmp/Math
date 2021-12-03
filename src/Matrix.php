@@ -36,7 +36,7 @@ class Matrix implements \ArrayAccess{
 	private int $rows;
 	private int $columns;
 
-	public function offsetExists($offset){
+	public function offsetExists($offset) : bool{
 		return isset($this->matrix[(int) $offset]);
 	}
 
@@ -44,11 +44,11 @@ class Matrix implements \ArrayAccess{
 		return $this->matrix[(int) $offset];
 	}
 
-	public function offsetSet($offset, $value){
+	public function offsetSet($offset, $value) : void{
 		$this->matrix[(int) $offset] = $value;
 	}
 
-	public function offsetUnset($offset){
+	public function offsetUnset($offset) : void{
 		unset($this->matrix[(int) $offset]);
 	}
 
