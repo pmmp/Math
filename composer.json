@@ -11,7 +11,7 @@
         "phpstan/phpstan": "1.2.0",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan-strict-rules": "^1.0",
-        "irstea/phpunit-shim": "^8.5 || ^9.5"
+        "phpunit/phpunit": "^8.5 || ^9.5"
     },
     "autoload": {
         "psr-4": {
