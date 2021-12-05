@@ -110,7 +110,7 @@ final class Facing{
 			throw new \InvalidArgumentException("Invalid axis $axis");
 		}
 		if(!isset(self::CLOCKWISE[$axis][$direction])){
-			throw new \InvalidArgumentException("Cannot rotate direction $direction around axis $axis");
+			throw new \InvalidArgumentException("Cannot rotate facing \"" . self::toString($direction) . "\" around axis \"" . Axis::toString($axis) . "\"");
 		}
 
 		$rotated = self::CLOCKWISE[$axis][$direction];
