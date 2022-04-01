@@ -105,6 +105,9 @@ class Vector3{
 		return new Vector3((int) floor($this->x), (int) floor($this->y), (int) floor($this->z));
 	}
 
+	/**
+	 * @phpstan-param 1|2|3|4 $mode
+	 */
 	public function round(int $precision = 0, int $mode = PHP_ROUND_HALF_UP) : Vector3{
 		return $precision > 0 ?
 			new Vector3(round($this->x, $precision, $mode), round($this->y, $precision, $mode), round($this->z, $precision, $mode)) :
