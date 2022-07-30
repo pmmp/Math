@@ -34,8 +34,8 @@ final class VoxelRayTrace{
 	/**
 	 * Performs a ray trace from the start position in the given direction, for a distance of $maxDistance. This
 	 * returns a Generator which yields Vector3s containing the coordinates of voxels it passes through.
-	 
-	 @see VoxelRayTrace::betweenPoints for precise semantics
+	 *
+	 * @see VoxelRayTrace::betweenPoints for precise semantics
 	 *
 	 * @return \Generator|Vector3[]
 	 * @phpstan-return \Generator<int, Vector3, void, void>
