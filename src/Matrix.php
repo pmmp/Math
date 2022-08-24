@@ -40,6 +40,7 @@ class Matrix implements \ArrayAccess{
 		return isset($this->matrix[(int) $offset]);
 	}
 
+	#[\ReturnTypeWillChange]
 	public function offsetGet($offset){
 		return $this->matrix[(int) $offset];
 	}
