@@ -35,6 +35,8 @@ final class VoxelRayTrace{
 	 * Performs a ray trace from the start position in the given direction, for a distance of $maxDistance. This
 	 * returns a Generator which yields Vector3s containing the coordinates of voxels it passes through.
 	 *
+	 * @see VoxelRayTrace::betweenPoints for precise semantics
+	 *
 	 * @return \Generator|Vector3[]
 	 * @phpstan-return \Generator<int, Vector3, void, void>
 	 */
@@ -46,11 +48,21 @@ final class VoxelRayTrace{
 	 * Performs a ray trace between the start and end coordinates. This returns a Generator which yields Vector3s
 	 * containing the coordinates of voxels it passes through.
 	 *
+	 * The first Vector3 is `$start->floor()`.
+	 * Every subsequent Vector3 has a taxicab distance of exactly 1 from the previous Vector3;
+	 * if the ray crosses the intersection of multiple axis boundaries directly,
+	 * the algorithm prefers crossing the boundaries in the order `Z -> Y -> X`.
+	 *
+	 * If `$end` is on an axis boundary, the final Vector3 may or may not cross that boundary.
+	 * Otherwise, the final Vector3 is equal to `$end->floor()`.
+	 *
 	 * This is an implementation of the algorithm described in the link below.
 	 * @link http://www.cse.yorku.ca/~amana/research/grid.pdf
 	 *
 	 * @return \Generator|Vector3[]
 	 * @phpstan-return \Generator<int, Vector3, void, void>
+	 *
+	 * @throws \InvalidArgumentException if $start and $end have zero distance.
 	 */
 	public static function betweenPoints(Vector3 $start, Vector3 $end) : \Generator{
 		$currentBlock = $start->floor();
