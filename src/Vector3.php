@@ -34,15 +34,11 @@ use function sqrt;
 use const PHP_ROUND_HALF_UP;
 
 class Vector3{
-	public float|int $x;
-	public float|int $y;
-	public float|int $z;
-
-	public function __construct(float|int $x, float|int $y, float|int $z){
-		$this->x = $x;
-		$this->y = $y;
-		$this->z = $z;
-	}
+	public function __construct(
+		public float|int $x,
+		public float|int $y,
+		public float|int $z
+	){}
 
 	public static function zero() : Vector3{
 		//TODO: make this reuse a single object, once Vector3 becomes immutable

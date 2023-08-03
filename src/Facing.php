@@ -162,17 +162,14 @@ final class Facing{
 	 * Returns a human-readable string representation of the given Facing direction.
 	 */
 	public static function toString(int $facing) : string{
-		$result = [
+		return match($facing){
 			self::DOWN => "down",
 			self::UP => "up",
 			self::NORTH => "north",
 			self::SOUTH => "south",
 			self::WEST => "west",
-			self::EAST => "east"
-		][$facing] ?? null;
-		if($result === null){
-			throw new \InvalidArgumentException("Invalid facing $facing");
-		}
-		return $result;
+			self::EAST => "east",
+			default => throw new \InvalidArgumentException("Invalid facing $facing")
+		};
 	}
 }

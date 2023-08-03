@@ -30,13 +30,10 @@ use function round;
 use function sqrt;
 
 class Vector2{
-	public float $x;
-	public float $y;
-
-	public function __construct(float $x, float $y){
-		$this->x = $x;
-		$this->y = $y;
-	}
+	public function __construct(
+		public float $x,
+		public float $y
+	){}
 
 	public function getX() : float{
 		return $this->x;

@@ -193,16 +193,20 @@ class Matrix implements \ArrayAccess{
 		if($this->isSquare() !== true){
 			throw new \LogicException("Cannot calculate determinant of a non-square matrix");
 		}
-		switch($this->rows){
-			case 1:
-				return $this->matrix[0][0];
-			case 2:
-				return $this->matrix[0][0] * $this->matrix[1][1] - $this->matrix[0][1] * $this->matrix[1][0];
-			case 3:
-				return $this->matrix[0][0] * $this->matrix[1][1] * $this->matrix[2][2] + $this->matrix[0][1] * $this->matrix[1][2] * $this->matrix[2][0] + $this->matrix[0][2] * $this->matrix[1][0] * $this->matrix[2][1] - $this->matrix[2][0] * $this->matrix[1][1] * $this->matrix[0][2] - $this->matrix[2][1] * $this->matrix[1][2] * $this->matrix[0][0] - $this->matrix[2][2] * $this->matrix[1][0] * $this->matrix[0][1];
-		}
-
-		throw new \LogicException("Not implemented");
+		return match($this->rows){
+			1 => $this->matrix[0][0],
+			2 =>
+				$this->matrix[0][0] * $this->matrix[1][1] -
+				$this->matrix[0][1] * $this->matrix[1][0],
+			3 =>
+				$this->matrix[0][0] * $this->matrix[1][1] * $this->matrix[2][2] +
+				$this->matrix[0][1] * $this->matrix[1][2] * $this->matrix[2][0] +
+				$this->matrix[0][2] * $this->matrix[1][0] * $this->matrix[2][1] -
+				$this->matrix[2][0] * $this->matrix[1][1] * $this->matrix[0][2] -
+				$this->matrix[2][1] * $this->matrix[1][2] * $this->matrix[0][0] -
+				$this->matrix[2][2] * $this->matrix[1][0] * $this->matrix[0][1],
+			default => throw new \LogicException("Not implemented")
+		};
 	}
 
 	public function __toString() : string{

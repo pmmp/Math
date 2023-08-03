@@ -115,7 +115,7 @@ final class AxisAlignedBB{
 	 *
 	 * @return $this
 	 */
-	public function offset(float $x, float $y, float $z){
+	public function offset(float $x, float $y, float $z) : AxisAlignedBB{
 		$this->minX += $x;
 		$this->minY += $y;
 		$this->minZ += $z;
@@ -158,7 +158,7 @@ final class AxisAlignedBB{
 	 *
 	 * @return $this
 	 */
-	public function contract(float $x, float $y, float $z){
+	public function contract(float $x, float $y, float $z) : AxisAlignedBB{
 		$this->minX += $x;
 		$this->minY += $y;
 		$this->minZ += $z;
@@ -489,7 +489,7 @@ final class AxisAlignedBB{
 		return new RayTraceResult($this, $face, $vector);
 	}
 
-	public function __toString(){
+	public function __toString() : string{
 		return "AxisAlignedBB({$this->minX}, {$this->minY}, {$this->minZ}, {$this->maxX}, {$this->maxY}, {$this->maxZ})";
 	}
 

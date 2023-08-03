@@ -28,18 +28,14 @@ namespace pocketmine\math;
  */
 class RayTraceResult{
 
-	public AxisAlignedBB $bb;
-	public int $hitFace;
-	public Vector3 $hitVector;
-
 	/**
 	 * @param int           $hitFace one of the Facing::* constants
 	 */
-	public function __construct(AxisAlignedBB $bb, int $hitFace, Vector3 $hitVector){
-		$this->bb = $bb;
-		$this->hitFace = $hitFace;
-		$this->hitVector = $hitVector;
-	}
+	public function __construct(
+		public AxisAlignedBB $bb,
+		public int $hitFace,
+		public Vector3 $hitVector
+	){}
 
 	public function getBoundingBox() : AxisAlignedBB{
 		return $this->bb;

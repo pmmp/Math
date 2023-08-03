@@ -36,14 +36,11 @@ final class Axis{
 	 * Returns a human-readable string representation of the given axis.
 	 */
 	public static function toString(int $axis) : string{
-		$result = [
+		return match($axis){
 			Axis::Y => "y",
 			Axis::Z => "z",
-			Axis::X => "x"
-		][$axis] ?? null;
-		if($result === null){
-			throw new \InvalidArgumentException("Invalid axis $axis");
-		}
-		return $result;
+			Axis::X => "x",
+			default => throw new \InvalidArgumentException("Invalid axis $axis")
+		};
 	}
 }
