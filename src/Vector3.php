@@ -122,22 +122,9 @@ class Vector3{
 	 * @return Vector3
 	 */
 	public function getSide(int $side, int $step = 1){
-		switch($side){
-			case Facing::DOWN:
-				return new Vector3($this->x, $this->y - $step, $this->z);
-			case Facing::UP:
-				return new Vector3($this->x, $this->y + $step, $this->z);
-			case Facing::NORTH:
-				return new Vector3($this->x, $this->y, $this->z - $step);
-			case Facing::SOUTH:
-				return new Vector3($this->x, $this->y, $this->z + $step);
-			case Facing::WEST:
-				return new Vector3($this->x - $step, $this->y, $this->z);
-			case Facing::EAST:
-				return new Vector3($this->x + $step, $this->y, $this->z);
-			default:
-				return $this;
-		}
+		[$offsetX, $offsetY, $offsetZ] = Facing::OFFSET[$side] ?? [0, 0, 0];
+
+		return $this->add($offsetX * $step, $offsetY * $step, $offsetZ * $step);
 	}
 
 	/**
