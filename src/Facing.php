@@ -56,6 +56,15 @@ final class Facing{
 		self::EAST
 	];
 
+	public const OFFSETS = [
+		self::DOWN  => [ 0, -1,  0],
+		self::UP    => [ 0, +1,  0],
+		self::NORTH => [ 0,  0, -1],
+		self::SOUTH => [ 0,  0, +1],
+		self::WEST  => [-1,  0,  0],
+		self::EAST  => [+1,  0,  0]
+	];
+
 	private const CLOCKWISE = [
 		Axis::Y => [
 			self::NORTH => self::EAST,
