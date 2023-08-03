@@ -465,11 +465,20 @@ final class AxisAlignedBB{
 
 		$vector = null;
 		$distance = PHP_INT_MAX;
+		$face = -1;
 
-		foreach([$v1, $v2, $v3, $v4, $v5, $v6] as $v){
+		foreach([
+			Facing::WEST => $v1,
+			Facing::EAST => $v2,
+			Facing::DOWN => $v3,
+			Facing::UP => $v4,
+			Facing::NORTH => $v5,
+			Facing::SOUTH => $v6
+		] as $f => $v){
 			if($v !== null and ($d = $pos1->distanceSquared($v)) < $distance){
 				$vector = $v;
 				$distance = $d;
+				$face = $f;
 			}
 		}
 
@@ -477,23 +486,7 @@ final class AxisAlignedBB{
 			return null;
 		}
 
-		$f = -1;
-
-		if($vector === $v1){
-			$f = Facing::WEST;
-		}elseif($vector === $v2){
-			$f = Facing::EAST;
-		}elseif($vector === $v3){
-			$f = Facing::DOWN;
-		}elseif($vector === $v4){
-			$f = Facing::UP;
-		}elseif($vector === $v5){
-			$f = Facing::NORTH;
-		}elseif($vector === $v6){
-			$f = Facing::SOUTH;
-		}
-
-		return new RayTraceResult($this, $f, $vector);
+		return new RayTraceResult($this, $face, $vector);
 	}
 
 	public function __toString(){
