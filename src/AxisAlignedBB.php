@@ -134,6 +134,26 @@ final class AxisAlignedBB{
 	}
 
 	/**
+	 * Offsets this AxisAlignedBB in the given direction by the specified distance.
+	 *
+	 * @param int $face one of the Facing::* constants
+	 *
+	 * @return $this
+	 */
+	public function offsetTowards(int $face, float $distance) : AxisAlignedBB{
+		[$offsetX, $offsetY, $offsetZ] = Facing::OFFSET[$face] ?? throw new \InvalidArgumentException("Invalid Facing $face");
+
+		return $this->offset($offsetX * $distance, $offsetY * $distance, $offsetZ * $distance);
+	}
+
+	/**
+	 * Returns an offset clone of this AxisAlignedBB.
+	 */
+	public function offsetTowardsCopy(int $face, float $distance) : AxisAlignedBB{
+		return (clone $this)->offsetTowards($face, $distance);
+	}
+
+	/**
 	 * Insets the bounds of this AxisAlignedBB by the specified X, Y and Z.
 	 *
 	 * @return $this
