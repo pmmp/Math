@@ -56,7 +56,7 @@ final class Facing{
 		self::EAST
 	];
 
-	public const OFFSETS = [
+	public const OFFSET = [
 		self::DOWN  => [ 0, -1,  0],
 		self::UP    => [ 0, +1,  0],
 		self::NORTH => [ 0,  0, -1],
