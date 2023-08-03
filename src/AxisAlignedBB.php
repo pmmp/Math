@@ -185,21 +185,15 @@ final class AxisAlignedBB{
 	 * @throws \InvalidArgumentException
 	 */
 	public function extend(int $face, float $distance) : AxisAlignedBB{
-		if($face === Facing::DOWN){
-			$this->minY -= $distance;
-		}elseif($face === Facing::UP){
-			$this->maxY += $distance;
-		}elseif($face === Facing::NORTH){
-			$this->minZ -= $distance;
-		}elseif($face === Facing::SOUTH){
-			$this->maxZ += $distance;
-		}elseif($face === Facing::WEST){
-			$this->minX -= $distance;
-		}elseif($face === Facing::EAST){
-			$this->maxX += $distance;
-		}else{
-			throw new \InvalidArgumentException("Invalid face $face");
-		}
+		match($face){
+			Facing::DOWN  => $this->minY -= $distance,
+			Facing::UP    => $this->maxY += $distance,
+			Facing::NORTH => $this->minZ -= $distance,
+			Facing::SOUTH => $this->maxZ += $distance,
+			Facing::WEST  => $this->minX -= $distance,
+			Facing::EAST  => $this->maxX += $distance,
+			default => throw new \InvalidArgumentException("Invalid face $face"),
+		};
 
 		return $this;
 	}
