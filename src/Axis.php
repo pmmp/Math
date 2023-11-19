@@ -29,7 +29,7 @@ enum Axis: int{
 	case X = 2;
 
 	/**
-	 * @deprecated
+	 * @deprecated use Axis->name
 	 * Returns a human-readable string representation of the given axis.
 	 */
 	public static function toString(Axis $axis) : string{
@@ -37,7 +37,6 @@ enum Axis: int{
 			Axis::Y => "y",
 			Axis::Z => "z",
 			Axis::X => "x",
-			default => throw new \InvalidArgumentException("Invalid axis " . $axis->name)
 		};
 	}
 }

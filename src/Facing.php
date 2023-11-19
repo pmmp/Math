@@ -158,9 +158,10 @@ enum Facing: int{
 	}
 
 	/**
+	 * @deprecated use Facing->name
 	 * Returns a human-readable string representation of the given Facing direction.
 	 */
-	public static function toString(int $facing) : string{
+	public static function toString(Facing $facing) : string{
 		return match($facing){
 			self::DOWN => "down",
 			self::UP => "up",
@@ -168,7 +169,6 @@ enum Facing: int{
 			self::SOUTH => "south",
 			self::WEST => "west",
 			self::EAST => "east",
-			default => throw new \InvalidArgumentException("Invalid facing $facing")
 		};
 	}
 }
