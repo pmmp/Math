@@ -33,7 +33,8 @@ use function round;
 use function sqrt;
 use const PHP_ROUND_HALF_UP;
 
-class Vector3{
+readonly class Vector3{
+
 	public function __construct(
 		public float|int $x,
 		public float|int $y,
@@ -45,27 +46,27 @@ class Vector3{
 		return new self(0, 0, 0);
 	}
 
-	public function getX() : float|int{
+	final public function getX() : float|int{
 		return $this->x;
 	}
 
-	public function getY() : float|int{
+	final public function getY() : float|int{
 		return $this->y;
 	}
 
-	public function getZ() : float|int{
+	final public function getZ() : float|int{
 		return $this->z;
 	}
 
-	public function getFloorX() : int{
+	final public function getFloorX() : int{
 		return (int) floor($this->x);
 	}
 
-	public function getFloorY() : int{
+	final public function getFloorY() : int{
 		return (int) floor($this->y);
 	}
 
-	public function getFloorZ() : int{
+	final public function getFloorZ() : int{
 		return (int) floor($this->z);
 	}
 
@@ -73,15 +74,15 @@ class Vector3{
 		return new Vector3($this->x + $x, $this->y + $y, $this->z + $z);
 	}
 
-	public function addVector(Vector3 $v) : Vector3{
+	final public function addVector(Vector3 $v) : Vector3{
 		return $this->add($v->x, $v->y, $v->z);
 	}
 
-	public function subtract(float|int $x, float|int $y, float|int $z) : Vector3{
+	final public function subtract(float|int $x, float|int $y, float|int $z) : Vector3{
 		return $this->add(-$x, -$y, -$z);
 	}
 
-	public function subtractVector(Vector3 $v) : Vector3{
+	final public function subtractVector(Vector3 $v) : Vector3{
 		return $this->add(-$v->x, -$v->y, -$v->z);
 	}
 
@@ -114,54 +115,33 @@ class Vector3{
 		return new Vector3(abs($this->x), abs($this->y), abs($this->z));
 	}
 
-	/**
-	 * @return Vector3
-	 */
-	public function getSide(int $side, int $step = 1){
+	final public function getSide(int $side, int $step = 1) : Vector3{
 		[$offsetX, $offsetY, $offsetZ] = Facing::OFFSET[$side] ?? [0, 0, 0];
 
 		return $this->add($offsetX * $step, $offsetY * $step, $offsetZ * $step);
 	}
 
-	/**
-	 * @return Vector3
-	 */
-	public function down(int $step = 1){
+	final public function down(int $step = 1) : Vector3{
 		return $this->getSide(Facing::DOWN, $step);
 	}
 
-	/**
-	 * @return Vector3
-	 */
-	public function up(int $step = 1){
+	final public function up(int $step = 1) : Vector3{
 		return $this->getSide(Facing::UP, $step);
 	}
 
-	/**
-	 * @return Vector3
-	 */
-	public function north(int $step = 1){
+	final public function north(int $step = 1) : Vector3{
 		return $this->getSide(Facing::NORTH, $step);
 	}
 
-	/**
-	 * @return Vector3
-	 */
-	public function south(int $step = 1){
+	final public function south(int $step = 1) : Vector3{
 		return $this->getSide(Facing::SOUTH, $step);
 	}
 
-	/**
-	 * @return Vector3
-	 */
-	public function west(int $step = 1){
+	final public function west(int $step = 1) : Vector3{
 		return $this->getSide(Facing::WEST, $step);
 	}
 
-	/**
-	 * @return Vector3
-	 */
-	public function east(int $step = 1){
+	final public function east(int $step = 1) : Vector3{
 		return $this->getSide(Facing::EAST, $step);
 	}
 
@@ -173,7 +153,7 @@ class Vector3{
 	 * @return \Generator|Vector3[]
 	 * @phpstan-return \Generator<int, Vector3, void, void>
 	 */
-	public function sides(int $step = 1) : \Generator{
+	final public function sides(int $step = 1) : \Generator{
 		foreach(Facing::ALL as $facing){
 			yield $facing => $this->getSide($facing, $step);
 		}
@@ -184,7 +164,7 @@ class Vector3{
 	 *
 	 * @return Vector3[]
 	 */
-	public function sidesArray(bool $keys = false, int $step = 1) : array{
+	final public function sidesArray(bool $keys = false, int $step = 1) : array{
 		return iterator_to_array($this->sides($step), $keys);
 	}
 
@@ -196,7 +176,7 @@ class Vector3{
 	 * @return \Generator|Vector3[]
 	 * @phpstan-return \Generator<int, Vector3, void, void>
 	 */
-	public function sidesAroundAxis(int $axis, int $step = 1) : \Generator{
+	final public function sidesAroundAxis(int $axis, int $step = 1) : \Generator{
 		foreach(Facing::ALL as $facing){
 			if(Facing::axis($facing) !== $axis){
 				yield $facing => $this->getSide($facing, $step);
@@ -207,15 +187,15 @@ class Vector3{
 	/**
 	 * Return a Vector3 instance
 	 */
-	public function asVector3() : Vector3{
+	final public function asVector3() : Vector3{
 		return new Vector3($this->x, $this->y, $this->z);
 	}
 
-	public function distance(Vector3 $pos) : float{
+	final public function distance(Vector3 $pos) : float{
 		return sqrt($this->distanceSquared($pos));
 	}
 
-	public function distanceSquared(Vector3 $pos) : float{
+	final public function distanceSquared(Vector3 $pos) : float{
 		return (($this->x - $pos->x) ** 2) + (($this->y - $pos->y) ** 2) + (($this->z - $pos->z) ** 2);
 	}
 
@@ -229,11 +209,11 @@ class Vector3{
 		}
 	}
 
-	public function length() : float{
+	final public function length() : float{
 		return sqrt($this->lengthSquared());
 	}
 
-	public function lengthSquared() : float{
+	final public function lengthSquared() : float{
 		return $this->x * $this->x + $this->y * $this->y + $this->z * $this->z;
 	}
 
