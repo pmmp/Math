@@ -37,10 +37,10 @@ class FacingTest extends TestCase{
 	/**
 	 * @dataProvider axisProvider
 	 *
-	 * @param int $direction
-	 * @param int $axis
+	 * @param Facing $facing
+	 * @param Axis $axis
 	 */
-	public function testAxis(int $direction, int $axis) : void{
+	public function testAxis(Facing $direction, Axis $axis) : void{
 		self::assertEquals($axis, Facing::axis($direction));
 	}
 
@@ -53,10 +53,10 @@ class FacingTest extends TestCase{
 	/**
 	 * @dataProvider oppositeProvider
 	 *
-	 * @param int $dir1
-	 * @param int $dir2
+	 * @param Facing $dir1
+	 * @param Facing $dir2
 	 */
-	public function testOpposite(int $dir1, int $dir2) : void{
+	public function testOpposite(Facing $dir1, Facing $dir2) : void{
 		self::assertEquals($dir2, Facing::opposite($dir1));
 		self::assertEquals($dir1, Facing::opposite($dir2));
 	}
@@ -73,10 +73,10 @@ class FacingTest extends TestCase{
 	/**
 	 * @dataProvider positiveProvider
 	 *
-	 * @param int  $facing
+	 * @param Facing $facing
 	 * @param bool $positive
 	 */
-	public function testIsPositive(int $facing, bool $positive) : void{
+	public function testIsPositive(Facing $facing, bool $positive) : void{
 		self::assertEquals($positive, Facing::isPositive($facing));
 	}
 
@@ -117,12 +117,12 @@ class FacingTest extends TestCase{
 	/**
 	 * @dataProvider rotateProvider
 	 *
-	 * @param int  $direction
-	 * @param int  $axis
+	 * @param Facing $direction
+	 * @param Axis $axis
 	 * @param bool $clockwise
-	 * @param int  $expected
+	 * @param Facing $expected
 	 */
-	public function testRotate(int $direction, int $axis, bool $clockwise, int $expected) : void{
+	public function testRotate(Facing $direction, Axis $axis, bool $clockwise, Facing $expected) : void{
 		self::assertEquals($expected, Facing::rotate($direction, $axis, $clockwise));
 	}
 }

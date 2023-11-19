@@ -25,21 +25,21 @@ namespace pocketmine\math;
 
 use function in_array;
 
-final class Facing{
-	private function __construct(){
-		//NOOP
-	}
+enum Facing: int{
 
-	public const FLAG_AXIS_POSITIVE = 1;
+	private const FLAG_AXIS_POSITIVE = 1;
 
 	/* most significant 2 bits = axis, least significant bit = is positive direction */
-	public const DOWN =   Axis::Y << 1;
-	public const UP =    (Axis::Y << 1) | self::FLAG_AXIS_POSITIVE;
-	public const NORTH =  Axis::Z << 1;
-	public const SOUTH = (Axis::Z << 1) | self::FLAG_AXIS_POSITIVE;
-	public const WEST =   Axis::X << 1;
-	public const EAST =  (Axis::X << 1) | self::FLAG_AXIS_POSITIVE;
+	case DOWN =   Axis::Y << 1;
+	case UP =    (Axis::Y << 1) | self::FLAG_AXIS_POSITIVE;
+	case NORTH =  Axis::Z << 1;
+	case SOUTH = (Axis::Z << 1) | self::FLAG_AXIS_POSITIVE;
+	case WEST =   Axis::X << 1;
+	case EAST =  (Axis::X << 1) | self::FLAG_AXIS_POSITIVE;
 
+	/**
+	 * @deprecated use Facing::cases()
+	 */
 	public const ALL = [
 		self::DOWN,
 		self::UP,
@@ -56,6 +56,9 @@ final class Facing{
 		self::EAST
 	];
 
+	/**
+	 * @deprecated
+	 */
 	public const OFFSET = [
 		self::DOWN  => [ 0, -1,  0],
 		self::UP    => [ 0, +1,  0],
@@ -65,6 +68,9 @@ final class Facing{
 		self::EAST  => [+1,  0,  0]
 	];
 
+	/** 
+	 * @var Facing[][]
+	 */
 	private const CLOCKWISE = [
 		Axis::Y => [
 			self::NORTH => self::EAST,
@@ -89,67 +95,60 @@ final class Facing{
 	/**
 	 * Returns the axis of the given direction.
 	 */
-	public static function axis(int $direction) : int{
-		return $direction >> 1; //shift off positive/negative bit
+	public static function axis(Facing $direction) : Axis{
+		return Axis::from($direction >> 1); //shift off positive/negative bit
 	}
 
 	/**
 	 * Returns whether the direction is facing the positive of its axis.
 	 */
-	public static function isPositive(int $direction) : bool{
-		return ($direction & self::FLAG_AXIS_POSITIVE) === self::FLAG_AXIS_POSITIVE;
+	public static function isPositive(Facing $direction) : bool{
+		return ($direction->value & self::FLAG_AXIS_POSITIVE) === self::FLAG_AXIS_POSITIVE;
 	}
 
 	/**
 	 * Returns the opposite Facing of the specified one.
 	 *
-	 * @param int $direction 0-5 one of the Facing::* constants
+	 * @throws \ValueError if opposite facing don't exist
 	 */
-	public static function opposite(int $direction) : int{
-		return $direction ^ self::FLAG_AXIS_POSITIVE;
+	public static function opposite(Facing $direction) : Facing{
+		return self::from($direction->value ^ self::FLAG_AXIS_POSITIVE);
 	}
 
 	/**
 	 * Rotates the given direction around the axis.
-	 *
-	 * @throws \InvalidArgumentException if not possible to rotate $direction around $axis
 	 */
-	public static function rotate(int $direction, int $axis, bool $clockwise) : int{
-		if(!isset(self::CLOCKWISE[$axis])){
-			throw new \InvalidArgumentException("Invalid axis $axis");
-		}
-		if(!isset(self::CLOCKWISE[$axis][$direction])){
-			throw new \InvalidArgumentException("Cannot rotate facing \"" . self::toString($direction) . "\" around axis \"" . Axis::toString($axis) . "\"");
-		}
-
-		$rotated = self::CLOCKWISE[$axis][$direction];
+	public static function rotate(Facing $direction, Axis $axis, bool $clockwise) : Facing{
+		$rotated = self::CLOCKWISE[$axis->value][$direction->value];
 		return $clockwise ? $rotated : self::opposite($rotated);
 	}
 
-	/**
-	 * @throws \InvalidArgumentException
-	 */
-	public static function rotateY(int $direction, bool $clockwise) : int{
+	public static function rotateY(Facing $direction, bool $clockwise) : Facing{
 		return self::rotate($direction, Axis::Y, $clockwise);
 	}
 
-	/**
-	 * @throws \InvalidArgumentException
-	 */
-	public static function rotateZ(int $direction, bool $clockwise) : int{
+	public static function rotateZ(Facing $direction, bool $clockwise) : Facing{
 		return self::rotate($direction, Axis::Z, $clockwise);
 	}
 
-	/**
-	 * @throws \InvalidArgumentException
-	 */
-	public static function rotateX(int $direction, bool $clockwise) : int{
+	public static function rotateX(Facing $direction, bool $clockwise) : Facing{
 		return self::rotate($direction, Axis::X, $clockwise);
+	}
+
+	public function offset(): array {
+		return match($this){
+			self::DOWN  => [ 0, -1,  0],
+			self::UP    => [ 0, +1,  0],
+			self::NORTH => [ 0,  0, -1],
+			self::SOUTH => [ 0,  0, +1],
+			self::WEST  => [-1,  0,  0],
+			self::EAST  => [+1,  0,  0]
+		};
 	}
 
 	/**
 	 * Validates the given integer as a Facing direction.
-	 *
+	 * @deprecated 
 	 * @throws \InvalidArgumentException if the argument is not a valid Facing constant
 	 */
 	public static function validate(int $facing) : void{
