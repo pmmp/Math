@@ -139,7 +139,7 @@ final class AxisAlignedBB{
 	 * @return $this
 	 */
 	public function offsetTowards(Facing $face, float $distance) : AxisAlignedBB{
-		[$offsetX, $offsetY, $offsetZ] = $face->offset();
+		[$offsetX, $offsetY, $offsetZ] = Facing::OFFSET[$face->value];
 
 		return $this->offset($offsetX * $distance, $offsetY * $distance, $offsetZ * $distance);
 	}

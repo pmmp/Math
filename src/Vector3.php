@@ -118,7 +118,7 @@ class Vector3{
 	 * @return Vector3
 	 */
 	public function getSide(Facing $side, int $step = 1){
-		[$offsetX, $offsetY, $offsetZ] = $side->offset();
+		[$offsetX, $offsetY, $offsetZ] = Facing::OFFSET[$side->value];
 
 		return $this->add($offsetX * $step, $offsetY * $step, $offsetZ * $step);
 	}

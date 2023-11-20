@@ -56,9 +56,6 @@ enum Facing: int{
 		self::EAST
 	];
 
-	/**
-	 * @deprecated
-	 */
 	public const OFFSET = [
 		self::DOWN  => [ 0, -1,  0],
 		self::UP    => [ 0, +1,  0],
@@ -131,17 +128,6 @@ enum Facing: int{
 
 	public static function rotateX(Facing $direction, bool $clockwise) : Facing{
 		return self::rotate($direction, Axis::X, $clockwise);
-	}
-
-	public function offset(): array {
-		return match($this){
-			self::DOWN  => [ 0, -1,  0],
-			self::UP    => [ 0, +1,  0],
-			self::NORTH => [ 0,  0, -1],
-			self::SOUTH => [ 0,  0, +1],
-			self::WEST  => [-1,  0,  0],
-			self::EAST  => [+1,  0,  0]
-		};
 	}
 
 	/**
