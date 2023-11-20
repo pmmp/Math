@@ -108,8 +108,6 @@ enum Facing: int{
 
 	/**
 	 * Returns the opposite Facing of the specified one.
-	 *
-	 * @throws \ValueError if opposite facing don't exist
 	 */
 	public static function opposite(Facing $direction) : Facing{
 		return self::from($direction->value ^ self::FLAG_AXIS_POSITIVE);
