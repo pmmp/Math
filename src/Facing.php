@@ -25,17 +25,13 @@ namespace pocketmine\math;
 
 use function in_array;
 
-enum Facing: int{
-
-	private const FLAG_AXIS_POSITIVE = 1;
-
-	/* most significant 2 bits = axis, least significant bit = is positive direction */
-	case DOWN =   Axis::Y << 1;
-	case UP =    (Axis::Y << 1) | self::FLAG_AXIS_POSITIVE;
-	case NORTH =  Axis::Z << 1;
-	case SOUTH = (Axis::Z << 1) | self::FLAG_AXIS_POSITIVE;
-	case WEST =   Axis::X << 1;
-	case EAST =  (Axis::X << 1) | self::FLAG_AXIS_POSITIVE;
+enum Facing{
+	case DOWN;
+	case UP;
+	case NORTH;
+	case SOUTH;
+	case WEST;
+	case EAST;
 
 	/**
 	 * @deprecated use Facing::cases()
@@ -93,21 +89,32 @@ enum Facing: int{
 	 * Returns the axis of the given direction.
 	 */
 	public static function axis(Facing $direction) : Axis{
-		return Axis::from($direction >> 1); //shift off positive/negative bit
+		return match ($direction) {
+			self::DOWN, self::UP => Axis::Y,
+			self::NORTH, self::SOUTH => Axis::Z,
+			self::WEST, self::EAST => Axis::X,
+		};
 	}
 
 	/**
 	 * Returns whether the direction is facing the positive of its axis.
 	 */
 	public static function isPositive(Facing $direction) : bool{
-		return ($direction->value & self::FLAG_AXIS_POSITIVE) === self::FLAG_AXIS_POSITIVE;
+		return in_array($direction, [self::UP, self::SOUTH, self::EAST]);
 	}
 
 	/**
 	 * Returns the opposite Facing of the specified one.
 	 */
 	public static function opposite(Facing $direction) : Facing{
-		return self::from($direction->value ^ self::FLAG_AXIS_POSITIVE);
+		return match ($direction) {
+			self::DOWN => self::UP,
+			self::EAST => self::SOUTH,
+			self::WEST => self::EAST,
+			self::UP => self::DOWN,
+			self::SOUTH => self::EAST,
+			self::EAST => self::WEST,
+		};
 	}
 
 	/**
