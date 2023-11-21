@@ -100,7 +100,7 @@ enum Facing{
 	 * Returns whether the direction is facing the positive of its axis.
 	 */
 	public static function isPositive(Facing $direction) : bool{
-		return in_array($direction, [self::UP, self::SOUTH, self::EAST]);
+		return $direction === self::UP || $direction === self::SOUTH || $direction === self::EAST;
 	}
 
 	/**
@@ -153,13 +153,6 @@ enum Facing{
 	 * Returns a human-readable string representation of the given Facing direction.
 	 */
 	public static function toString(Facing $facing) : string{
-		return match($facing){
-			self::DOWN => "down",
-			self::UP => "up",
-			self::NORTH => "north",
-			self::SOUTH => "south",
-			self::WEST => "west",
-			self::EAST => "east",
-		};
+		return strtolower($facing->name);
 	}
 }
