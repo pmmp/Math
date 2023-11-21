@@ -23,10 +23,10 @@ declare(strict_types=1);
 
 namespace pocketmine\math;
 
-enum Axis: int{
-	case Y = 0;
-	case Z = 1;
-	case X = 2;
+enum Axis{
+	case Y;
+	case Z;
+	case X;
 
 	/**
 	 * @deprecated use Axis->name
