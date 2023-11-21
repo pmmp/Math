@@ -109,10 +109,10 @@ enum Facing{
 	public static function opposite(Facing $direction) : Facing{
 		return match ($direction) {
 			self::DOWN => self::UP,
-			self::NORTH => self::SOUTH,
-			self::WEST => self::EAST,
 			self::UP => self::DOWN,
+			self::NORTH => self::SOUTH,
 			self::SOUTH => self::NORTH,
+			self::WEST => self::EAST,
 			self::EAST => self::WEST,
 		};
 	}
