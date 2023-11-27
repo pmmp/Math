@@ -61,30 +61,6 @@ enum Facing{
 		self::EAST  => [+1,  0,  0]
 	];
 
-	/** 
-	 * @var Facing[][]
-	 */
-	private const CLOCKWISE = [
-		Axis::Y => [
-			self::NORTH => self::EAST,
-			self::EAST => self::SOUTH,
-			self::SOUTH => self::WEST,
-			self::WEST => self::NORTH
-		],
-		Axis::Z => [
-			self::UP => self::EAST,
-			self::EAST => self::DOWN,
-			self::DOWN => self::WEST,
-			self::WEST => self::UP
-		],
-		Axis::X => [
-			self::UP => self::NORTH,
-			self::NORTH => self::DOWN,
-			self::DOWN => self::SOUTH,
-			self::SOUTH => self::UP
-		]
-	];
-
 	/**
 	 * Returns the axis of the given direction.
 	 */
@@ -121,7 +97,27 @@ enum Facing{
 	 * Rotates the given direction around the axis.
 	 */
 	public static function rotate(Facing $direction, Axis $axis, bool $clockwise) : Facing{
-		$rotated = self::CLOCKWISE[$axis->value][$direction->value];
+		$rotated = match ($axis) {
+			Axis::Y => match ($direction) {
+				self::NORTH => self::EAST,
+				self::EAST => self::SOUTH,
+				self::SOUTH => self::WEST,
+				self::WEST => self::NORTH
+			},
+			Axis::Z => match ($direction) {
+				self::UP => self::EAST,
+				self::EAST => self::DOWN,
+				self::DOWN => self::WEST,
+				self::WEST => self::UP
+			},
+			Axis::X => match ($direction) {
+				self::UP => self::NORTH,
+				self::NORTH => self::DOWN,
+				self::DOWN => self::SOUTH,
+				self::SOUTH => self::UP
+			}
+		};
+
 		return $clockwise ? $rotated : self::opposite($rotated);
 	}
 
@@ -139,7 +135,7 @@ enum Facing{
 
 	/**
 	 * Validates the given integer as a Facing direction.
-	 * @deprecated 
+	 * @deprecated
 	 * @throws \InvalidArgumentException if the argument is not a valid Facing constant
 	 */
 	public static function validate(int $facing) : void{
