@@ -33,10 +33,6 @@ enum Axis{
 	 * Returns a human-readable string representation of the given axis.
 	 */
 	public static function toString(Axis $axis) : string{
-		return match($axis){
-			Axis::Y => "y",
-			Axis::Z => "z",
-			Axis::X => "x",
-		};
+		return strtolower($axis->name);
 	}
 }
