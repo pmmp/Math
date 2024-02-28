@@ -11,7 +11,7 @@ jobs:
         php: ['8.0', '8.1', '8.2', '8.3']
     name: PHP ${{ matrix.php }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Setup PHP
       uses: shivammathur/setup-php@2.29.0
@@ -19,7 +19,7 @@ jobs:
         php-version: ${{ matrix.php }}
 
     - name: Cache Composer packages
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: "~/.cache/composer"
         key: "php-${{ matrix.php }}-composer-${{ hashFiles('**/composer.json') }}-v2"
