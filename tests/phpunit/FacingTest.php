@@ -35,8 +35,8 @@ class FacingTest extends TestCase{
 		yield [Facing::EAST, Axis::X];
 	}
 
-	#[DataProvider("axisProvider")]
-	public function testAxis(int $direction, int $axis) : void{
+  #[DataProvider("axisProvider")]
+	public function testAxis(Facing $direction, Axis $axis) : void{
 		self::assertEquals($axis, Facing::axis($direction));
 	}
 
@@ -47,7 +47,7 @@ class FacingTest extends TestCase{
 	}
 
 	#[DataProvider("oppositeProvider")]
-	public function testOpposite(int $dir1, int $dir2) : void{
+	public function testOpposite(Facing $dir1, Facing $dir2) : void{
 		self::assertEquals($dir2, Facing::opposite($dir1));
 		self::assertEquals($dir1, Facing::opposite($dir2));
 	}
@@ -62,7 +62,7 @@ class FacingTest extends TestCase{
 	}
 
 	#[DataProvider("positiveProvider")]
-	public function testIsPositive(int $facing, bool $positive) : void{
+	public function testIsPositive(Facing $facing, bool $positive) : void{
 		self::assertEquals($positive, Facing::isPositive($facing));
 	}
 
@@ -101,7 +101,7 @@ class FacingTest extends TestCase{
 	}
 
 	#[DataProvider("rotateProvider")]
-	public function testRotate(int $direction, int $axis, bool $clockwise, int $expected) : void{
+	public function testRotate(Facing $direction, Axis $axis, bool $clockwise, Facing $expected) : void{
 		self::assertEquals($expected, Facing::rotate($direction, $axis, $clockwise));
 	}
 }

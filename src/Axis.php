@@ -23,24 +23,16 @@ declare(strict_types=1);
 
 namespace pocketmine\math;
 
-final class Axis{
-	private function __construct(){
-		//NOOP
-	}
-
-	public const Y = 0;
-	public const Z = 1;
-	public const X = 2;
+enum Axis{
+	case Y;
+	case Z;
+	case X;
 
 	/**
+	 * @deprecated use Axis->name
 	 * Returns a human-readable string representation of the given axis.
 	 */
-	public static function toString(int $axis) : string{
-		return match($axis){
-			Axis::Y => "y",
-			Axis::Z => "z",
-			Axis::X => "x",
-			default => throw new \InvalidArgumentException("Invalid axis $axis")
-		};
+	public static function toString(Axis $axis) : string{
+		return strtolower($axis->name);
 	}
 }
