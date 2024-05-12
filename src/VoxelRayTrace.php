@@ -74,20 +74,20 @@ final class VoxelRayTrace{
 
 		$radius = $start->distance($end);
 
-		$stepX = $directionVector->x <=> 0;
-		$stepY = $directionVector->y <=> 0;
-		$stepZ = $directionVector->z <=> 0;
+		$stepX = $directionVector->getX() <=> 0;
+		$stepY = $directionVector->getY() <=> 0;
+		$stepZ = $directionVector->getZ() <=> 0;
 
 		//Initialize the step accumulation variables depending how far into the current block the start position is. If
 		//the start position is on the corner of the block, these will be zero.
-		$tMaxX = self::rayTraceDistanceToBoundary($start->x, $directionVector->x);
-		$tMaxY = self::rayTraceDistanceToBoundary($start->y, $directionVector->y);
-		$tMaxZ = self::rayTraceDistanceToBoundary($start->z, $directionVector->z);
+		$tMaxX = self::rayTraceDistanceToBoundary($start->getX(), $directionVector->getX());
+		$tMaxY = self::rayTraceDistanceToBoundary($start->getY(), $directionVector->getY());
+		$tMaxZ = self::rayTraceDistanceToBoundary($start->getZ(), $directionVector->getZ());
 
 		//The change in t on each axis when taking a step on that axis (always positive).
-		$tDeltaX = $directionVector->x == 0 ? 0 : $stepX / $directionVector->x;
-		$tDeltaY = $directionVector->y == 0 ? 0 : $stepY / $directionVector->y;
-		$tDeltaZ = $directionVector->z == 0 ? 0 : $stepZ / $directionVector->z;
+		$tDeltaX = $directionVector->getX() == 0 ? 0 : $stepX / $directionVector->getX();
+		$tDeltaY = $directionVector->getY() == 0 ? 0 : $stepY / $directionVector->getY();
+		$tDeltaZ = $directionVector->getZ() == 0 ? 0 : $stepZ / $directionVector->getZ();
 
 		while(true){
 			yield $currentBlock;

@@ -125,9 +125,9 @@ class Vector3Test extends TestCase{
 			$vec = $vec->addVector($vector);
 		}
 		$vec2 = Vector3::sum(...$vectors);
-		self::assertLessThan(0.000001, abs($vec->x - $vec2->x));
-		self::assertLessThan(0.000001, abs($vec->y - $vec2->y));
-		self::assertLessThan(0.000001, abs($vec->z - $vec2->z));
+		self::assertLessThan(0.000001, abs($vec->getX() - $vec2->getX()));
+		self::assertLessThan(0.000001, abs($vec->getY() - $vec2->getY()));
+		self::assertLessThan(0.000001, abs($vec->getZ() - $vec2->getZ()));
 	}
 
 	/**
