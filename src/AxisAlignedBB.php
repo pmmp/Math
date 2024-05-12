@@ -454,7 +454,7 @@ final class AxisAlignedBB{
 
 		$vector = null;
 		$distance = PHP_INT_MAX;
-		$face = -1;
+		$face = null;
 
 		foreach([
 			[Facing::WEST, $v1],
@@ -468,6 +468,7 @@ final class AxisAlignedBB{
 			if($v !== null and ($d = $pos1->distanceSquared($v)) < $distance){
 				$vector = $v;
 				$distance = $d;
+				/** @var Facing $face */
 				$face = $value[0];
 			}
 		}
