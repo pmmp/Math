@@ -36,9 +36,9 @@ use const PHP_ROUND_HALF_UP;
 readonly class Vector3{
 
 	public function __construct(
-		public float|int $x,
-		public float|int $y,
-		public float|int $z
+		protected float|int $x,
+		protected float|int $y,
+		protected float|int $z
 	){}
 
 	public static function zero() : Vector3{
@@ -75,7 +75,7 @@ readonly class Vector3{
 	}
 
 	final public function addVector(Vector3 $v) : Vector3{
-		return $this->add($v->x, $v->y, $v->z);
+		return $this->add($v->getX(), $v->getY(), $v->getZ());
 	}
 
 	final public function subtract(float|int $x, float|int $y, float|int $z) : Vector3{
@@ -83,7 +83,7 @@ readonly class Vector3{
 	}
 
 	final public function subtractVector(Vector3 $v) : Vector3{
-		return $this->add(-$v->x, -$v->y, -$v->z);
+		return $this->add(-$v->getX(), -$v->getY(), -$v->getZ());
 	}
 
 	public function multiply(float $number) : Vector3{
@@ -201,7 +201,7 @@ readonly class Vector3{
 
 	public function maxPlainDistance(Vector3|Vector2|float $x, float $z = 0) : float{
 		if($x instanceof Vector3){
-			return $this->maxPlainDistance($x->x, $x->z);
+			return $this->maxPlainDistance($x->getX(), $x->getZ());
 		}elseif($x instanceof Vector2){
 			return $this->maxPlainDistance($x->x, $x->y);
 		}else{
@@ -227,19 +227,19 @@ readonly class Vector3{
 	}
 
 	public function dot(Vector3 $v) : float{
-		return $this->x * $v->x + $this->y * $v->y + $this->z * $v->z;
+		return $this->x * $v->getX() + $this->y * $v->getY() + $this->z * $v->getZ();
 	}
 
 	public function cross(Vector3 $v) : Vector3{
 		return new Vector3(
-			$this->y * $v->z - $this->z * $v->y,
-			$this->z * $v->x - $this->x * $v->z,
-			$this->x * $v->y - $this->y * $v->x
+			$this->y * $v->getZ() - $this->z * $v->getY(),
+			$this->z * $v->getX() - $this->x * $v->getZ(),
+			$this->x * $v->getY() - $this->y * $v->getX()
 		);
 	}
 
 	public function equals(Vector3 $v) : bool{
-		return $this->x == $v->x and $this->y == $v->y and $this->z == $v->z;
+		return $this->x == $v->getX() and $this->y == $v->getY() and $this->z == $v->getZ();
 	}
 
 	/**
@@ -247,7 +247,7 @@ readonly class Vector3{
 	 * passed in vector, or null if not possible.
 	 */
 	public function getIntermediateWithXValue(Vector3 $v, float $x) : ?Vector3{
-		$xDiff = $v->x - $this->x;
+		$xDiff = $v->getX() - $this->x;
 		if(($xDiff * $xDiff) < 0.0000001){
 			return null;
 		}
@@ -257,7 +257,7 @@ readonly class Vector3{
 		if($f < 0 or $f > 1){
 			return null;
 		}else{
-			return new Vector3($x, $this->y + ($v->y - $this->y) * $f, $this->z + ($v->z - $this->z) * $f);
+			return new Vector3($x, $this->y + ($v->getY() - $this->y) * $f, $this->z + ($v->getZ() - $this->z) * $f);
 		}
 	}
 
@@ -266,7 +266,7 @@ readonly class Vector3{
 	 * passed in vector, or null if not possible.
 	 */
 	public function getIntermediateWithYValue(Vector3 $v, float $y) : ?Vector3{
-		$yDiff = $v->y - $this->y;
+		$yDiff = $v->getY() - $this->y;
 		if(($yDiff * $yDiff) < 0.0000001){
 			return null;
 		}
@@ -276,7 +276,7 @@ readonly class Vector3{
 		if($f < 0 or $f > 1){
 			return null;
 		}else{
-			return new Vector3($this->x + ($v->x - $this->x) * $f, $y, $this->z + ($v->z - $this->z) * $f);
+			return new Vector3($this->x + ($v->getX() - $this->x) * $f, $y, $this->z + ($v->getZ() - $this->z) * $f);
 		}
 	}
 
@@ -285,7 +285,7 @@ readonly class Vector3{
 	 * passed in vector, or null if not possible.
 	 */
 	public function getIntermediateWithZValue(Vector3 $v, float $z) : ?Vector3{
-		$zDiff = $v->z - $this->z;
+		$zDiff = $v->getZ() - $this->z;
 		if(($zDiff * $zDiff) < 0.0000001){
 			return null;
 		}
@@ -295,7 +295,7 @@ readonly class Vector3{
 		if($f < 0 or $f > 1){
 			return null;
 		}else{
-			return new Vector3($this->x + ($v->x - $this->x) * $f, $this->y + ($v->y - $this->y) * $f, $z);
+			return new Vector3($this->x + ($v->getX() - $this->x) * $f, $this->y + ($v->getY() - $this->y) * $f, $z);
 		}
 	}
 
@@ -321,13 +321,13 @@ readonly class Vector3{
 	 * @param Vector3 ...$vectors
 	 */
 	public static function maxComponents(Vector3 $vector, Vector3 ...$vectors) : Vector3{
-		$x = $vector->x;
-		$y = $vector->y;
-		$z = $vector->z;
+		$x = $vector->getX();
+		$y = $vector->getY();
+		$z = $vector->getZ();
 		foreach($vectors as $position){
-			$x = max($x, $position->x);
-			$y = max($y, $position->y);
-			$z = max($z, $position->z);
+			$x = max($x, $position->getX());
+			$y = max($y, $position->getY());
+			$z = max($z, $position->getZ());
 		}
 		return new Vector3($x, $y, $z);
 	}
@@ -338,13 +338,13 @@ readonly class Vector3{
 	 * @param Vector3 ...$vectors
 	 */
 	public static function minComponents(Vector3 $vector, Vector3 ...$vectors) : Vector3{
-		$x = $vector->x;
-		$y = $vector->y;
-		$z = $vector->z;
+		$x = $vector->getX();
+		$y = $vector->getY();
+		$z = $vector->getZ();
 		foreach($vectors as $position){
-			$x = min($x, $position->x);
-			$y = min($y, $position->y);
-			$z = min($z, $position->z);
+			$x = min($x, $position->getX());
+			$y = min($y, $position->getY());
+			$z = min($z, $position->getZ());
 		}
 		return new Vector3($x, $y, $z);
 	}
@@ -352,9 +352,9 @@ readonly class Vector3{
 	public static function sum(Vector3 ...$vector3s) : Vector3{
 		$x = $y = $z = 0;
 		foreach($vector3s as $vector3){
-			$x += $vector3->x;
-			$y += $vector3->y;
-			$z += $vector3->z;
+			$x += $vector3->getX();
+			$y += $vector3->getY();
+			$z += $vector3->getZ();
 		}
 		return new Vector3($x, $y, $z);
 	}
