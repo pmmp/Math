@@ -49,7 +49,10 @@ enum Facing{
 		};
 	}
 
-	public function offset(): array{
+	/**
+	 * @return non-empty-array<int>
+	 */
+	public function offset() : array{
 		return match ($this) {
 			self::DOWN  => [ 0, -1,  0],
 			self::UP    => [ 0, +1,  0],
@@ -90,19 +93,22 @@ enum Facing{
 				self::NORTH => self::EAST,
 				self::EAST => self::SOUTH,
 				self::SOUTH => self::WEST,
-				self::WEST => self::NORTH
+				self::WEST => self::NORTH,
+				default => throw new \InvalidArgumentException("Face " . strtolower($direction->name) . " not match with Axis " . strtolower($axis->name))
 			},
 			Axis::Z => match ($direction) {
 				self::UP => self::EAST,
 				self::EAST => self::DOWN,
 				self::DOWN => self::WEST,
-				self::WEST => self::UP
+				self::WEST => self::UP,
+				default => throw new \InvalidArgumentException("Face " . strtolower($direction->name) . " not match with Axis " . strtolower($axis->name))
 			},
 			Axis::X => match ($direction) {
 				self::UP => self::NORTH,
 				self::NORTH => self::DOWN,
 				self::DOWN => self::SOUTH,
-				self::SOUTH => self::UP
+				self::SOUTH => self::UP,
+				default => throw new \InvalidArgumentException("Face " . strtolower($direction->name) . " not match with Axis " . strtolower($axis->name))
 			}
 		};
 

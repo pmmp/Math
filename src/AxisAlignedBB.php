@@ -457,17 +457,18 @@ final class AxisAlignedBB{
 		$face = -1;
 
 		foreach([
-			Facing::WEST => $v1,
-			Facing::EAST => $v2,
-			Facing::DOWN => $v3,
-			Facing::UP => $v4,
-			Facing::NORTH => $v5,
-			Facing::SOUTH => $v6
-		] as $f => $v){
+			[Facing::WEST, $v1],
+			[Facing::EAST, $v2],
+			[Facing::DOWN, $v3],
+			[Facing::UP, $v4],
+			[Facing::NORTH, $v5],
+			[Facing::SOUTH, $v6]
+		] as $value){
+			$v = $value[1];
 			if($v !== null and ($d = $pos1->distanceSquared($v)) < $distance){
 				$vector = $v;
 				$distance = $d;
-				$face = $f;
+				$face = $value[0];
 			}
 		}
 

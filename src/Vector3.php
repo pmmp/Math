@@ -170,12 +170,12 @@ class Vector3{
 	 *
 	 * @param int $step Distance in each direction to shift the vector
 	 *
-	 * @return \Generator|Vector3[]
-	 * @phpstan-return \Generator<int, Vector3, void, void>
+	 * @return \Generator|array
+	 * @phpstan-return \Generator<Facing, Vector3, void, void>
 	 */
 	public function sides(int $step = 1) : \Generator{
 		foreach(Facing::cases() as $facing){
-			yield $facing => $this->getSide($facing, $step);
+			yield [$facing, $this->getSide($facing, $step)];
 		}
 	}
 
@@ -191,13 +191,13 @@ class Vector3{
 	/**
 	 * Yields vectors stepped out from this one in directions except those on the given axis.
 	 *
-	 * @return \Generator|Vector3[]
-	 * @phpstan-return \Generator<int, Vector3, void, void>
+	 * @return \Generator|array
+	 * @phpstan-return \Generator<Facing, Vector3, void, void>
 	 */
 	public function sidesAroundAxis(Axis $axis, int $step = 1) : \Generator{
 		foreach(Facing::cases() as $facing){
 			if(Facing::axis($facing) !== $axis){
-				yield $facing => $this->getSide($facing, $step);
+				yield [$facing, $this->getSide($facing, $step)];
 			}
 		}
 	}
