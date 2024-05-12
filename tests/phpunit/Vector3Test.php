@@ -21,11 +21,12 @@
 
 namespace pocketmine\math;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class Vector3Test extends TestCase{
 	
-	public function minComponentsProvider() : \Generator{
+	public static function minComponentsProvider() : \Generator{
 		yield [
 			new Vector3(1, 2, 3),
 			new Vector3(9, 8, 7),
@@ -52,19 +53,12 @@ class Vector3Test extends TestCase{
 		];
 	}
 
-	/**
-	 * @dataProvider minComponentsProvider
-	 *
-	 * @param Vector3 $vec1
-	 * @param Vector3 $vec2
-	 * @param Vector3 $vec3
-	 * @param Vector3 $expected
-	 */
+	#[DataProvider("minComponentsProvider")]
 	public function testMinComponents(Vector3 $vec1, Vector3 $vec2, Vector3 $vec3, Vector3 $expected) : void{
 		self::assertEquals(Vector3::minComponents($vec1, $vec2, $vec3), $expected);
 	}
 
-	public function maxComponentsProvider() : \Generator{
+	public static function maxComponentsProvider() : \Generator{
 		yield [
 			new Vector3(1, 2, 3),
 			new Vector3(9, 8, 7),
@@ -91,14 +85,7 @@ class Vector3Test extends TestCase{
 		];
 	}
 
-	/**
-	 * @dataProvider maxComponentsProvider
-	 *
-	 * @param Vector3 $vec1
-	 * @param Vector3 $vec2
-	 * @param Vector3 $vec3
-	 * @param Vector3 $expected
-	 */
+	#[DataProvider("maxComponentsProvider")]
 	public function testMaxComponents(Vector3 $vec1, Vector3 $vec2, Vector3 $vec3, Vector3 $expected) : void{
 		self::assertEquals(Vector3::maxComponents($vec1, $vec2, $vec3), $expected);
 	}
@@ -107,7 +94,7 @@ class Vector3Test extends TestCase{
 	 * @return \Generator|Vector3[][][]
 	 * @phpstan-return \Generator<int, list<list<Vector3>>, void, void>
 	 */
-	public function sumProvider() : \Generator{
+	public static function sumProvider() : \Generator{
 		yield [[
 			new Vector3(1, 1, 1),
 			new Vector3(-1, -1, -1)
@@ -115,10 +102,9 @@ class Vector3Test extends TestCase{
 	}
 
 	/**
-	 * @dataProvider sumProvider
-	 *
 	 * @param Vector3[] $vectors
 	 */
+	#[DataProvider("sumProvider")]
 	public function testSum(array $vectors) : void{
 		$vec = new Vector3(0, 0, 0);
 		foreach($vectors as $vector){
@@ -133,7 +119,7 @@ class Vector3Test extends TestCase{
 	/**
 	 * @phpstan-return \Generator<int, array{Vector3, float|int|null, float|int|null, float|int|null, Vector3}, void, void>
 	 */
-	public function withComponentsProvider() : \Generator{
+	public static function withComponentsProvider() : \Generator{
 		yield [new Vector3(0, 0, 0), 1, 1, 1, new Vector3(1, 1, 1)];
 		yield [new Vector3(0, 0, 0), null, 1, 1, new Vector3(0, 1, 1)];
 		yield [new Vector3(0, 0, 0), 1, null, 1, new Vector3(1, 0, 1)];
@@ -141,14 +127,8 @@ class Vector3Test extends TestCase{
 		yield [new Vector3(0, 0, 0), null, null, null, new Vector3(0, 0, 0)];
 	}
 
-	/**
-	 * @dataProvider withComponentsProvider
-	 *
-	 * @param float|int|null $x
-	 * @param float|int|null $y
-	 * @param float|int|null $z
-	 */
-	public function testWithComponents(Vector3 $original, $x, $y, $z, Vector3 $expected) : void{
+	#[DataProvider("withComponentsProvider")]
+	public function testWithComponents(Vector3 $original, float|int|null $x, float|int|null $y, float|int|null $z, Vector3 $expected) : void{
 		$actual = $original->withComponents($x, $y, $z);
 		self::assertTrue($actual->equals($expected));
 	}
