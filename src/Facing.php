@@ -23,8 +23,6 @@ declare(strict_types=1);
 
 namespace pocketmine\math;
 
-use function in_array;
-
 enum Facing{
 	case DOWN;
 	case UP;
@@ -33,32 +31,11 @@ enum Facing{
 	case WEST;
 	case EAST;
 
-	/**
-	 * @deprecated use Facing::cases()
-	 */
-	public const ALL = [
-		self::DOWN,
-		self::UP,
-		self::NORTH,
-		self::SOUTH,
-		self::WEST,
-		self::EAST
-	];
-
 	public const HORIZONTAL = [
 		self::NORTH,
 		self::SOUTH,
 		self::WEST,
 		self::EAST
-	];
-
-	public const OFFSET = [
-		self::DOWN  => [ 0, -1,  0],
-		self::UP    => [ 0, +1,  0],
-		self::NORTH => [ 0,  0, -1],
-		self::SOUTH => [ 0,  0, +1],
-		self::WEST  => [-1,  0,  0],
-		self::EAST  => [+1,  0,  0]
 	];
 
 	/**
@@ -69,6 +46,17 @@ enum Facing{
 			self::DOWN, self::UP => Axis::Y,
 			self::NORTH, self::SOUTH => Axis::Z,
 			self::WEST, self::EAST => Axis::X,
+		};
+	}
+
+	public function offset(): array{
+		return match ($this) {
+			self::DOWN  => [ 0, -1,  0],
+			self::UP    => [ 0, +1,  0],
+			self::NORTH => [ 0,  0, -1],
+			self::SOUTH => [ 0,  0, +1],
+			self::WEST  => [-1,  0,  0],
+			self::EAST  => [+1,  0,  0]
 		};
 	}
 
@@ -131,24 +119,5 @@ enum Facing{
 
 	public static function rotateX(Facing $direction, bool $clockwise) : Facing{
 		return self::rotate($direction, Axis::X, $clockwise);
-	}
-
-	/**
-	 * Validates the given integer as a Facing direction.
-	 * @deprecated
-	 * @throws \InvalidArgumentException if the argument is not a valid Facing constant
-	 */
-	public static function validate(int $facing) : void{
-		if(!in_array($facing, self::ALL, true)){
-			throw new \InvalidArgumentException("Invalid direction $facing");
-		}
-	}
-
-	/**
-	 * @deprecated use Facing->name
-	 * Returns a human-readable string representation of the given Facing direction.
-	 */
-	public static function toString(Facing $facing) : string{
-		return strtolower($facing->name);
 	}
 }

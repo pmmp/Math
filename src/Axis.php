@@ -27,12 +27,4 @@ enum Axis{
 	case Y;
 	case Z;
 	case X;
-
-	/**
-	 * @deprecated use Axis->name
-	 * Returns a human-readable string representation of the given axis.
-	 */
-	public static function toString(Axis $axis) : string{
-		return strtolower($axis->name);
-	}
 }
