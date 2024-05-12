@@ -182,7 +182,7 @@ class Vector3{
 	/**
 	 * Same as sides() but returns a pre-populated array instead of Generator.
 	 *
-	 * @return array{Facing, Vector3}
+	 * @return array<int, array{Facing,Vector3}>
 	 */
 	public function sidesArray(bool $keys = false, int $step = 1) : array{
 		return iterator_to_array($this->sides($step), $keys);

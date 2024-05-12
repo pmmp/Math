@@ -454,6 +454,7 @@ final class AxisAlignedBB{
 
 		$vector = null;
 		$distance = PHP_INT_MAX;
+		/** @var Facing $face */
 		$face = null;
 
 		foreach([
