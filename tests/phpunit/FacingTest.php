@@ -35,7 +35,7 @@ class FacingTest extends TestCase{
 		yield [Facing::EAST, Axis::X];
 	}
 
-  #[DataProvider("axisProvider")]
+	#[DataProvider("axisProvider")]
 	public function testAxis(Facing $direction, Axis $axis) : void{
 		self::assertEquals($axis, $direction->axis());
 	}
