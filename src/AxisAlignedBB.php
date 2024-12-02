@@ -446,9 +446,8 @@ final class AxisAlignedBB{
 			$v6 = null;
 		}
 
-		$vector = null;
 		$distance = PHP_INT_MAX;
-		$face = null;
+		$hitInfo = null;
 
 		foreach([
 			[Facing::WEST, $v1],
@@ -460,16 +459,16 @@ final class AxisAlignedBB{
 		] as $value){
 			$v = $value[1];
 			if($v !== null and ($d = $pos1->distanceSquared($v)) < $distance){
-				$vector = $v;
 				$distance = $d;
-				$face = $value[0];
+				$hitInfo = $value;
 			}
 		}
 
-		if($vector === null){
+		if($hitInfo === null){
 			return null;
 		}
 
+		[$face, $vector] = $hitInfo;
 		return new RayTraceResult($this, $face, $vector);
 	}
 
