@@ -86,6 +86,8 @@ enum Facing{
 
 	/**
 	 * Rotates the given direction around the axis.
+	 *
+	 * @throws \InvalidArgumentException
 	 */
 	public function rotate(Axis $axis, bool $clockwise) : Facing{
 		$rotated = match ($axis) {
@@ -115,14 +117,32 @@ enum Facing{
 		return $clockwise ? $rotated : $rotated->opposite();
 	}
 
+	/**
+	 * Rotates the given direction around the Y axis.
+	 * 
+	 * @see Facing::rotate()
+	 * @throws \InvalidArgumentException
+	 */
 	public function rotateY(bool $clockwise) : Facing{
 		return $this->rotate(Axis::Y, $clockwise);
 	}
 
+	/**
+	 * Rotates the given direction around the Z axis.
+	 * 
+	 * @see Facing::rotate()
+	 * @throws \InvalidArgumentException
+	 */
 	public function rotateZ(bool $clockwise) : Facing{
 		return $this->rotate(Axis::Z, $clockwise);
 	}
 
+	/**
+	 * Rotates the given direction around the X axis.
+	 * 
+	 * @see Facing::rotate()
+	 * @throws \InvalidArgumentException
+	 */
 	public function rotateX(bool $clockwise) : Facing{
 		return $this->rotate(Axis::X, $clockwise);
 	}

@@ -180,7 +180,6 @@ final class AxisAlignedBB{
 	 * @param float $distance Negative values pull the face in, positive values push out.
 	 *
 	 * @return $this
-	 * @throws \InvalidArgumentException
 	 */
 	public function extend(Facing $face, float $distance) : AxisAlignedBB{
 		match($face){
@@ -198,8 +197,6 @@ final class AxisAlignedBB{
 	/**
 	 * Returns an extended clone of this bounding box.
 	 * @see AxisAlignedBB::extend()
-	 *
-	 * @throws \InvalidArgumentException
 	 */
 	public function extendedCopy(Facing $face, float $distance) : AxisAlignedBB{
 		return (clone $this)->extend($face, $distance);
@@ -212,7 +209,6 @@ final class AxisAlignedBB{
 	 * @param float $distance Positive values pull the face in, negative values push out.
 	 *
 	 * @return $this
-	 * @throws \InvalidArgumentException
 	 */
 	public function trim(Facing $face, float $distance) : AxisAlignedBB{
 		return $this->extend($face, -$distance);
@@ -221,8 +217,6 @@ final class AxisAlignedBB{
 	/**
 	 * Returns a trimmed clone of this bounding box.
 	 * @see AxisAlignedBB::trim()
-	 *
-	 * @throws \InvalidArgumentException
 	 */
 	public function trimmedCopy(Facing $face, float $distance) : AxisAlignedBB{
 		return $this->extendedCopy($face, -$distance);
