@@ -96,7 +96,9 @@ class Vector2{
 	}
 
 	public function distanceSquared(Vector2 $pos) : float{
-		return (($this->x - $pos->x) ** 2) + (($this->y - $pos->y) ** 2);
+		$dx = $this->x - $pos->x;
+        $dy = $this->y - $pos->y;
+        return ($dx * $dx) + ($dy * $dy);
 	}
 
 	public function length() : float{

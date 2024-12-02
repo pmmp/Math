@@ -58,7 +58,7 @@ final class Math{
 		if($a === 0.0){
 			throw new \InvalidArgumentException("Coefficient a cannot be 0!");
 		}
-		$discriminant = $b ** 2 - 4 * $a * $c;
+		$discriminant = $b * $b - 4 * $a * $c;
 		if($discriminant > 0){ //2 real roots
 			$sqrtDiscriminant = sqrt($discriminant);
 			return [

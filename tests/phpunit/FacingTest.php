@@ -21,11 +21,12 @@
 
 namespace pocketmine\math;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class FacingTest extends TestCase{
 
-	public function axisProvider() : \Generator{
+	public static function axisProvider() : \Generator{
 		yield [Facing::DOWN, Axis::Y];
 		yield [Facing::UP, Axis::Y];
 		yield [Facing::NORTH, Axis::Z];
@@ -34,34 +35,24 @@ class FacingTest extends TestCase{
 		yield [Facing::EAST, Axis::X];
 	}
 
-	/**
-	 * @dataProvider axisProvider
-	 *
-	 * @param int $direction
-	 * @param int $axis
-	 */
+	#[DataProvider("axisProvider")]
 	public function testAxis(int $direction, int $axis) : void{
 		self::assertEquals($axis, Facing::axis($direction));
 	}
 
-	public function oppositeProvider() : \Generator{
+	public static function oppositeProvider() : \Generator{
 		yield [Facing::DOWN, Facing::UP];
 		yield [Facing::NORTH, Facing::SOUTH];
 		yield [Facing::WEST, Facing::EAST];
 	}
 
-	/**
-	 * @dataProvider oppositeProvider
-	 *
-	 * @param int $dir1
-	 * @param int $dir2
-	 */
+	#[DataProvider("oppositeProvider")]
 	public function testOpposite(int $dir1, int $dir2) : void{
 		self::assertEquals($dir2, Facing::opposite($dir1));
 		self::assertEquals($dir1, Facing::opposite($dir2));
 	}
 
-	public function positiveProvider() : \Generator{
+	public static function positiveProvider() : \Generator{
 		yield [Facing::DOWN, false];
 		yield [Facing::UP, true];
 		yield [Facing::NORTH, false];
@@ -70,17 +61,12 @@ class FacingTest extends TestCase{
 		yield [Facing::EAST, true];
 	}
 
-	/**
-	 * @dataProvider positiveProvider
-	 *
-	 * @param int  $facing
-	 * @param bool $positive
-	 */
+	#[DataProvider("positiveProvider")]
 	public function testIsPositive(int $facing, bool $positive) : void{
 		self::assertEquals($positive, Facing::isPositive($facing));
 	}
 
-	public function rotateProvider() : \Generator{
+	public static function rotateProvider() : \Generator{
 		yield [Facing::NORTH, Axis::Y, true, Facing::EAST];
 		yield [Facing::EAST, Axis::Y, true, Facing::SOUTH];
 		yield [Facing::SOUTH, Axis::Y, true, Facing::WEST];
@@ -114,14 +100,7 @@ class FacingTest extends TestCase{
 		yield [Facing::NORTH, Axis::X, false, Facing::UP];
 	}
 
-	/**
-	 * @dataProvider rotateProvider
-	 *
-	 * @param int  $direction
-	 * @param int  $axis
-	 * @param bool $clockwise
-	 * @param int  $expected
-	 */
+	#[DataProvider("rotateProvider")]
 	public function testRotate(int $direction, int $axis, bool $clockwise, int $expected) : void{
 		self::assertEquals($expected, Facing::rotate($direction, $axis, $clockwise));
 	}
