@@ -370,14 +370,14 @@ final class AxisAlignedBB{
 	 * Returns whether the specified vector is within the bounds of this AABB on all axes.
 	 */
 	public function isVectorInside(Vector3 $vector) : bool{
-		if($vector->getX() <= $this->minX or $vector->getX() >= $this->maxX){
+		if($vector->x <= $this->minX or $vector->x >= $this->maxX){
 			return false;
 		}
-		if($vector->getY() <= $this->minY or $vector->getY() >= $this->maxY){
+		if($vector->y <= $this->minY or $vector->y >= $this->maxY){
 			return false;
 		}
 
-		return $vector->getZ() > $this->minZ and $vector->getZ() < $this->maxZ;
+		return $vector->z > $this->minZ and $vector->z < $this->maxZ;
 	}
 
 	/**
@@ -409,21 +409,21 @@ final class AxisAlignedBB{
 	 * Returns whether the specified vector is within the Y and Z bounds of this AABB.
 	 */
 	public function isVectorInYZ(Vector3 $vector) : bool{
-		return $vector->getY() >= $this->minY and $vector->getY() <= $this->maxY and $vector->getZ() >= $this->minZ and $vector->getZ() <= $this->maxZ;
+		return $vector->y >= $this->minY and $vector->y <= $this->maxY and $vector->z >= $this->minZ and $vector->z <= $this->maxZ;
 	}
 
 	/**
 	 * Returns whether the specified vector is within the X and Z bounds of this AABB.
 	 */
 	public function isVectorInXZ(Vector3 $vector) : bool{
-		return $vector->getX() >= $this->minX and $vector->getX() <= $this->maxX and $vector->getZ() >= $this->minZ and $vector->getZ() <= $this->maxZ;
+		return $vector->x >= $this->minX and $vector->x <= $this->maxX and $vector->z >= $this->minZ and $vector->z <= $this->maxZ;
 	}
 
 	/**
 	 * Returns whether the specified vector is within the X and Y bounds of this AABB.
 	 */
 	public function isVectorInXY(Vector3 $vector) : bool{
-		return $vector->getX() >= $this->minX and $vector->getX() <= $this->maxX and $vector->getY() >= $this->minY and $vector->getY() <= $this->maxY;
+		return $vector->x >= $this->minX and $vector->x <= $this->maxX and $vector->y >= $this->minY and $vector->y <= $this->maxY;
 	}
 
 	/**
