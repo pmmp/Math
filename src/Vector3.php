@@ -33,7 +33,7 @@ use function round;
 use function sqrt;
 use const PHP_ROUND_HALF_UP;
 
-class Vector3{
+readonly class Vector3{
 	public function __construct(
 		public float|int $x,
 		public float|int $y,
