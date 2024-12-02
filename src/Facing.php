@@ -42,7 +42,7 @@ enum Facing{
 	 * Returns the axis of the given direction.
 	 */
 	public function axis() : Axis{
-		return match ($this) {
+		return match($this){
 			self::DOWN, self::UP => Axis::Y,
 			self::NORTH, self::SOUTH => Axis::Z,
 			self::WEST, self::EAST => Axis::X,
@@ -53,7 +53,7 @@ enum Facing{
 	 * @phpstan-return non-empty-array<int>
 	 */
 	public function offset() : array{
-		return match ($this) {
+		return match($this){
 			self::DOWN  => [ 0, -1,  0],
 			self::UP    => [ 0, +1,  0],
 			self::NORTH => [ 0,  0, -1],
@@ -74,7 +74,7 @@ enum Facing{
 	 * Returns the opposite Facing of the specified one.
 	 */
 	public function opposite() : Facing{
-		return match ($this) {
+		return match($this){
 			self::DOWN => self::UP,
 			self::UP => self::DOWN,
 			self::NORTH => self::SOUTH,
@@ -90,22 +90,22 @@ enum Facing{
 	 * @throws \InvalidArgumentException
 	 */
 	public function rotate(Axis $axis, bool $clockwise) : Facing{
-		$rotated = match ($axis) {
-			Axis::Y => match ($this) {
+		$rotated = match($axis){
+			Axis::Y => match($this){
 				self::NORTH => self::EAST,
 				self::EAST => self::SOUTH,
 				self::SOUTH => self::WEST,
 				self::WEST => self::NORTH,
 				default => throw new \InvalidArgumentException("Face " . strtolower($this->name) . " not match with Axis " . strtolower($axis->name))
 			},
-			Axis::Z => match ($this) {
+			Axis::Z => match($this){
 				self::UP => self::EAST,
 				self::EAST => self::DOWN,
 				self::DOWN => self::WEST,
 				self::WEST => self::UP,
 				default => throw new \InvalidArgumentException("Face " . strtolower($this->name) . " not match with Axis " . strtolower($axis->name))
 			},
-			Axis::X => match ($this) {
+			Axis::X => match($this){
 				self::UP => self::NORTH,
 				self::NORTH => self::DOWN,
 				self::DOWN => self::SOUTH,
