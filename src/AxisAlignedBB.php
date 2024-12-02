@@ -456,11 +456,10 @@ final class AxisAlignedBB{
 			[Facing::UP, $v4],
 			[Facing::NORTH, $v5],
 			[Facing::SOUTH, $v6]
-		] as $value){
-			$v = $value[1];
+		] as [$facing, $v]){
 			if($v !== null and ($d = $pos1->distanceSquared($v)) < $distance){
 				$distance = $d;
-				$hitInfo = $value;
+				$hitInfo = [$facing, $v];
 			}
 		}
 
