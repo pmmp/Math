@@ -50,7 +50,7 @@ enum Facing{
 	}
 
 	/**
-	 * @return non-empty-array<int>
+	 * @phpstan-return non-empty-array<int>
 	 */
 	public function offset() : array{
 		return match ($this) {
