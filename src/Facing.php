@@ -50,7 +50,7 @@ enum Facing{
 	}
 
 	/**
-	 * @phpstan-return non-empty-array<int>
+	 * @phpstan-return array{-1|0|1, -1|0|1, -1|0|1}
 	 */
 	public function offset() : array{
 		return match($this){
@@ -87,7 +87,7 @@ enum Facing{
 	/**
 	 * Rotates the given direction around the axis.
 	 *
-	 * @throws \InvalidArgumentException
+	 * @throws \InvalidArgumentException if not possible to rotate this direction around $axis
 	 */
 	public function rotate(Axis $axis, bool $clockwise) : Facing{
 		$rotated = match($axis){
@@ -96,21 +96,21 @@ enum Facing{
 				self::EAST => self::SOUTH,
 				self::SOUTH => self::WEST,
 				self::WEST => self::NORTH,
-				default => throw new \InvalidArgumentException("Face " . strtolower($this->name) . " not match with Axis " . strtolower($axis->name))
+				default => throw new \InvalidArgumentException("Cannot rotate facing \"" . strtolower($this->name) . "\" around axis \"" . strtolower($axis->name) . "\"")
 			},
 			Axis::Z => match($this){
 				self::UP => self::EAST,
 				self::EAST => self::DOWN,
 				self::DOWN => self::WEST,
 				self::WEST => self::UP,
-				default => throw new \InvalidArgumentException("Face " . strtolower($this->name) . " not match with Axis " . strtolower($axis->name))
+				default => throw new \InvalidArgumentException("Cannot rotate facing \"" . strtolower($this->name) . "\" around axis \"" . strtolower($axis->name) . "\"")
 			},
 			Axis::X => match($this){
 				self::UP => self::NORTH,
 				self::NORTH => self::DOWN,
 				self::DOWN => self::SOUTH,
 				self::SOUTH => self::UP,
-				default => throw new \InvalidArgumentException("Face " . strtolower($this->name) . " not match with Axis " . strtolower($axis->name))
+				default => throw new \InvalidArgumentException("Cannot rotate facing \"" . strtolower($this->name) . "\" around axis \"" . strtolower($axis->name) . "\"")
 			}
 		};
 
