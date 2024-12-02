@@ -41,8 +41,8 @@ enum Facing{
 	/**
 	 * Returns the axis of the given direction.
 	 */
-	public static function axis(Facing $direction) : Axis{
-		return match ($direction) {
+	public function axis() : Axis{
+		return match ($this) {
 			self::DOWN, self::UP => Axis::Y,
 			self::NORTH, self::SOUTH => Axis::Z,
 			self::WEST, self::EAST => Axis::X,
@@ -66,15 +66,15 @@ enum Facing{
 	/**
 	 * Returns whether the direction is facing the positive of its axis.
 	 */
-	public static function isPositive(Facing $direction) : bool{
-		return $direction === self::UP || $direction === self::SOUTH || $direction === self::EAST;
+	public function isPositive() : bool{
+		return $this === self::UP || $this === self::SOUTH || $this === self::EAST;
 	}
 
 	/**
 	 * Returns the opposite Facing of the specified one.
 	 */
-	public static function opposite(Facing $direction) : Facing{
-		return match ($direction) {
+	public function opposite() : Facing{
+		return match ($this) {
 			self::DOWN => self::UP,
 			self::UP => self::DOWN,
 			self::NORTH => self::SOUTH,
@@ -87,43 +87,43 @@ enum Facing{
 	/**
 	 * Rotates the given direction around the axis.
 	 */
-	public static function rotate(Facing $direction, Axis $axis, bool $clockwise) : Facing{
+	public function rotate(Axis $axis, bool $clockwise) : Facing{
 		$rotated = match ($axis) {
-			Axis::Y => match ($direction) {
+			Axis::Y => match ($this) {
 				self::NORTH => self::EAST,
 				self::EAST => self::SOUTH,
 				self::SOUTH => self::WEST,
 				self::WEST => self::NORTH,
-				default => throw new \InvalidArgumentException("Face " . strtolower($direction->name) . " not match with Axis " . strtolower($axis->name))
+				default => throw new \InvalidArgumentException("Face " . strtolower($this->name) . " not match with Axis " . strtolower($axis->name))
 			},
-			Axis::Z => match ($direction) {
+			Axis::Z => match ($this) {
 				self::UP => self::EAST,
 				self::EAST => self::DOWN,
 				self::DOWN => self::WEST,
 				self::WEST => self::UP,
-				default => throw new \InvalidArgumentException("Face " . strtolower($direction->name) . " not match with Axis " . strtolower($axis->name))
+				default => throw new \InvalidArgumentException("Face " . strtolower($this->name) . " not match with Axis " . strtolower($axis->name))
 			},
-			Axis::X => match ($direction) {
+			Axis::X => match ($this) {
 				self::UP => self::NORTH,
 				self::NORTH => self::DOWN,
 				self::DOWN => self::SOUTH,
 				self::SOUTH => self::UP,
-				default => throw new \InvalidArgumentException("Face " . strtolower($direction->name) . " not match with Axis " . strtolower($axis->name))
+				default => throw new \InvalidArgumentException("Face " . strtolower($this->name) . " not match with Axis " . strtolower($axis->name))
 			}
 		};
 
-		return $clockwise ? $rotated : self::opposite($rotated);
+		return $clockwise ? $rotated : $rotated->opposite();
 	}
 
-	public static function rotateY(Facing $direction, bool $clockwise) : Facing{
-		return self::rotate($direction, Axis::Y, $clockwise);
+	public function rotateY(bool $clockwise) : Facing{
+		return $this->rotate(Axis::Y, $clockwise);
 	}
 
-	public static function rotateZ(Facing $direction, bool $clockwise) : Facing{
-		return self::rotate($direction, Axis::Z, $clockwise);
+	public function rotateZ(bool $clockwise) : Facing{
+		return $this->rotate(Axis::Z, $clockwise);
 	}
 
-	public static function rotateX(Facing $direction, bool $clockwise) : Facing{
-		return self::rotate($direction, Axis::X, $clockwise);
+	public function rotateX(bool $clockwise) : Facing{
+		return $this->rotate(Axis::X, $clockwise);
 	}
 }
