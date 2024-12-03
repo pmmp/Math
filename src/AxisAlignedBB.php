@@ -90,7 +90,7 @@ final readonly class AxisAlignedBB{
 	/**
 	 * Outsets the bounds of this AxisAlignedBB by the specified X, Y and Z.
 	 *
-	 * @return $this
+	 * Returns an expanded clone of this AxisAlignedBB.
 	 */
 	public function expandedCopy(float $x, float $y, float $z){
 		return new AxisAlignedBB(
@@ -106,7 +106,7 @@ final readonly class AxisAlignedBB{
 	/**
 	 * Shifts this AxisAlignedBB by the given X, Y and Z.
 	 *
-	 * @return $this
+	 * Returns an offset clone of this AxisAlignedBB.
 	 */
 	public function offsetCopy(float $x, float $y, float $z) : AxisAlignedBB{
 		return new AxisAlignedBB(
@@ -122,7 +122,7 @@ final readonly class AxisAlignedBB{
 	/**
 	 * Offsets this AxisAlignedBB in the given direction by the specified distance.
 	 *
-	 * @return $this
+	 * Returns an offset clone of this AxisAlignedBB.
 	 */
 	public function offsetTowardsCopy(Facing $face, float $distance) : AxisAlignedBB{
 		[$offsetX, $offsetY, $offsetZ] = $face->offset();
@@ -133,7 +133,7 @@ final readonly class AxisAlignedBB{
 	/**
 	 * Insets the bounds of this AxisAlignedBB by the specified X, Y and Z.
 	 *
-	 * @return $this
+	 * Returns an contracted clone of this AxisAlignedBB.
 	 */
 	public function contractedCopy(float $x, float $y, float $z) : AxisAlignedBB{
 		return new AxisAlignedBB(
@@ -151,7 +151,7 @@ final readonly class AxisAlignedBB{
 	 *
 	 * @param float $distance Negative values pull the face in, positive values push out.
 	 *
-	 * @return $this
+	 * Returns an extended clone of this AxisAlignedBB.
 	 */
 	public function extendedCopy(Facing $face, float $distance) : AxisAlignedBB{
 		return match($face){
@@ -170,9 +170,9 @@ final readonly class AxisAlignedBB{
 	 *
 	 * @param float $distance Positive values pull the face in, negative values push out.
 	 *
-	 * @return $this
+	 * Returns an trimmed clone of this AxisAlignedBB.
 	 */
-	public function trimedCopy(Facing $face, float $distance) : AxisAlignedBB{
+	public function trimmedCopy(Facing $face, float $distance) : AxisAlignedBB{
 		return $this->extendedCopy($face, -$distance);
 	}
 
@@ -181,7 +181,7 @@ final readonly class AxisAlignedBB{
 	 *
 	 * @param float $distance Negative values reduce width, positive values increase width.
 	 *
-	 * @return $this
+	 * Returns an stretched clone of this AxisAlignedBB.
 	 */
 	public function stretchedCopy(Axis $axis, float $distance) : AxisAlignedBB{
 		return match($axis){
@@ -195,7 +195,7 @@ final readonly class AxisAlignedBB{
 	 * Reduces the dimension of the AABB on the given axis. Inverse of stretch().
 	 * @see AxisAlignedBB::stretchedCopy()
 	 *
-	 * @return $this
+	 * Returns an squashed clone of this AxisAlignedBB.
 	 */
 	public function squashedCopy(Axis $axis, float $distance) : AxisAlignedBB{
 		return $this->stretchedCopy($axis, -$distance);
