@@ -92,7 +92,7 @@ final readonly class AxisAlignedBB{
 	 *
 	 * Returns an expanded clone of this AxisAlignedBB.
 	 */
-	public function expandedCopy(float $x, float $y, float $z){
+	public function expandedCopy(float $x, float $y, float $z): AxisAlignedBB{
 		return new AxisAlignedBB(
 			$this->minX - $x,
 			$this->minY - $y,
