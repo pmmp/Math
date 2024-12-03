@@ -26,7 +26,7 @@ namespace pocketmine\math;
 /**
  * Class representing a ray trace collision with an AxisAlignedBB
  */
-class RayTraceResult{
+readonly class RayTraceResult{
 
 	public function __construct(
 		public AxisAlignedBB $bb,
