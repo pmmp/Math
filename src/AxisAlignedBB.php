@@ -92,7 +92,7 @@ final readonly class AxisAlignedBB{
 	 *
 	 * @return $this
 	 */
-	public function expand(float $x, float $y, float $z){
+	public function expandCopy(float $x, float $y, float $z){
 		return new AxisAlignedBB(
 			$this->minX - $x,
 			$this->minY - $y,
@@ -108,7 +108,7 @@ final readonly class AxisAlignedBB{
 	 *
 	 * @return $this
 	 */
-	public function offset(float $x, float $y, float $z) : AxisAlignedBB{
+	public function offsetCopy(float $x, float $y, float $z) : AxisAlignedBB{
 		return new AxisAlignedBB(
 			$this->minX + $x,
 			$this->minY + $y,
@@ -124,10 +124,10 @@ final readonly class AxisAlignedBB{
 	 *
 	 * @return $this
 	 */
-	public function offsetTowards(Facing $face, float $distance) : AxisAlignedBB{
+	public function offsetTowardsCopy(Facing $face, float $distance) : AxisAlignedBB{
 		[$offsetX, $offsetY, $offsetZ] = $face->offset();
 
-		return $this->offset($offsetX * $distance, $offsetY * $distance, $offsetZ * $distance);
+		return $this->offsetCopy($offsetX * $distance, $offsetY * $distance, $offsetZ * $distance);
 	}
 
 	/**
@@ -135,7 +135,7 @@ final readonly class AxisAlignedBB{
 	 *
 	 * @return $this
 	 */
-	public function contract(float $x, float $y, float $z) : AxisAlignedBB{
+	public function contractCopy(float $x, float $y, float $z) : AxisAlignedBB{
 		return new AxisAlignedBB(
 			$this->minX + $x,
 			$this->minY + $y,
@@ -153,7 +153,7 @@ final readonly class AxisAlignedBB{
 	 *
 	 * @return $this
 	 */
-	public function extend(Facing $face, float $distance) : AxisAlignedBB{
+	public function extendCopy(Facing $face, float $distance) : AxisAlignedBB{
 		return match($face){
 			Facing::DOWN  => new AxisAlignedBB($this->minX, $this->minY - $distance, $this->minZ, $this->maxX, $this->maxY, $this->maxZ),
 			Facing::UP    => new AxisAlignedBB($this->minX, $this->minY, $this->minZ, $this->maxX + $distance, $this->maxY, $this->maxZ),
@@ -166,14 +166,14 @@ final readonly class AxisAlignedBB{
 
 	/**
 	 * Inverse of extend().
-	 * @see AxisAlignedBB::extend()
+	 * @see AxisAlignedBB::extendCopy()
 	 *
 	 * @param float $distance Positive values pull the face in, negative values push out.
 	 *
 	 * @return $this
 	 */
-	public function trim(Facing $face, float $distance) : AxisAlignedBB{
-		return $this->extend($face, -$distance);
+	public function trimCopy(Facing $face, float $distance) : AxisAlignedBB{
+		return $this->extendCopy($face, -$distance);
 	}
 
 	/**
@@ -183,7 +183,7 @@ final readonly class AxisAlignedBB{
 	 *
 	 * @return $this
 	 */
-	public function stretch(Axis $axis, float $distance) : AxisAlignedBB{
+	public function stretchCopy(Axis $axis, float $distance) : AxisAlignedBB{
 		return match($axis){
 			Axis::Y => new AxisAlignedBB($this->minX, $this->minY - $distance, $this->minZ, $this->maxX, $this->maxY + $distance, $this->maxZ),
 			Axis::Z => new AxisAlignedBB($this->minX, $this->minY, $this->minZ - $distance, $this->maxX, $this->maxY, $this->maxZ + $distance),
@@ -193,12 +193,12 @@ final readonly class AxisAlignedBB{
 
 	/**
 	 * Reduces the dimension of the AABB on the given axis. Inverse of stretch().
-	 * @see AxisAlignedBB::stretch()
+	 * @see AxisAlignedBB::stretchCopy()
 	 *
 	 * @return $this
 	 */
-	public function squash(Axis $axis, float $distance) : AxisAlignedBB{
-		return $this->stretch($axis, -$distance);
+	public function squashCopy(Axis $axis, float $distance) : AxisAlignedBB{
+		return $this->stretchCopy($axis, -$distance);
 	}
 
 	public function calculateXOffset(AxisAlignedBB $bb, float $x) : float{
