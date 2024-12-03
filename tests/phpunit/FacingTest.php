@@ -36,8 +36,8 @@ class FacingTest extends TestCase{
 	}
 
 	#[DataProvider("axisProvider")]
-	public function testAxis(int $direction, int $axis) : void{
-		self::assertEquals($axis, Facing::axis($direction));
+	public function testAxis(Facing $direction, Axis $axis) : void{
+		self::assertEquals($axis, $direction->axis());
 	}
 
 	public static function oppositeProvider() : \Generator{
@@ -47,9 +47,9 @@ class FacingTest extends TestCase{
 	}
 
 	#[DataProvider("oppositeProvider")]
-	public function testOpposite(int $dir1, int $dir2) : void{
-		self::assertEquals($dir2, Facing::opposite($dir1));
-		self::assertEquals($dir1, Facing::opposite($dir2));
+	public function testOpposite(Facing $dir1, Facing $dir2) : void{
+		self::assertEquals($dir2, $dir1->opposite());
+		self::assertEquals($dir1, $dir2->opposite());
 	}
 
 	public static function positiveProvider() : \Generator{
@@ -62,8 +62,8 @@ class FacingTest extends TestCase{
 	}
 
 	#[DataProvider("positiveProvider")]
-	public function testIsPositive(int $facing, bool $positive) : void{
-		self::assertEquals($positive, Facing::isPositive($facing));
+	public function testIsPositive(Facing $facing, bool $positive) : void{
+		self::assertEquals($positive, $facing->isPositive());
 	}
 
 	public static function rotateProvider() : \Generator{
@@ -101,7 +101,7 @@ class FacingTest extends TestCase{
 	}
 
 	#[DataProvider("rotateProvider")]
-	public function testRotate(int $direction, int $axis, bool $clockwise, int $expected) : void{
-		self::assertEquals($expected, Facing::rotate($direction, $axis, $clockwise));
+	public function testRotate(Facing $direction, Axis $axis, bool $clockwise, Facing $expected) : void{
+		self::assertEquals($expected, $direction->rotate($axis, $clockwise));
 	}
 }

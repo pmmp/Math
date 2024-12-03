@@ -136,12 +136,10 @@ final class AxisAlignedBB{
 	/**
 	 * Offsets this AxisAlignedBB in the given direction by the specified distance.
 	 *
-	 * @param int $face one of the Facing::* constants
-	 *
 	 * @return $this
 	 */
-	public function offsetTowards(int $face, float $distance) : AxisAlignedBB{
-		[$offsetX, $offsetY, $offsetZ] = Facing::OFFSET[$face] ?? throw new \InvalidArgumentException("Invalid Facing $face");
+	public function offsetTowards(Facing $face, float $distance) : AxisAlignedBB{
+		[$offsetX, $offsetY, $offsetZ] = $face->offset();
 
 		return $this->offset($offsetX * $distance, $offsetY * $distance, $offsetZ * $distance);
 	}
@@ -149,7 +147,7 @@ final class AxisAlignedBB{
 	/**
 	 * Returns an offset clone of this AxisAlignedBB.
 	 */
-	public function offsetTowardsCopy(int $face, float $distance) : AxisAlignedBB{
+	public function offsetTowardsCopy(Facing $face, float $distance) : AxisAlignedBB{
 		return (clone $this)->offsetTowards($face, $distance);
 	}
 
@@ -182,9 +180,8 @@ final class AxisAlignedBB{
 	 * @param float $distance Negative values pull the face in, positive values push out.
 	 *
 	 * @return $this
-	 * @throws \InvalidArgumentException
 	 */
-	public function extend(int $face, float $distance) : AxisAlignedBB{
+	public function extend(Facing $face, float $distance) : AxisAlignedBB{
 		match($face){
 			Facing::DOWN  => $this->minY -= $distance,
 			Facing::UP    => $this->maxY += $distance,
@@ -192,7 +189,6 @@ final class AxisAlignedBB{
 			Facing::SOUTH => $this->maxZ += $distance,
 			Facing::WEST  => $this->minX -= $distance,
 			Facing::EAST  => $this->maxX += $distance,
-			default => throw new \InvalidArgumentException("Invalid face $face"),
 		};
 
 		return $this;
@@ -201,10 +197,8 @@ final class AxisAlignedBB{
 	/**
 	 * Returns an extended clone of this bounding box.
 	 * @see AxisAlignedBB::extend()
-	 *
-	 * @throws \InvalidArgumentException
 	 */
-	public function extendedCopy(int $face, float $distance) : AxisAlignedBB{
+	public function extendedCopy(Facing $face, float $distance) : AxisAlignedBB{
 		return (clone $this)->extend($face, $distance);
 	}
 
@@ -215,32 +209,27 @@ final class AxisAlignedBB{
 	 * @param float $distance Positive values pull the face in, negative values push out.
 	 *
 	 * @return $this
-	 * @throws \InvalidArgumentException
 	 */
-	public function trim(int $face, float $distance) : AxisAlignedBB{
+	public function trim(Facing $face, float $distance) : AxisAlignedBB{
 		return $this->extend($face, -$distance);
 	}
 
 	/**
 	 * Returns a trimmed clone of this bounding box.
 	 * @see AxisAlignedBB::trim()
-	 *
-	 * @throws \InvalidArgumentException
 	 */
-	public function trimmedCopy(int $face, float $distance) : AxisAlignedBB{
+	public function trimmedCopy(Facing $face, float $distance) : AxisAlignedBB{
 		return $this->extendedCopy($face, -$distance);
 	}
 
 	/**
 	 * Increases the dimension of the AABB along the given axis.
 	 *
-	 * @param int   $axis one of the Axis::* constants
 	 * @param float $distance Negative values reduce width, positive values increase width.
 	 *
 	 * @return $this
-	 * @throws \InvalidArgumentException
 	 */
-	public function stretch(int $axis, float $distance) : AxisAlignedBB{
+	public function stretch(Axis $axis, float $distance) : AxisAlignedBB{
 		if($axis === Axis::Y){
 			$this->minY -= $distance;
 			$this->maxY += $distance;
@@ -250,19 +239,16 @@ final class AxisAlignedBB{
 		}elseif($axis === Axis::X){
 			$this->minX -= $distance;
 			$this->maxX += $distance;
-		}else{
-			throw new \InvalidArgumentException("Invalid axis $axis");
 		}
+
 		return $this;
 	}
 
 	/**
 	 * Returns a stretched copy of this bounding box.
 	 * @see AxisAlignedBB::stretch()
-	 *
-	 * @throws \InvalidArgumentException
 	 */
-	public function stretchedCopy(int $axis, float $distance) : AxisAlignedBB{
+	public function stretchedCopy(Axis $axis, float $distance) : AxisAlignedBB{
 		return (clone $this)->stretch($axis, $distance);
 	}
 
@@ -271,19 +257,16 @@ final class AxisAlignedBB{
 	 * @see AxisAlignedBB::stretch()
 	 *
 	 * @return $this
-	 * @throws \InvalidArgumentException
 	 */
-	public function squash(int $axis, float $distance) : AxisAlignedBB{
+	public function squash(Axis $axis, float $distance) : AxisAlignedBB{
 		return $this->stretch($axis, -$distance);
 	}
 
 	/**
 	 * Returns a squashed copy of this bounding box.
 	 * @see AxisAlignedBB::squash()
-	 *
-	 * @throws \InvalidArgumentException
 	 */
-	public function squashedCopy(int $axis, float $distance) : AxisAlignedBB{
+	public function squashedCopy(Axis $axis, float $distance) : AxisAlignedBB{
 		return $this->stretchedCopy($axis, -$distance);
 	}
 
@@ -463,29 +446,28 @@ final class AxisAlignedBB{
 			$v6 = null;
 		}
 
-		$vector = null;
 		$distance = PHP_INT_MAX;
-		$face = -1;
+		$hitInfo = null;
 
 		foreach([
-			Facing::WEST => $v1,
-			Facing::EAST => $v2,
-			Facing::DOWN => $v3,
-			Facing::UP => $v4,
-			Facing::NORTH => $v5,
-			Facing::SOUTH => $v6
-		] as $f => $v){
+			[Facing::WEST, $v1],
+			[Facing::EAST, $v2],
+			[Facing::DOWN, $v3],
+			[Facing::UP, $v4],
+			[Facing::NORTH, $v5],
+			[Facing::SOUTH, $v6]
+		] as [$facing, $v]){
 			if($v !== null and ($d = $pos1->distanceSquared($v)) < $distance){
-				$vector = $v;
 				$distance = $d;
-				$face = $f;
+				$hitInfo = [$facing, $v];
 			}
 		}
 
-		if($vector === null){
+		if($hitInfo === null){
 			return null;
 		}
 
+		[$face, $vector] = $hitInfo;
 		return new RayTraceResult($this, $face, $vector);
 	}
 
