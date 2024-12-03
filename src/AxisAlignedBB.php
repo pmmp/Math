@@ -154,14 +154,23 @@ final readonly class AxisAlignedBB{
 	 * Returns an extended clone of this AxisAlignedBB.
 	 */
 	public function extendedCopy(Facing $face, float $distance) : AxisAlignedBB{
-		return match($face){
-			Facing::DOWN  => new AxisAlignedBB($this->minX, $this->minY - $distance, $this->minZ, $this->maxX, $this->maxY, $this->maxZ),
-			Facing::UP    => new AxisAlignedBB($this->minX, $this->minY, $this->minZ, $this->maxX + $distance, $this->maxY, $this->maxZ),
-			Facing::NORTH => new AxisAlignedBB($this->minX, $this->minY, $this->minZ - $distance, $this->maxX, $this->maxY, $this->maxZ),
-			Facing::SOUTH => new AxisAlignedBB($this->minX, $this->minY, $this->minZ, $this->maxX, $this->maxY, $this->maxZ + $distance),
-			Facing::WEST  => new AxisAlignedBB($this->minX - $distance, $this->minY, $this->minZ, $this->maxX, $this->maxY, $this->maxZ),
-			Facing::EAST  => new AxisAlignedBB($this->minX, $this->minY, $this->minZ, $this->maxX + $distance, $this->maxY, $this->maxZ)
+		$minX = $this->minX;
+		$minY = $this->minY;
+		$minZ = $this->minZ;
+		$maxX = $this->maxX;
+		$maxY = $this->maxY;
+		$maxZ = $this->maxZ;
+
+		match($face){
+			Facing::DOWN  => $minY -= $distance,
+			Facing::UP    => $maxY += $distance,
+			Facing::NORTH => $minZ -= $distance,
+			Facing::SOUTH => $maxZ += $distance,
+			Facing::WEST  => $minX -= $distance,
+			Facing::EAST  => $maxX += $distance
 		};
+
+		return new AxisAlignedBB($minX, $minY, $minZ, $maxX, $maxY, $maxZ);
 	}
 
 	/**
@@ -184,11 +193,25 @@ final readonly class AxisAlignedBB{
 	 * Returns an stretched clone of this AxisAlignedBB.
 	 */
 	public function stretchedCopy(Axis $axis, float $distance) : AxisAlignedBB{
-		return match($axis){
-			Axis::Y => new AxisAlignedBB($this->minX, $this->minY - $distance, $this->minZ, $this->maxX, $this->maxY + $distance, $this->maxZ),
-			Axis::Z => new AxisAlignedBB($this->minX, $this->minY, $this->minZ - $distance, $this->maxX, $this->maxY, $this->maxZ + $distance),
-			Axis::X => new AxisAlignedBB($this->minX - $distance, $this->minY, $this->minZ, $this->maxX + $distance, $this->maxY, $this->maxZ)
-		};
+		$minX = $this->minX;
+		$minY = $this->minY;
+		$minZ = $this->minZ;
+		$maxX = $this->maxX;
+		$maxY = $this->maxY;
+		$maxZ = $this->maxZ;
+
+		if($axis === Axis::Y){
+			$minY -= $distance;
+			$maxY += $distance;
+		}elseif($axis === Axis::Z){
+			$minZ -= $distance;
+			$maxZ += $distance;
+		}elseif($axis === Axis::X){
+			$minX -= $distance;
+			$maxX += $distance;
+		}
+
+		return new AxisAlignedBB($minX, $minY, $minZ, $maxX, $maxY, $maxZ);
 	}
 
 	/**
