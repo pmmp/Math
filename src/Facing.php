@@ -67,7 +67,10 @@ enum Facing{
 	 * Returns whether the direction is facing the positive of its axis.
 	 */
 	public function isPositive() : bool{
-		return $this === self::UP || $this === self::SOUTH || $this === self::EAST;
+		return match($this){
+			self::UP, self::SOUTH, self::EAST => true,
+			self::DOWN, self::NORTH, self::WEST => false,
+		};
 	}
 
 	/**
@@ -96,23 +99,27 @@ enum Facing{
 				self::EAST => self::SOUTH,
 				self::SOUTH => self::WEST,
 				self::WEST => self::NORTH,
-				default => throw new \InvalidArgumentException("Cannot rotate facing \"" . strtolower($this->name) . "\" around axis \"" . strtolower($axis->name) . "\"")
+				default => null
 			},
 			Axis::Z => match($this){
 				self::UP => self::EAST,
 				self::EAST => self::DOWN,
 				self::DOWN => self::WEST,
 				self::WEST => self::UP,
-				default => throw new \InvalidArgumentException("Cannot rotate facing \"" . strtolower($this->name) . "\" around axis \"" . strtolower($axis->name) . "\"")
+				default => null
 			},
 			Axis::X => match($this){
 				self::UP => self::NORTH,
 				self::NORTH => self::DOWN,
 				self::DOWN => self::SOUTH,
 				self::SOUTH => self::UP,
-				default => throw new \InvalidArgumentException("Cannot rotate facing \"" . strtolower($this->name) . "\" around axis \"" . strtolower($axis->name) . "\"")
+				default => null
 			}
 		};
+
+		if($rotated === null) {
+			throw new \InvalidArgumentException("Cannot rotate facing \"" . strtolower($this->name) . "\" around axis \"" . strtolower($axis->name) . "\"");
+		}
 
 		return $clockwise ? $rotated : $rotated->opposite();
 	}
