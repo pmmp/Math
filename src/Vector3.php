@@ -190,6 +190,8 @@ class Vector3{
 
 	/**
 	 * Yields vectors stepped out from this one in directions except those on the given axis.
+  	 *
+	 * @param Axis $axis Facing directions on this axis will be excluded
 	 *
 	 * @return \Generator|Vector3[]
 	 * @phpstan-return \Generator<Facing, Vector3, void, void>
