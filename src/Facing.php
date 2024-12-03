@@ -124,14 +124,23 @@ enum Facing{
 		return $clockwise ? $rotated : $rotated->opposite();
 	}
 
+	/**
+	 * @throws \InvalidArgumentException
+	 */
 	public function rotateY(bool $clockwise) : Facing{
 		return $this->rotate(Axis::Y, $clockwise);
 	}
 
+	/**
+	 * @throws \InvalidArgumentException
+	 */
 	public function rotateZ(bool $clockwise) : Facing{
 		return $this->rotate(Axis::Z, $clockwise);
 	}
 
+	/**
+	 * @throws \InvalidArgumentException
+	 */
 	public function rotateX(bool $clockwise) : Facing{
 		return $this->rotate(Axis::X, $clockwise);
 	}
