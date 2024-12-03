@@ -222,16 +222,6 @@ readonly class Vector3{
 		return ($dx * $dx) + ($dy * $dy) + ($dz * $dz);
 	}
 
-	public function maxPlainDistance(Vector3|Vector2|float $x, float $z = 0) : float{
-		if($x instanceof Vector3){
-			return $this->maxPlainDistance($x->x, $x->z);
-		}elseif($x instanceof Vector2){
-			return $this->maxPlainDistance($x->x, $x->y);
-		}else{
-			return max(abs($this->x - $x), abs($this->z - $z));
-		}
-	}
-
 	public function length() : float{
 		return sqrt($this->lengthSquared());
 	}
