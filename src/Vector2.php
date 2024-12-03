@@ -29,7 +29,7 @@ use function floor;
 use function round;
 use function sqrt;
 
-class Vector2{
+readonly class Vector2{
 	public function __construct(
 		public float $x,
 		public float $y
