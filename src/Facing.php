@@ -117,7 +117,7 @@ enum Facing{
 			}
 		};
 
-		if($rotated === null) {
+		if($rotated === null){
 			throw new \InvalidArgumentException("Cannot rotate facing \"" . strtolower($this->name) . "\" around axis \"" . strtolower($axis->name) . "\"");
 		}
 
