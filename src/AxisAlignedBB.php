@@ -26,7 +26,7 @@ namespace pocketmine\math;
 use function abs;
 use const PHP_INT_MAX;
 
-final class AxisAlignedBB{
+final readonly class AxisAlignedBB{
 
 	public float $minX;
 	public float $minY;
@@ -88,183 +88,121 @@ final class AxisAlignedBB{
 	}
 
 	/**
-	 * Outsets the bounds of this AxisAlignedBB by the specified X, Y and Z.
-	 *
-	 * @return $this
+	 * Returns a copy of the AxisAlignedBB with bounds outset by the specified X, Y and Z.
 	 */
-	public function expand(float $x, float $y, float $z){
-		$this->minX -= $x;
-		$this->minY -= $y;
-		$this->minZ -= $z;
-		$this->maxX += $x;
-		$this->maxY += $y;
-		$this->maxZ += $z;
-
-		return $this;
+	public function expandedCopy(float $x, float $y, float $z): AxisAlignedBB{
+		return new AxisAlignedBB(
+			$this->minX - $x,
+			$this->minY - $y,
+			$this->minZ - $z,
+			$this->maxX + $x,
+			$this->maxY + $y,
+			$this->maxZ + $z
+		);
 	}
 
 	/**
-	 * Returns an expanded clone of this AxisAlignedBB.
-	 */
-	public function expandedCopy(float $x, float $y, float $z) : AxisAlignedBB{
-		return (clone $this)->expand($x, $y, $z);
-	}
-
-	/**
-	 * Shifts this AxisAlignedBB by the given X, Y and Z.
-	 *
-	 * @return $this
-	 */
-	public function offset(float $x, float $y, float $z) : AxisAlignedBB{
-		$this->minX += $x;
-		$this->minY += $y;
-		$this->minZ += $z;
-		$this->maxX += $x;
-		$this->maxY += $y;
-		$this->maxZ += $z;
-
-		return $this;
-	}
-
-	/**
-	 * Returns an offset clone of this AxisAlignedBB.
+	 * Returns a copy of the AxisAlignedBB offset by the specified X, Y and Z.
 	 */
 	public function offsetCopy(float $x, float $y, float $z) : AxisAlignedBB{
-		return (clone $this)->offset($x, $y, $z);
+		return new AxisAlignedBB(
+			$this->minX + $x,
+			$this->minY + $y,
+			$this->minZ + $z,
+			$this->maxX + $x,
+			$this->maxY + $y,
+			$this->maxZ + $z
+		);
 	}
 
 	/**
-	 * Offsets this AxisAlignedBB in the given direction by the specified distance.
-	 *
-	 * @return $this
-	 */
-	public function offsetTowards(Facing $face, float $distance) : AxisAlignedBB{
-		[$offsetX, $offsetY, $offsetZ] = $face->offset();
-
-		return $this->offset($offsetX * $distance, $offsetY * $distance, $offsetZ * $distance);
-	}
-
-	/**
-	 * Returns an offset clone of this AxisAlignedBB.
+	 * Returns a copy of the AxisAlignedBB offset in the given direction by the specified distance.
 	 */
 	public function offsetTowardsCopy(Facing $face, float $distance) : AxisAlignedBB{
-		return (clone $this)->offsetTowards($face, $distance);
+		[$offsetX, $offsetY, $offsetZ] = $face->offset();
+
+		return $this->offsetCopy($offsetX * $distance, $offsetY * $distance, $offsetZ * $distance);
 	}
 
 	/**
-	 * Insets the bounds of this AxisAlignedBB by the specified X, Y and Z.
-	 *
-	 * @return $this
-	 */
-	public function contract(float $x, float $y, float $z) : AxisAlignedBB{
-		$this->minX += $x;
-		$this->minY += $y;
-		$this->minZ += $z;
-		$this->maxX -= $x;
-		$this->maxY -= $y;
-		$this->maxZ -= $z;
-
-		return $this;
-	}
-
-	/**
-	 * Returns a contracted clone of this AxisAlignedBB.
+	 * Returns a copy of the AxisAlignedBB with bounds contracted by the specified X, Y and Z.
 	 */
 	public function contractedCopy(float $x, float $y, float $z) : AxisAlignedBB{
-		return (clone $this)->contract($x, $y, $z);
+		return new AxisAlignedBB(
+			$this->minX + $x,
+			$this->minY + $y,
+			$this->minZ + $z,
+			$this->maxX - $x,
+			$this->maxY - $y,
+			$this->maxZ - $z
+		);
 	}
 
 	/**
-	 * Extends the AABB in the given direction.
+	 * Returns a copy of the AxisAlignedBB extended in the given direction.
 	 *
 	 * @param float $distance Negative values pull the face in, positive values push out.
-	 *
-	 * @return $this
-	 */
-	public function extend(Facing $face, float $distance) : AxisAlignedBB{
-		match($face){
-			Facing::DOWN  => $this->minY -= $distance,
-			Facing::UP    => $this->maxY += $distance,
-			Facing::NORTH => $this->minZ -= $distance,
-			Facing::SOUTH => $this->maxZ += $distance,
-			Facing::WEST  => $this->minX -= $distance,
-			Facing::EAST  => $this->maxX += $distance,
-		};
-
-		return $this;
-	}
-
-	/**
-	 * Returns an extended clone of this bounding box.
-	 * @see AxisAlignedBB::extend()
 	 */
 	public function extendedCopy(Facing $face, float $distance) : AxisAlignedBB{
-		return (clone $this)->extend($face, $distance);
+		$minX = $this->minX;
+		$minY = $this->minY;
+		$minZ = $this->minZ;
+		$maxX = $this->maxX;
+		$maxY = $this->maxY;
+		$maxZ = $this->maxZ;
+
+		match($face){
+			Facing::DOWN  => $minY -= $distance,
+			Facing::UP    => $maxY += $distance,
+			Facing::NORTH => $minZ -= $distance,
+			Facing::SOUTH => $maxZ += $distance,
+			Facing::WEST  => $minX -= $distance,
+			Facing::EAST  => $maxX += $distance
+		};
+
+		return new AxisAlignedBB($minX, $minY, $minZ, $maxX, $maxY, $maxZ);
 	}
 
 	/**
-	 * Inverse of extend().
-	 * @see AxisAlignedBB::extend()
+	 * Inverse of extendedCopy().
+	 * @see AxisAlignedBB::extendedCopy()
 	 *
 	 * @param float $distance Positive values pull the face in, negative values push out.
-	 *
-	 * @return $this
-	 */
-	public function trim(Facing $face, float $distance) : AxisAlignedBB{
-		return $this->extend($face, -$distance);
-	}
-
-	/**
-	 * Returns a trimmed clone of this bounding box.
-	 * @see AxisAlignedBB::trim()
 	 */
 	public function trimmedCopy(Facing $face, float $distance) : AxisAlignedBB{
 		return $this->extendedCopy($face, -$distance);
 	}
 
 	/**
-	 * Increases the dimension of the AABB along the given axis.
+	 * Returns a copy of the AxisAlignedBB stretched along the given axis.
 	 *
 	 * @param float $distance Negative values reduce width, positive values increase width.
-	 *
-	 * @return $this
-	 */
-	public function stretch(Axis $axis, float $distance) : AxisAlignedBB{
-		if($axis === Axis::Y){
-			$this->minY -= $distance;
-			$this->maxY += $distance;
-		}elseif($axis === Axis::Z){
-			$this->minZ -= $distance;
-			$this->maxZ += $distance;
-		}elseif($axis === Axis::X){
-			$this->minX -= $distance;
-			$this->maxX += $distance;
-		}
-
-		return $this;
-	}
-
-	/**
-	 * Returns a stretched copy of this bounding box.
-	 * @see AxisAlignedBB::stretch()
 	 */
 	public function stretchedCopy(Axis $axis, float $distance) : AxisAlignedBB{
-		return (clone $this)->stretch($axis, $distance);
+		$minX = $this->minX;
+		$minY = $this->minY;
+		$minZ = $this->minZ;
+		$maxX = $this->maxX;
+		$maxY = $this->maxY;
+		$maxZ = $this->maxZ;
+
+		if($axis === Axis::Y){
+			$minY -= $distance;
+			$maxY += $distance;
+		}elseif($axis === Axis::Z){
+			$minZ -= $distance;
+			$maxZ += $distance;
+		}elseif($axis === Axis::X){
+			$minX -= $distance;
+			$maxX += $distance;
+		}
+
+		return new AxisAlignedBB($minX, $minY, $minZ, $maxX, $maxY, $maxZ);
 	}
 
 	/**
-	 * Reduces the dimension of the AABB on the given axis. Inverse of stretch().
-	 * @see AxisAlignedBB::stretch()
-	 *
-	 * @return $this
-	 */
-	public function squash(Axis $axis, float $distance) : AxisAlignedBB{
-		return $this->stretch($axis, -$distance);
-	}
-
-	/**
-	 * Returns a squashed copy of this bounding box.
-	 * @see AxisAlignedBB::squash()
+	 * Inverse of stretchedCopy().
+	 * @see AxisAlignedBB::stretchedCopy()
 	 */
 	public function squashedCopy(Axis $axis, float $distance) : AxisAlignedBB{
 		return $this->stretchedCopy($axis, -$distance);
