@@ -205,7 +205,7 @@ final readonly class AxisAlignedBB{
 	/**
 	 * Returns a copy of the AxisAlignedBB with bounds squashed along the given axis.
 	 * 
-	 * Inverse of stretch().
+	 * Inverse of stretchedCopy().
 	 * @see AxisAlignedBB::stretchedCopy()
 	 */
 	public function squashedCopy(Axis $axis, float $distance) : AxisAlignedBB{
