@@ -116,7 +116,7 @@ final readonly class AxisAlignedBB{
 	}
 
 	/**
-	 * Returns a copy of the AxisAlignedBB with bounds offset in the given direction by the specified distance.
+	 * Returns a copy of the AxisAlignedBB offset in the given direction by the specified distance.
 	 */
 	public function offsetTowardsCopy(Facing $face, float $distance) : AxisAlignedBB{
 		[$offsetX, $offsetY, $offsetZ] = $face->offset();
