@@ -102,7 +102,7 @@ final readonly class AxisAlignedBB{
 	}
 
 	/**
-	 * Returns a copy of the AxisAlignedBB with bounds offset by the specified X, Y and Z.
+	 * Returns a copy of the AxisAlignedBB offset by the specified X, Y and Z.
 	 */
 	public function offsetCopy(float $x, float $y, float $z) : AxisAlignedBB{
 		return new AxisAlignedBB(
