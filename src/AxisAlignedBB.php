@@ -139,9 +139,9 @@ final readonly class AxisAlignedBB{
 	}
 
 	/**
+	 * Returns a copy of the AxisAlignedBB extended in the given direction.
+	 * 
 	 * @param float $distance Negative values pull the face in, positive values push out.
-	 *
-	 * Returns a copy of the AxisAlignedBB with bounds extended in the given direction.
 	 */
 	public function extendedCopy(Facing $face, float $distance) : AxisAlignedBB{
 		$minX = $this->minX;
@@ -166,8 +166,6 @@ final readonly class AxisAlignedBB{
 	/**
 	 * @param float $distance Positive values pull the face in, negative values push out.
 	 *
-	 * Returns a copy of the AxisAlignedBB with bounds trimmed in the given direction.
-	 * 
 	 * Inverse of extendedCopy().
 	 * @see AxisAlignedBB::extendedCopy()
 	 */
@@ -176,9 +174,9 @@ final readonly class AxisAlignedBB{
 	}
 
 	/**
+	 * Returns a copy of the AxisAlignedBB stretched along the given axis.
+	 * 
 	 * @param float $distance Negative values reduce width, positive values increase width.
-	 *
-	 * Returns a copy of the AxisAlignedBB with bounds stretched along the given axis.
 	 */
 	public function stretchedCopy(Axis $axis, float $distance) : AxisAlignedBB{
 		$minX = $this->minX;
@@ -203,8 +201,6 @@ final readonly class AxisAlignedBB{
 	}
 
 	/**
-	 * Returns a copy of the AxisAlignedBB with bounds squashed along the given axis.
-	 * 
 	 * Inverse of stretchedCopy().
 	 * @see AxisAlignedBB::stretchedCopy()
 	 */
