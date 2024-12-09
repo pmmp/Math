@@ -168,7 +168,7 @@ final readonly class AxisAlignedBB{
 	 *
 	 * Returns a copy of the AxisAlignedBB with bounds trimmed in the given direction.
 	 * 
-	 * Inverse of extend().
+	 * Inverse of extendedCopy().
 	 * @see AxisAlignedBB::extendedCopy()
 	 */
 	public function trimmedCopy(Facing $face, float $distance) : AxisAlignedBB{
