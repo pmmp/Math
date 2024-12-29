@@ -80,9 +80,9 @@ final class VoxelRayTrace{
 
 		//Initialize the step accumulation variables depending how far into the current block the start position is. If
 		//the start position is on the corner of the block, these will be zero.
-		$tMaxX = self::rayTraceDistanceToBoundary($start->x, $directionVector->x);
-		$tMaxY = self::rayTraceDistanceToBoundary($start->y, $directionVector->y);
-		$tMaxZ = self::rayTraceDistanceToBoundary($start->z, $directionVector->z);
+		$tMaxX = self::distanceFactorToBoundary($start->x, $directionVector->x);
+		$tMaxY = self::distanceFactorToBoundary($start->y, $directionVector->y);
+		$tMaxZ = self::distanceFactorToBoundary($start->z, $directionVector->z);
 
 		//The change in t on each axis when taking a step on that axis (always positive).
 		$tDeltaX = $directionVector->x == 0 ? 0 : $stepX / $directionVector->x;
@@ -118,34 +118,26 @@ final class VoxelRayTrace{
 	}
 
 	/**
-	 * Returns the distance that must be travelled on an axis from the start point with the direction vector component to
-	 * cross a block boundary.
+   	 * Used to decide which direction to move in first when beginning a ray trace.
 	 *
-	 * For example, given an X coordinate inside a block and the X component of a direction vector, will return the distance
-	 * travelled by that direction component to reach a block with a different X coordinate.
-	 *
-	 * Find the smallest positive t such that s+t*ds is an integer.
+  	 * Examples:
+	 * s=0.25, ds=0.5 -> 0.25 + 1.5(0.5) = 1 -> returns 1.5
+  	 * s=0.25, ds=-0.5 -> 0.25 + 0.5(-0.5) = 0 -> returns 0.5
+	 * s=1 ds=0.5 -> 1 + 2(0.5) = 2 -> returns 2
+  	 * s=1 ds=-0.5 -> 1 + 0(-0.5) = 1 -> returns 0 (ds is negative and any subtraction will change 1 to 0.x)
 	 *
 	 * @param float $s Starting coordinate
 	 * @param float $ds Direction vector component of the relevant axis
 	 *
-	 * @return float Distance along the ray trace that must be travelled to cross a boundary.
+	 * @return float Number of times $ds must be added to $s to change its whole-number component.
 	 */
-	private static function rayTraceDistanceToBoundary(float $s, float $ds) : float{
+	private static function distanceFactorToBoundary(float $s, float $ds) : float{
 		if($ds == 0){
 			return INF;
 		}
 
-		if($ds < 0){
-			$s = -$s;
-			$ds = -$ds;
-
-			if(floor($s) == $s){ //exactly at coordinate, will leave the coordinate immediately by moving negatively
-				return 0;
-			}
-		}
-
-		// problem is now s+t*ds = 1
-		return (1 - ($s - floor($s))) / $ds;
+		return $ds < 0 ?
+			($s - floor($s)) / -$ds :
+			(1 - ($s - floor($s))) / $ds;
 	}
 }
