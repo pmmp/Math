@@ -119,13 +119,13 @@ final class VoxelRayTrace{
 	}
 
 	/**
-   	 * Used to decide which direction to move in first when beginning a ray trace.
+	 * Used to decide which direction to move in first when beginning a ray trace.
 	 *
-  	 * Examples:
+	 * Examples:
 	 * s=0.25, ds=0.5 -> 0.25 + 1.5(0.5) = 1 -> returns 1.5
-  	 * s=0.25, ds=-0.5 -> 0.25 + 0.5(-0.5) = 0 -> returns 0.5
+	 * s=0.25, ds=-0.5 -> 0.25 + 0.5(-0.5) = 0 -> returns 0.5
 	 * s=1 ds=0.5 -> 1 + 2(0.5) = 2 -> returns 2
-  	 * s=1 ds=-0.5 -> 1 + 0(-0.5) = 1 -> returns 0 (ds is negative and any subtraction will change 1 to 0.x)
+	 * s=1 ds=-0.5 -> 1 + 0(-0.5) = 1 -> returns 0 (ds is negative and any subtraction will change 1 to 0.x)
 	 *
 	 * @param float $s Starting coordinate
 	 * @param float $ds Direction vector component of the relevant axis
