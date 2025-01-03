@@ -25,6 +25,7 @@ namespace pocketmine\math;
 
 use function abs;
 use function ceil;
+use function floatval;
 use function floor;
 use function iterator_to_array;
 use function max;
@@ -262,7 +263,10 @@ class Vector3{
 	}
 
 	public function equals(Vector3 $v) : bool{
-		return $this->x == $v->x and $this->y == $v->y and $this->z == $v->z;
+		return
+			floatval($this->x) === floatval($v->x) and
+			floatval($this->y) === floatval($v->y) and
+			floatval($this->z) === floatval($v->z);
 	}
 
 	/**

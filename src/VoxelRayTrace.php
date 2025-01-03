@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace pocketmine\math;
 
+use function floatval;
 use function floor;
 use const INF;
 
@@ -85,9 +86,9 @@ final class VoxelRayTrace{
 		$tMaxZ = self::distanceFactorToBoundary($start->z, $directionVector->z);
 
 		//The change in t on each axis when taking a step on that axis (always positive).
-		$tDeltaX = $directionVector->x == 0 ? 0 : $stepX / $directionVector->x;
-		$tDeltaY = $directionVector->y == 0 ? 0 : $stepY / $directionVector->y;
-		$tDeltaZ = $directionVector->z == 0 ? 0 : $stepZ / $directionVector->z;
+		$tDeltaX = floatval($directionVector->x) === 0.0 ? 0 : $stepX / $directionVector->x;
+		$tDeltaY = floatval($directionVector->y) === 0.0 ? 0 : $stepY / $directionVector->y;
+		$tDeltaZ = floatval($directionVector->z) === 0.0 ? 0 : $stepZ / $directionVector->z;
 
 		while(true){
 			yield $currentBlock;
@@ -132,7 +133,7 @@ final class VoxelRayTrace{
 	 * @return float Number of times $ds must be added to $s to change its whole-number component.
 	 */
 	private static function distanceFactorToBoundary(float $s, float $ds) : float{
-		if($ds == 0){
+		if($ds === 0.0){
 			return INF;
 		}
 
