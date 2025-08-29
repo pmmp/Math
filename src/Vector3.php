@@ -185,9 +185,8 @@ readonly class Vector3{
 	 *
 	 * @return Vector3[]
 	 */
-	public function sidesArray(int $step = 1) : array{
-		//we can't include keys since Facing is now an enum
-		return iterator_to_array($this->sides($step), preserve_keys: false);
+	public function sidesArray(bool $keys = false, int $step = 1) : array{
+		return iterator_to_array($this->sides($step), $keys);
 	}
 
 	/**
