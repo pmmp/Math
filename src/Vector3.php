@@ -118,8 +118,8 @@ readonly class Vector3{
 	/**
 	 * @return Vector3
 	 */
-	public function getSide(int $side, int $step = 1){
-		[$offsetX, $offsetY, $offsetZ] = Facing::OFFSET[$side] ?? [0, 0, 0];
+	public function getSide(Facing $side, int $step = 1){
+		[$offsetX, $offsetY, $offsetZ] = Facing::OFFSET[$side->value] ?? [0, 0, 0];
 
 		return $this->add($offsetX * $step, $offsetY * $step, $offsetZ * $step);
 	}
@@ -176,7 +176,7 @@ readonly class Vector3{
 	 */
 	public function sides(int $step = 1) : \Generator{
 		foreach(Facing::ALL as $facing){
-			yield $facing => $this->getSide($facing, $step);
+			yield $facing->value => $this->getSide($facing, $step);
 		}
 	}
 
@@ -192,15 +192,13 @@ readonly class Vector3{
 	/**
 	 * Yields vectors stepped out from this one in directions except those on the given axis.
 	 *
-	 * @param int $axis Facing directions on this axis will be excluded
-	 *
 	 * @return \Generator|Vector3[]
 	 * @phpstan-return \Generator<int, Vector3, void, void>
 	 */
-	public function sidesAroundAxis(int $axis, int $step = 1) : \Generator{
+	public function sidesAroundAxis(Axis $axis, int $step = 1) : \Generator{
 		foreach(Facing::ALL as $facing){
 			if(Facing::axis($facing) !== $axis){
-				yield $facing => $this->getSide($facing, $step);
+				yield $facing->value => $this->getSide($facing, $step);
 			}
 		}
 	}

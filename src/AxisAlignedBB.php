@@ -118,8 +118,8 @@ final readonly class AxisAlignedBB{
 	/**
 	 * Returns a copy of the AxisAlignedBB offset in the given direction by the specified distance.
 	 */
-	public function offsetTowardsCopy(int $face, float $distance) : AxisAlignedBB{
-		[$offsetX, $offsetY, $offsetZ] = Facing::OFFSET[$face];
+	public function offsetTowardsCopy(Facing $face, float $distance) : AxisAlignedBB{
+		[$offsetX, $offsetY, $offsetZ] = Facing::OFFSET[$face->value];
 
 		return $this->offsetCopy($offsetX * $distance, $offsetY * $distance, $offsetZ * $distance);
 	}
@@ -143,7 +143,7 @@ final readonly class AxisAlignedBB{
 	 *
 	 * @param float $distance Negative values pull the face in, positive values push out.
 	 */
-	public function extendedCopy(int $face, float $distance) : AxisAlignedBB{
+	public function extendedCopy(Facing $face, float $distance) : AxisAlignedBB{
 		$minX = $this->minX;
 		$minY = $this->minY;
 		$minZ = $this->minZ;
@@ -158,7 +158,6 @@ final readonly class AxisAlignedBB{
 			Facing::SOUTH => $maxZ += $distance,
 			Facing::WEST  => $minX -= $distance,
 			Facing::EAST  => $maxX += $distance,
-			default => throw new \InvalidArgumentException("Invalid face $face"),
 		};
 
 		return new AxisAlignedBB($minX, $minY, $minZ, $maxX, $maxY, $maxZ);
@@ -170,17 +169,16 @@ final readonly class AxisAlignedBB{
 	 *
 	 * @param float $distance Positive values pull the face in, negative values push out.
 	 */
-	public function trimmedCopy(int $face, float $distance) : AxisAlignedBB{
+	public function trimmedCopy(Facing $face, float $distance) : AxisAlignedBB{
 		return $this->extendedCopy($face, -$distance);
 	}
 
 	/**
 	 * Returns a copy of the AxisAlignedBB stretched along the given axis.
 	 *
-	 * @param int   $axis one of the Axis::* constants
 	 * @param float $distance Negative values reduce width, positive values increase width.
 	 */
-	public function stretchedCopy(int $axis, float $distance) : AxisAlignedBB{
+	public function stretchedCopy(Axis $axis, float $distance) : AxisAlignedBB{
 		$minX = $this->minX;
 		$minY = $this->minY;
 		$minZ = $this->minZ;
@@ -206,7 +204,7 @@ final readonly class AxisAlignedBB{
 	 * Inverse of stretchedCopy().
 	 * @see AxisAlignedBB::stretchedCopy()
 	 */
-	public function squashedCopy(int $axis, float $distance) : AxisAlignedBB{
+	public function squashedCopy(Axis $axis, float $distance) : AxisAlignedBB{
 		return $this->stretchedCopy($axis, -$distance);
 	}
 
@@ -386,28 +384,27 @@ final readonly class AxisAlignedBB{
 			$v6 = null;
 		}
 
-		$vector = null;
 		$distance = PHP_INT_MAX;
-		$face = -1;
+		$vectorAndFace = null;
 
 		foreach([
-			Facing::WEST => $v1,
-			Facing::EAST => $v2,
-			Facing::DOWN => $v3,
-			Facing::UP => $v4,
-			Facing::NORTH => $v5,
-			Facing::SOUTH => $v6
-		] as $f => $v){
+			[Facing::WEST, $v1],
+			[Facing::EAST, $v2],
+			[Facing::DOWN, $v3],
+			[Facing::UP, $v4],
+			[Facing::NORTH, $v5],
+			[Facing::SOUTH, $v6],
+		] as [$f, $v]){
 			if($v !== null and ($d = $pos1->distanceSquared($v)) < $distance){
-				$vector = $v;
 				$distance = $d;
-				$face = $f;
+				$vectorAndFace = [$v, $f];
 			}
 		}
 
-		if($vector === null){
+		if($vectorAndFace === null){
 			return null;
 		}
+		[$vector, $face] = $vectorAndFace;
 
 		return new RayTraceResult($this, $face, $vector);
 	}
