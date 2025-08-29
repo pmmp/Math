@@ -28,9 +28,12 @@ namespace pocketmine\math;
  */
 readonly class RayTraceResult{
 
+	/**
+	 * @param int           $hitFace one of the Facing::* constants
+	 */
 	public function __construct(
 		public AxisAlignedBB $bb,
-		public Facing $hitFace,
+		public int $hitFace,
 		public Vector3 $hitVector
 	){}
 
@@ -38,7 +41,7 @@ readonly class RayTraceResult{
 		return $this->bb;
 	}
 
-	public function getHitFace() : Facing{
+	public function getHitFace() : int{
 		return $this->hitFace;
 	}
 
