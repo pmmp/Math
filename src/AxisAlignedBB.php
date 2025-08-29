@@ -157,7 +157,8 @@ final readonly class AxisAlignedBB{
 			Facing::NORTH => $minZ -= $distance,
 			Facing::SOUTH => $maxZ += $distance,
 			Facing::WEST  => $minX -= $distance,
-			Facing::EAST  => $maxX += $distance
+			Facing::EAST  => $maxX += $distance,
+			default => throw new \InvalidArgumentException("Invalid face $face"),
 		};
 
 		return new AxisAlignedBB($minX, $minY, $minZ, $maxX, $maxY, $maxZ);
